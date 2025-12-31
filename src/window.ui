@@ -1,0 +1,30 @@
+                    <property name="resource">/org/ceedeeripper/CeeDeeRipper/CeeDeeRipper.png</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label">No CD Detected</property>
+                    <property name="halign">center</property>
+                    <style>
+                      <class name="title-1"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label">Insert an audio CD to begin</property>
+                    <property name="halign">center</property>
+                    <style>
+                      <class name="dim-label"/>
+                      <class name="suggested-action"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="detect_button">
+                    <property name="label">Detect CD</property>
+                    <property name="halign">center</property>
+                    <property name="margin-top">12</property>
+                    <style>
+                      <class name="pill"/>
+                      <class name="suggested-action"/>

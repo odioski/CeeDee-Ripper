@@ -1,0 +1,17 @@
+# Rust build artifacts
+target/
+**/*.rs.bk
+
+# Build cache markers
+CACHEDIR.TAG
+
+# Editor directories (optional)
+.vscode/
+.idea/
+
+# Logs and misc
+*.log
+*.d
+
+# Shell history files
+.bash_history
