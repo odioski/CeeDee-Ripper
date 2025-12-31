@@ -5,16 +5,21 @@ mod ripper;
 mod window;
 
 use app::CeeDeeRipperApp;
-use gdk;
+use gtk::gdk;
 use gio;
 use glib;
-use gtk::prelude::*;
 
 fn main() {
     env_logger::init();
     // Initialize GStreamer
     if let Err(e) = gstreamer::init() {
         eprintln!("Failed to initialize GStreamer: {}", e);
+        return;
+    }
+
+    // Initialize GTK
+    if gtk::init().is_err() {
+        eprintln!("Failed to initialize GTK.");
         return;
     }
 
