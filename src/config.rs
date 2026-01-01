@@ -1,6 +1,8 @@
 use serde::{Deserialize, Serialize};
+use std::error::Error;
 use std::fs;
 use std::path::PathBuf;
+use std::process::Command;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(default)]
@@ -21,7 +23,6 @@ impl Default for Config {
             quality: "8".to_string(),
             cddb_enabled: true,
             device: "/dev/sr0".to_string(),
-            // Default to MusicBrainz so metadata auto-engages on first run
             metadata_source: "musicbrainz".to_string(),
         }
     }
@@ -57,5 +58,64 @@ impl Config {
             .unwrap_or_else(|| PathBuf::from("."))
             .join("ceedee-ripper")
             .join("config.toml")
+    }
+
+    pub fn encode_ogg(
+        &self,
+        input: &PathBuf,
+        track_name: &str,
+        output_dir: &PathBuf,
+    ) -> Result<PathBuf, Box<dyn Error + Send + Sync>> {
+        let output = output_dir.join(format!("{}.ogg", track_name));
+        let status = Command::new("oggenc")
+            .arg("-Q")
+            .arg("-q")
+            .arg(&self.quality)
+            .arg("-o")
+            .arg(&output)
+            .arg(input)
+            .status()?;
+        if !status.success() {
+            return Err("OGG encoding failed".into());
+        }
+        Ok(output)
+    }
+
+    pub fn encode_flac(
+        &self,
+        input: &PathBuf,
+        track_name: &str,
+        output_dir: &PathBuf,
+    ) -> Result<PathBuf, Box<dyn Error + Send + Sync>> {
+        let output = output_dir.join(format!("{}.flac", track_name));
+        let status = Command::new("flac")
+            .arg("-8")
+            .arg(input)
+            .arg("-o")
+            .arg(&output)
+            .status()?;
+        if !status.success() {
+            return Err("FLAC encoding failed".into());
+        }
+        Ok(output)
+    }
+
+    pub fn encode_mp3(
+        &self,
+        input: &PathBuf,
+        track_name: &str,
+        output_dir: &PathBuf,
+    ) -> Result<PathBuf, Box<dyn Error + Send + Sync>> {
+        let output = output_dir.join(format!("{}.mp3", track_name));
+        let status = Command::new("lame")
+            .arg("-b")
+            .arg(&self.bitrate)
+            .arg(input)
+            .arg(&output)
+            .status()?;
+        if !status.success() {
+            return Err("MP3 encoding failed".into());
+        }
+        Ok(output)
     }
 }

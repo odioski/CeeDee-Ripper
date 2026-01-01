@@ -90,7 +90,7 @@
                 <property name="hscrollbar-policy">never</property>
                 <child>
                   <object class="GtkListBox" id="track_list">
-                    <property name="selection-mode">none</property>
+                    <property name="selection-mode">multiple</property>
                     <style>
                       <class name="boxed-list"/>
                     </style>

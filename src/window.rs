@@ -100,27 +100,16 @@ impl CeeDeeRipperWindow {
         }
     }
 
-    // Metadata lookup handled by re-detect with current selection
-
     fn on_choose_folder_clicked(&self) {
+        let window_weak = self.downgrade();
         let dialog = gtk::FileDialog::new();
         dialog.set_title("Choose Output Folder");
-        dialog.set_modal(true);
 
-        let window_weak = self.downgrade();
-        dialog.select_folder(Some(self), None::<&gio::Cancellable>, move |result| {
+        MainContext::default().spawn_local(async move {
             if let Some(window) = window_weak.upgrade() {
-                match result {
-                    Ok(folder) => {
-                        if let Some(path) = folder.path() {
-                            window.imp().state.borrow_mut().output_dir = path;
-                        } else {
-                            window.show_error("Selected folder is not on a local filesystem.");
-                        }
-                    }
-                    Err(err) => {
-                        window.show_error(&format!("Folder selection failed: {}", err));
-                    }
+                if let Ok(folder) = dialog.select_folder_future(Some(&window)).await {
+                    let mut state = window.imp().state.borrow_mut();
+                    state.output_dir = folder.path().unwrap();
                 }
             }
         });
@@ -128,40 +117,20 @@ impl CeeDeeRipperWindow {
 
     fn on_rip_clicked(&self) {
         let imp = self.imp();
-        let mut state = imp.state.borrow_mut();
+        let window_weak = self.downgrade();
 
-        if let Some(cd_info) = state.cd_info.clone() {
-            let mut config = Config::load();
-            // Map UI selection to encoder string
-            let selected = imp.format_selector.selected();
-            let encoder = match selected {
-                0 => "flac",
-                1 => "mp3",
-                2 => "wav",
-                3 => "ogg",
-                _ => "flac",
-            };
-            config.encoder = encoder.to_string();
-            // Map metadata selector to config
-            let meta_sel = imp.metadata_selector.selected();
-            config.metadata_source = match meta_sel {
-                1 => "musicbrainz".to_string(),
-                2 => "cddb".to_string(),
-                _ => "none".to_string(),
-            };
-            // Best-effort persist so user's choice sticks next time
-            let _ = config.save();
-            let ripper = std::sync::Arc::new(Ripper::new(config, state.output_dir.clone()));
-            // Store ripper for cancellation
-            state.ripper = Some(ripper.clone());
-
-            state.is_ripping = true;
-            let window_weak = self.downgrade();
-            drop(state); // Release borrow before calling other methods on self
+        if let Some(cd_info) = imp.state.borrow().cd_info.clone() {
+            let config = Config::load();
+            let output_dir = imp.state.borrow().output_dir.clone();
+            let ripper = std::sync::Arc::new(Ripper::new(
+                config,
+                output_dir,
+            ));
+            imp.state.borrow_mut().ripper = Some(ripper.clone());
 
             MainContext::default().spawn_local(async move {
                 if let Some(window) = window_weak.upgrade() {
-                    match ripper.rip(&cd_info).await {
+                    match ripper.rip(&cd_info, Some(&window.imp().track_list)).await {
                         Ok(_) => window.on_rip_complete(),
                         Err(e) => {
                             window.show_error(&format!("Ripping failed: {}", e));
@@ -353,9 +322,8 @@ impl CeeDeeRipperWindow {
 mod imp {
     use super::*;
     use std::path::PathBuf;
-    use std::cell::RefCell; // FIX: needed for state
+    use std::cell::RefCell;
     use gtk::subclass::widget::TemplateChild;
-    use super::glib;
     use libadwaita::subclass::prelude::*;
 
     pub struct AppState {
@@ -414,7 +382,7 @@ mod imp {
         pub state: RefCell<AppState>,
     }
 
-    #[glib::object_subclass]
+    #[::glib::object_subclass]
     impl ObjectSubclass for CeeDeeRipperWindow {
         const NAME: &'static str = "CeeDeeRipperWindow";
         type Type = super::CeeDeeRipperWindow;
@@ -478,13 +446,6 @@ mod imp {
                 let _ = cfg.save();
             });
             // Sensitivity already set above based on initial selection
-
-            // Auto-detect CD on launch
-            let obj_clone = obj.clone();
-            glib::idle_add_local(move || {
-                obj_clone.on_detect_clicked();
-                glib::ControlFlow::Break
-            });
         }
     }
 
