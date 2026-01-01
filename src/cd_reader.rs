@@ -8,7 +8,6 @@ use crate::config::Config;
 use discid::DiscId;
 use serde_json::Value;
 use libc;
-use log::{error, info, warn};
 
 #[derive(Debug, Clone)]
 pub struct CdInfo {
@@ -198,36 +197,16 @@ impl CdReader {
     }
 
     fn fetch_musicbrainz_metadata(_device: &str) -> Option<CdInfo> {
-        info!("Fetching metadata from MusicBrainz...");
         // Read disc via libdiscid
-        let disc = match DiscId::read(None) {
-            Ok(disc) => disc,
-            Err(e) => {
-                error!("Failed to read disc ID: {}", e);
-                return None;
-            }
-        };
+        let disc = DiscId::read(None).ok()?;
         let mbid = disc.id();
-        info!("MusicBrainz Disc ID: {}", mbid);
         // Query MusicBrainz WS2 for discid
         let url = format!("https://musicbrainz.org/ws/2/discid/{}?inc=artists+recordings+release-groups&fmt=json", mbid);
-        let resp = match ureq::get(&url)
-            .set("User-Agent", "CeeDeeRipper/0.1.0 ( https://github.com/your-username/ceedee-ripper )")
+        let resp = ureq::get(&url)
+            .set("User-Agent", "ceedee-ripper/0.1 (https://example.invalid)")
             .call()
-        {
-            Ok(resp) => resp,
-            Err(e) => {
-                error!("MusicBrainz request failed: {}", e);
-                return None;
-            }
-        };
-        let json: Value = match resp.into_json() {
-            Ok(json) => json,
-            Err(e) => {
-                error!("Failed to parse MusicBrainz JSON response: {}", e);
-                return None;
-            }
-        };
+            .ok()?;
+        let json: Value = resp.into_json().ok()?;
         let releases = json.get("releases")?.as_array()?;
         let first = releases.first()?;
         let album = first.get("title")?.as_str()?.to_string();
@@ -262,130 +241,45 @@ impl CdReader {
     }
 
     fn fetch_cddb_metadata(device: &str) -> Option<CdInfo> {
-        info!("Fetching metadata from CDDB...");
         // Use cd-discid output to build a CDDB query
-        let output = match Command::new("cd-discid").arg(device).output() {
-            Ok(output) => output,
-            Err(e) => {
-                error!("Failed to execute cd-discid: {}", e);
-                return None;
-            }
-        };
-        if !output.status.success() {
-            warn!("cd-discid command failed with status: {}", output.status);
-            return None;
-        }
-        let s = String::from_utf8_lossy(&output.stdout);
+        let out = Command::new("cd-discid").arg(device).output().ok()?;
+        if !out.status.success() { return None; }
+        let s = String::from_utf8_lossy(&out.stdout);
         let mut toks = s.split_whitespace();
-        let disc_id = match toks.next() {
-            Some(id) => id.to_string(),
-            None => {
-                warn!("cd-discid output is empty");
-                return None;
-            }
-        };
-        info!("CDDB Disc ID: {}", disc_id);
-        let ntracks: usize = match toks.next().and_then(|s| s.parse().ok()) {
-            Some(n) => n,
-            None => {
-                warn!("Failed to parse track count from cd-discid output");
-                return None;
-            }
-        };
+        let disc_id = toks.next()?.to_string();
+        let ntracks: usize = toks.next()?.parse().ok()?;
         let mut offsets: Vec<usize> = Vec::with_capacity(ntracks);
-        for _ in 0..ntracks {
-            if let Some(tok) = toks.next() {
-                if let Ok(v) = tok.parse::<usize>() {
-                    offsets.push(v);
-                }
-            }
-        }
-        let length_secs: usize = match toks.next().and_then(|s| s.parse().ok()) {
-            Some(l) => l,
-            None => {
-                warn!("Failed to parse total length from cd-discid output");
-                return None;
-            }
-        };
-        if offsets.len() != ntracks {
-            warn!("Mismatch between track count and offsets count");
-            return None;
-        }
+        for _ in 0..ntracks { if let Some(tok) = toks.next() { if let Ok(v) = tok.parse::<usize>() { offsets.push(v); } } }
+        let length_secs: usize = toks.next()?.parse().ok()?;
+        if offsets.len() != ntracks { return None; }
 
         let mut url = format!(
             "http://gnudb.gnudb.org/cddb/cddb.cgi?cmd=cddb+query+{}+{}",
             disc_id, ntracks
         );
-        for off in &offsets {
-            url.push_str(&format!("+{}", off));
-        }
+        for off in &offsets { url.push_str(&format!("+{}", off)); }
         url.push_str(&format!("+{}&hello=anon+localhost+ceedee-ripper+0.1&proto=6", length_secs));
 
-        let resp = match ureq::get(&url).call() {
-            Ok(resp) => resp,
-            Err(e) => {
-                error!("CDDB query request failed: {}", e);
-                return None;
-            }
-        };
-        let body = match resp.into_string() {
-            Ok(body) => body,
-            Err(e) => {
-                error!("Failed to read CDDB query response: {}", e);
-                return None;
-            }
-        };
+        let resp = ureq::get(&url).call().ok()?;
+        let body = resp.into_string().ok()?;
         // Expect lines like: 200 category title id
-        let first_line = match body.lines().next() {
-            Some(line) => line,
-            None => {
-                warn!("Empty response from CDDB query");
-                return None;
-            }
-        };
+        let first_line = body.lines().next()?;
         let parts: Vec<&str> = first_line.split_whitespace().collect();
-        if parts.is_empty() {
-            warn!("Empty first line in CDDB query response");
-            return None;
-        }
+        if parts.is_empty() { return None; }
         let code = parts[0];
-        if code != "200" && code != "210" && code != "211" {
-            info!("CDDB query returned code: {}", code);
-            return None;
-        }
+        if code != "200" && code != "210" && code != "211" { return None; }
         // 200 <category> <title with spaces> <id> — we need category and id
         // Simplify: take category as second token and id as last token
-        if parts.len() < 4 {
-            warn!("Unexpected CDDB query response format: {}", first_line);
-            return None;
-        }
+        if parts.len() < 4 { return None; }
         let category = parts[1];
-        let cddb_id = match parts.last() {
-            Some(id) => *id,
-            None => {
-                warn!("Could not find CDDB ID in response");
-                return None;
-            }
-        };
+        let cddb_id = parts.last().copied().unwrap_or("");
 
         let read_url = format!(
             "http://gnudb.gnudb.org/cddb/cddb.cgi?cmd=cddb+read+{}+{}&hello=anon+localhost+ceedee-ripper+0.1&proto=6",
             category, cddb_id
         );
-        let read_resp = match ureq::get(&read_url).call() {
-            Ok(resp) => resp,
-            Err(e) => {
-                error!("CDDB read request failed: {}", e);
-                return None;
-            }
-        };
-        let data = match read_resp.into_string() {
-            Ok(data) => data,
-            Err(e) => {
-                error!("Failed to read CDDB read response: {}", e);
-                return None;
-            }
-        };
+        let read_resp = ureq::get(&read_url).call().ok()?;
+        let data = read_resp.into_string().ok()?;
         // Parse DTITLE and TTITLEi entries
         let mut album = String::from("Unknown Album");
         let mut artist = String::from("Unknown Artist");
@@ -402,7 +296,7 @@ impl CdReader {
             } else if let Some(rest) = line.strip_prefix("TTITLE") {
                 // TTITLE0=Track Name
                 if let Some(eqpos) = rest.find('=') {
-                    let title = &rest[eqpos + 1..];
+                    let title = &rest[eqpos+1..];
                     tracks.push(title.to_string());
                 }
             } else if line.trim() == "." {
@@ -411,17 +305,9 @@ impl CdReader {
         }
         if tracks.len() != ntracks {
             // Pad missing tracks with placeholders
-            while tracks.len() < ntracks {
-                tracks.push(format!("Track {}", tracks.len() + 1));
-            }
+            while tracks.len() < ntracks { tracks.push(format!("Track {}", tracks.len()+1)); }
         }
-        info!("Successfully fetched metadata from CDDB for '{}' by '{}'", album, artist);
-        Some(CdInfo {
-            title: album,
-            artist,
-            tracks,
-            disc_id,
-        })
+        Some(CdInfo { title: album, artist, tracks, disc_id: disc_id })
     }
     // Disc ID retrieval is handled directly within `detect()` using libdiscid.
     

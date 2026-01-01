@@ -100,16 +100,27 @@ impl CeeDeeRipperWindow {
         }
     }
 
+    // Metadata lookup handled by re-detect with current selection
+
     fn on_choose_folder_clicked(&self) {
-        let window_weak = self.downgrade();
         let dialog = gtk::FileDialog::new();
         dialog.set_title("Choose Output Folder");
+        dialog.set_modal(true);
 
-        MainContext::default().spawn_local(async move {
+        let window_weak = self.downgrade();
+        dialog.select_folder(Some(self), None::<&gio::Cancellable>, move |result| {
             if let Some(window) = window_weak.upgrade() {
-                if let Ok(folder) = dialog.select_folder_future(Some(&window)).await {
-                    let mut state = window.imp().state.borrow_mut();
-                    state.output_dir = folder.path().unwrap();
+                match result {
+                    Ok(folder) => {
+                        if let Some(path) = folder.path() {
+                            window.imp().state.borrow_mut().output_dir = path;
+                        } else {
+                            window.show_error("Selected folder is not on a local filesystem.");
+                        }
+                    }
+                    Err(err) => {
+                        window.show_error(&format!("Folder selection failed: {}", err));
+                    }
                 }
             }
         });
@@ -117,31 +128,53 @@ impl CeeDeeRipperWindow {
 
     fn on_rip_clicked(&self) {
         let imp = self.imp();
-        let window_weak = self.downgrade();
+        let mut state = imp.state.borrow_mut();
 
-        if let Some(cd_info) = imp.state.borrow().cd_info.clone() {
-            let config = Config::load();
-            let output_dir = imp.state.borrow().output_dir.clone();
-            let ripper = std::sync::Arc::new(Ripper::new(
-                config,
-                output_dir,
-            ));
-            imp.state.borrow_mut().ripper = Some(ripper.clone());
+        if let Some(cd_info) = state.cd_info.clone() {
+            let mut config = Config::load();
+            // Map UI selection to encoder string
+            let selected = imp.format_selector.selected();
+            let encoder = match selected {
+                0 => "flac",
+                1 => "mp3",
+                2 => "wav",
+                3 => "ogg",
+                _ => "flac",
+            };
+            config.encoder = encoder.to_string();
+            // Map metadata selector to config
+            let meta_sel = imp.metadata_selector.selected();
+            config.metadata_source = match meta_sel {
+                1 => "musicbrainz".to_string(),
+                2 => "cddb".to_string(),
+                _ => "none".to_string(),
+            };
+            // Best-effort persist so user's choice sticks next time
+            let _ = config.save();
+            let ripper = std::sync::Arc::new(Ripper::new(config, state.output_dir.clone()));
+            // Store ripper for cancellation
+            state.ripper = Some(ripper.clone());
+
+            state.is_ripping = true;
+            drop(state); // Release borrow before async work
+
+            // Toggle rip button to Stop and show progress
+            imp.rip_button.set_label("Stop");
+            imp.rip_button.remove_css_class("suggested-action");
+            imp.rip_button.add_css_class("destructive-action");
+            imp.progress_box.set_visible(true);
+
+            // Start ripping in background on the GTK main context
+            let window_weak = self.downgrade();
 
             MainContext::default().spawn_local(async move {
                 if let Some(window) = window_weak.upgrade() {
-                    match ripper.rip(&cd_info, Some(&window.imp().track_list)).await {
+                    match ripper.rip(&cd_info).await {
                         Ok(_) => window.on_rip_complete(),
-                        Err(e) => {
-                            window.show_error(&format!("Ripping failed: {}", e));
-                            window.reset_ripping_state();
-                        }
+                        Err(e) => window.show_error(&format!("Ripping failed: {}", e)),
                     }
                 }
             });
-
-            // Update the UI to reflect the ripping state
-            self.update_ui_for_ripping_state(true);
         } else {
             self.show_error("No CD detected.");
         }
@@ -171,11 +204,21 @@ impl CeeDeeRipperWindow {
         let imp = self.imp();
         {
             let mut st = imp.state.borrow_mut();
+            st.is_ripping = false;
             if let Some(r) = st.ripper.take() {
                 r.cancel();
             }
         }
-        self.reset_ripping_state();
+        // Toggle UI back: set Start label; enable based on CD presence
+        imp.rip_button.set_label("Start Ripping");
+        imp.rip_button.remove_css_class("destructive-action");
+        imp.rip_button.add_css_class("suggested-action");
+        imp.progress_box.set_visible(false);
+        // Reset progress indicators and re-enable Start button if CD is present
+        imp.progress_bar.set_fraction(0.0);
+        imp.progress_label.set_label("");
+        let has_cd = imp.state.borrow().cd_info.is_some();
+        imp.rip_button.set_sensitive(has_cd);
         // Clear per-track selections
         let mut child = imp.track_list.first_child();
         while let Some(row_w) = child {
@@ -207,54 +250,21 @@ impl CeeDeeRipperWindow {
         }
     }
 
-    fn reset_ripping_state(&self) {
+    fn on_rip_complete(&self) {
         let imp = self.imp();
         {
             let mut st = imp.state.borrow_mut();
             st.is_ripping = false;
             st.ripper = None;
         }
-        self.update_ui_for_ripping_state(false);
-    }
+        // Reset button label and styles; re-enable Start
+        imp.rip_button.set_label("Start Ripping");
+        imp.rip_button.remove_css_class("destructive-action");
+        imp.rip_button.add_css_class("suggested-action");
+        imp.rip_button.set_sensitive(true);
+        imp.progress_box.set_visible(false);
 
-    fn on_rip_complete(&self) {
-        self.reset_ripping_state();
         self.show_success("CD ripped successfully!");
-    }
-
-    /// Centralized function to update UI elements based on ripping state.
-    fn update_ui_for_ripping_state(&self, is_ripping: bool) {
-        let imp = self.imp();
-
-        // Toggle button appearance and progress bar visibility
-        imp.progress_box.set_visible(is_ripping);
-        if is_ripping {
-            imp.rip_button.set_label("Stop");
-            imp.rip_button.remove_css_class("suggested-action");
-            imp.rip_button.add_css_class("destructive-action");
-        } else {
-            imp.rip_button.set_label("Start Ripping");
-            imp.rip_button.remove_css_class("destructive-action");
-            imp.rip_button.add_css_class("suggested-action");
-            imp.progress_bar.set_fraction(0.0);
-            imp.progress_label.set_label("");
-        }
-
-        // Disable other controls during ripping to prevent concurrent operations
-        let sensitive = !is_ripping;
-        imp.detect_button.set_sensitive(sensitive);
-        imp.eject_button.set_sensitive(sensitive);
-        imp.format_selector.set_sensitive(sensitive);
-        imp.metadata_selector.set_sensitive(sensitive);
-        imp.choose_folder_button.set_sensitive(sensitive);
-        imp.track_list.set_sensitive(sensitive);
-
-        // The rip button should be sensitive if a CD is detected (i.e., not ripping)
-        imp.rip_button.set_sensitive(sensitive && imp.state.borrow().cd_info.is_some());
-
-        // Metadata button sensitivity depends on the selector's choice, but only if not ripping
-        let meta_selected = imp.metadata_selector.selected() != 0;
-        imp.metadata_button.set_sensitive(sensitive && meta_selected);
     }
 
     fn display_cd_info(&self, cd_info: &CdInfo) {
@@ -322,8 +332,9 @@ impl CeeDeeRipperWindow {
 mod imp {
     use super::*;
     use std::path::PathBuf;
-    use std::cell::RefCell;
+    use std::cell::RefCell; // FIX: needed for state
     use gtk::subclass::widget::TemplateChild;
+    use super::glib;
     use libadwaita::subclass::prelude::*;
 
     pub struct AppState {
@@ -382,7 +393,7 @@ mod imp {
         pub state: RefCell<AppState>,
     }
 
-    #[::glib::object_subclass]
+    #[glib::object_subclass]
     impl ObjectSubclass for CeeDeeRipperWindow {
         const NAME: &'static str = "CeeDeeRipperWindow";
         type Type = super::CeeDeeRipperWindow;
@@ -411,9 +422,6 @@ mod imp {
             self.progress_label.set_label("");
             self.status_page.set_visible(true);
             self.cd_info.set_visible(false);
-
-            // Apply transparency to the track list
-            self.track_list.add_css_class("translucent");
 
             // Provide a model for the DropDown to avoid template cascade issues
             let formats = gtk::StringList::new(&["FLAC", "MP3", "WAV", "OGG"]);
@@ -446,6 +454,13 @@ mod imp {
                 let _ = cfg.save();
             });
             // Sensitivity already set above based on initial selection
+
+            // Auto-detect CD on launch
+            let obj_clone = obj.clone();
+            glib::idle_add_local(move || {
+                obj_clone.on_detect_clicked();
+                glib::ControlFlow::Break
+            });
         }
     }
 
