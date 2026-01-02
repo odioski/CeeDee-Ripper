@@ -15,6 +15,7 @@ pub struct CdInfo {
     pub artist: String,
     pub tracks: Vec<String>,
     pub disc_id: String,
+    pub album_cover_url: Option<String>,
 }
 
 pub struct CdReader;
@@ -209,6 +210,24 @@ impl CdReader {
         let json: Value = resp.into_json().ok()?;
         let releases = json.get("releases")?.as_array()?;
         let first = releases.first()?;
+
+        // Fetch cover art from Cover Art Archive
+        let mut album_cover_url = None;
+        if let Some(release_mbid) = first.get("id").and_then(|id| id.as_str()) {
+            let cover_art_url = format!("https://coverartarchive.org/release/{}", release_mbid);
+            if let Ok(cover_resp) = ureq::get(&cover_art_url).call() {
+                if let Ok(cover_json) = cover_resp.into_json::<Value>() {
+                    if let Some(images) = cover_json.get("images").and_then(|i| i.as_array()) {
+                        let front_image = images.iter().find(|img| img.get("front").and_then(|v| v.as_bool()).unwrap_or(false));
+                        // Use the "small" thumbnail for performance
+                        album_cover_url = front_image
+                            .and_then(|img| img.get("thumbnails").and_then(|t| t.get("small")))
+                            .and_then(|url| url.as_str()).map(|s| s.to_string());
+                    }
+                }
+            }
+        }
+
         let album = first.get("title")?.as_str()?.to_string();
         let artist = first
             .get("artist-credit")
@@ -237,7 +256,7 @@ impl CdReader {
             let count = disc.last_track_num() as usize;
             tracks = (1..=count).map(|i| format!("Track {}", i)).collect();
         }
-        Some(CdInfo { title: album, artist, tracks, disc_id: mbid.to_string() })
+        Some(CdInfo { title: album, artist, tracks, disc_id: mbid.to_string(), album_cover_url })
     }
 
     fn fetch_cddb_metadata(device: &str) -> Option<CdInfo> {
@@ -307,7 +326,7 @@ impl CdReader {
             // Pad missing tracks with placeholders
             while tracks.len() < ntracks { tracks.push(format!("Track {}", tracks.len()+1)); }
         }
-        Some(CdInfo { title: album, artist, tracks, disc_id: disc_id })
+        Some(CdInfo { title: album, artist, tracks, disc_id: disc_id, album_cover_url: None })
     }
     // Disc ID retrieval is handled directly within `detect()` using libdiscid.
     
@@ -325,6 +344,7 @@ impl CdReader {
             artist: "Unknown Artist".to_string(),
             tracks,
             disc_id: disc_id.to_string(),
+            album_cover_url: None,
         }
     }
 

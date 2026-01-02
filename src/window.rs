@@ -273,7 +273,12 @@ impl CeeDeeRipperWindow {
         imp.status_page.set_visible(false);
         imp.cd_info.set_visible(true);
 
-        imp.cd_title.set_label(&cd_info.title);
+        // Set title and artist labels
+        let mut title_display = cd_info.title.clone();
+        if let Some(url) = &cd_info.album_cover_url {
+            title_display.push_str(&format!("\n{}", url));
+        }
+        imp.cd_title.set_label(&title_display);
         imp.cd_artist.set_label(&cd_info.artist);
 
         // Clear and populate track list
@@ -391,6 +396,7 @@ mod imp {
         pub progress_label: TemplateChild<gtk::Label>,
 
         pub state: RefCell<AppState>,
+
     }
 
     #[glib::object_subclass]
@@ -425,6 +431,13 @@ mod imp {
             self.progress_label.set_label("");
             self.status_page.set_visible(true);
             self.cd_info.set_visible(false);
+            self.cd_info.add_css_class("info-box");
+            
+            self.track_list.add_css_class("track-list");
+
+           // Provide a model for the DropDown to avoid template cascade issues
+
+
 
             // Provide a model for the DropDown to avoid template cascade issues
             let formats = gtk::StringList::new(&["FLAC", "MP3", "WAV", "OGG"]);
