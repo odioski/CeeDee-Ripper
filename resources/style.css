@@ -1,5 +1,7 @@
 .main-window-with-bg {
     background-image: url('resource:///org/ceedeeripper/CeeDeeRipper/images/CeeDeeRipper.png');
-    background-size: cover;
+    background-size: fit;
     background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
