@@ -414,6 +414,9 @@ mod imp {
             let obj = self.obj();
             obj.setup_callbacks();
 
+            // Add CSS class for background image
+            obj.add_css_class("main-window-with-bg");
+
             // FIX: initialize UI cascade safely
             self.rip_button.set_sensitive(false);
             self.eject_button.set_sensitive(true);
