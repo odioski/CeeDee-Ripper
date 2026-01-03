@@ -4,6 +4,14 @@ A GTK4/Libadwaita-based audio CD ripper for Linux.
 
 ![CeeDeeRipper-action](https://github.com/user-attachments/assets/504165a7-1f99-4601-8d11-607d677377d0)
 
+## Features
+
+- Rip audio CDs to FLAC, MP3, OGG, or WAV.
+- Automatically fetches track information from MusicBrainz.
+- Modern, easy-to-use interface built with GTK4 & Libadwaita.
+- Secure ripping powered by `cdparanoia`.
+- Save output locally or to remote storage.
+
 ## Dependencies
 
 This app uses cdparanoia along with system tools and libraries to detect CDs, read tracks, and encode audio. Install these before running:

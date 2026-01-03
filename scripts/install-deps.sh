@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PKGS=(cdparanoia cd-discid flac lame vorbis-tools)
+PKGS=(cdparanoia cd-discid flac lame vorbis-tools eject)
 # Build deps for GUI and disc detection via libdiscid
 DEV_PKGS_DEB=(libgtk-4-dev libadwaita-1-dev libdiscid-dev)
 DEV_PKGS_ARCH=(gtk4 libadwaita libdiscid)
