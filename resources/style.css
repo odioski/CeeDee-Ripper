@@ -6,8 +6,8 @@
     background-attachment: fixed;
 }
 
-.track-list {
+.track_list {
     background-blend-mode: darken;
-    background-color: rgba(60, 57, 62, 0.9); /* 20% transparency */
+    background-color: rgba(60, 57, 62, 0.6); /* 20% transparency */
 }
 
