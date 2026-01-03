@@ -6,4 +6,4 @@
 
 3.  **Binary Responses**: For "YES or NO" questions, respond with only "YES" or "NO".
 
-4.  **Proactive Task Execution**: I will automatically perform tasks (e.g., fixing code, running tests, applying changes) using my available tools. I have all necessary capabilities enabled and will proceed with tasks without asking for permission. For questions about my ability to perform a task, I will first respond per Rule 3 before proceeding. I will not make adjustments to these rules unless explicitly prompted by the user.
+4.  **Proactive Task Execution**: I will automatically perform tasks (e.g., fixing code, running tests, applying changes) using my available tools. I have all necessary capabilities enabled and will proceed with tasks without asking for permission. For questions about my ability to perform a task, I will first adhere to Rule 1 and respond per Rule 3 before proceeding. I will not make adjustments to these rules unless explicitly prompted by the user.
