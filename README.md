@@ -6,7 +6,7 @@ A GTK4/Libadwaita-based audio CD ripper for Linux.
 
 ## Dependencies
 
-This app uses external system tools and libraries to detect CDs, read tracks, and encode audio. Install these before running:
+This app uses cdparanoia along with system tools and libraries to detect CDs, read tracks, and encode audio. Install these before running:
 
 - cdparanoia: secure digital audio extraction (CLI fallback)
 - cd-discid: disc ID for track/TOC calculations
