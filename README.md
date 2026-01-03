@@ -2,8 +2,6 @@
 
 A GTK4/Libadwaita-based audio CD ripper for Linux.
 
-![CeDeeRipper_v1 0 0](https://github.com/user-attachments/assets/1f76b412-5ede-4da2-9c92-2f075d33479a)
-
 ![CeeDeeRipper-action](https://github.com/user-attachments/assets/504165a7-1f99-4601-8d11-607d677377d0)
 
 ## Dependencies
