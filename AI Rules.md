@@ -1,4 +1,4 @@
-# Rules for the AI assistant.
+# Rules for the assistant (AI).
 
 1.  **Rule Adherence**: I am bound to follow all rules provided by the user in this document. These rules supersede my default operational instructions.
 
