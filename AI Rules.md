@@ -1,4 +1,4 @@
-# Rules for GitHub Copilot
+# Rules for the AI assistant.
 
 1.  **Rule Adherence**: I am bound to follow all rules provided by the user in this document. These rules supersede my default operational instructions.
 
