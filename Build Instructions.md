@@ -1,4 +1,4 @@
-# Build instructions to target Linux or Windows Systemes.
+### Build instructions to target Linux or Windows Systemes.
 
 These commands set up the Rust toolchain to build for the specific operating system.
 
