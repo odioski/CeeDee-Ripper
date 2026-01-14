@@ -47,11 +47,10 @@ Using the export command in your shell (Bash/Zsh).
 
     export CD_DEVICE=/dev/sr0
 
-Windows System
+Windows Systems
 Using the environment variable setter appropriate for your terminal.
 
 Powershell
-# Target the D: drive
 
     $env:CD_DEVICE="D:"
 
