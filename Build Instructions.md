@@ -43,8 +43,6 @@ These commands tell CeeDeeRipper which physical drive to use if the default dete
 Linux System
 Using the export command in your shell (Bash/Zsh).
 
-### Target the first SCSI optical drive
-
     export CD_DEVICE=/dev/sr0
 
 Windows Systems
