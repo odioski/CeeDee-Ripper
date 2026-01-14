@@ -1,3 +1,6 @@
+
+![CeeDeeRipper-action](https://github.com/user-attachments/assets/2a6f6f28-37f1-408d-bae7-c336c29cdb5f)
+
 - Arch Linux:
 
 ```bash
