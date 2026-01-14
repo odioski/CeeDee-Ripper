@@ -36,7 +36,7 @@ Build
 
     cargo build --release --target x86_64-pc-windows-gnu
 
-# 2. Device Target Designation (Runtime)
+# Device Target Designation (Runtime)
 
 These commands tell CeeDeeRipper which physical drive to use if the default detection fails.
 
