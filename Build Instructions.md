@@ -6,6 +6,7 @@ These commands set up the Rust toolchain to build for the specific operating sys
 Standard Linux build (usually 64-bit glibc).
 
 Add the target
+
   rustup target add x86_64-unknown-linux-gnu
 
 Build
