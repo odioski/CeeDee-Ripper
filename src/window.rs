@@ -274,7 +274,19 @@ impl CeeDeeRipperWindow {
         imp.cd_info.set_visible(true);
 
         imp.cd_title.set_label(&cd_info.title);
-        imp.cd_artist.set_label(&cd_info.artist);
+        imp.cd_artist.set_label(&cd_info.artist);        if let Some(url) = &cd_info.album_cover_url {
+            let pixbuf = gdk_pixbuf::Pixbuf::from_file(url);
+            match pixbuf {
+                Ok(pb) => {
+                    let cover_image = gtk::Picture::for_pixbuf(&pb);
+                    imp.cd_info.append(&cover_image);
+                },
+                Err(e) => {
+                    eprintln!("Failed to load album cover from URL {}: {}", url, e);
+                }
+            }
+        }
+        
 
         // Clear and populate track list
         while let Some(child) = imp.track_list.first_child() {

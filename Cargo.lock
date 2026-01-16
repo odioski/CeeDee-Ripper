@@ -108,6 +108,7 @@ version = "0.1.0"
 dependencies = [
  "dirs",
  "discid",
+ "gdk-pixbuf",
  "gio 0.20.12",
  "glib 0.20.12",
  "glib-build-tools",
