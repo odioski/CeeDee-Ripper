@@ -4,23 +4,25 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-gtk = { version = "0.10", package = "gtk4", features = ["v4_10"] }
-libadwaita = "0.8"
-glib = "0.20"
-gio = "0.20"
+gtk4 = "0.11.0-alpha.2"
+libadwaita = "0.9.0-alpha.0"
+glib = "0.22.0-alpha.2"
+gio = "0.22.0-alpha.2"
+gstreamer = "0.25.0-alpha.1"
+gstreamer-audio = "0.25.0-alpha.1"
+gtk4-sys = "0.11.0-alpha.2"
+serde = { version = "1.0.228", features = ["derive"] }
+toml = "0.9.11+spec-1.1.0"
+dirs = "6.0.0"
+discid = "0.7.0"
+discid-sys = "0.6.0"
+libc = "1.0.0-alpha.2"
+ureq = { version = "3.1.4", features = ["json"] }
+serde_json = "1.0.149"
+gdk-pixbuf = "0.22.0-alpha.2"
 
-gstreamer = "0.23"
-gstreamer-audio = "0.23"
-gtk4-sys = "0.10"
-serde = { version = "1.0", features = ["derive"] }
-toml = "0.8"
-dirs = "5.0"
-discid = "0.5"
-libc = "0.2"
-ureq = { version = "2.9", features = ["json"] }
-serde_json = "1.0"
-gdk-pixbuf = "0.21.5"
 
 [build-dependencies]
-glib-build-tools = "0.20"
+glib-build-tools = "0.22.0-alpha.2"
 glib-2-0-sys = "0.46.4"
+gobject-2-0-sys = "0.46.4"
