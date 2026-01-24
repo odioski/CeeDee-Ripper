@@ -32,11 +32,11 @@ Build:
 
 If you are using MSYS2 for dependencies (GTK4, GStreamer, etc.), you must install them using pacman. You will also need compilers and libc for building Rust projects. Run the following in PowerShell to launch MSYS2 and install all required packages:
 
-    Start-Process -Wait -NoNewWindow msys2 -ArgumentList '-c "pacman -S --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-libwinpthread-git mingw-w64-x86_64-gtk4 mingw-w64-x86_64-libadwaita mingw-w64-x86_64-glib2 mingw-w64-x86_64-gstreamer mingw-w64-x86_64-gst-plugins-base mingw-w64-x86_64-gst-plugins-good mingw-w64-x86_64-libdiscid mingw-w64-x86_64-cdparanoia mingw-w64-x86_64-flac mingw-w64-x86_64-lame mingw-w64-x86_64-vorbis-tools mingw-w64-x86_64-clang mingw-w64-x86_64-gcc mingw-w64-x86_64-crt-git mingw-w64-x86_64-headers-git mingw-w64-x86_64-libwinpthread-git"'
+    Start-Process -Wait -NoNewWindow msys2 -ArgumentList '-c "pacman -S --needed mingw-w64-x86_64-gcc mingw-w64-x86_64-binutils mingw-w64-x86_64-libwinpthread-git mingw-w64-x86_64-gtk4 mingw-w64-x86_64-libadwaita mingw-w64-x86_64-glib2 mingw-w64-x86_64-gstreamer mingw-w64-x86_64-gst-plugins-base mingw-w64-x86_64-gst-plugins-good mingw-w64-x86_64-libdiscid mingw-w64-x86_64-cdparanoia mingw-w64-x86_64-flac mingw-w64-x86_64-lame mingw-w64-x86_64-vorbis-tools mingw-w64-x86_64-clang mingw-w64-x86_64-gcc mingw-w64-x86_64-crt-git mingw-w64-x86_64-headers-git mingw-w64-x86_64-libwinpthread-git"'
 
 Alternatively, open the "MSYS2 MinGW 64-bit" terminal from your Start menu and run:
 
-    pacman -S --needed  mingw-w64-x86_64-gcc mingw-w64-x86_64-libwinpthread-git mingw-w64-x86_64-gtk4 mingw-w64-x86_64-libadwaita mingw-w64-x86_64-glib2 mingw-w64-x86_64-gstreamer mingw-w64-x86_64-gst-plugins-base mingw-w64-x86_64-gst-plugins-good mingw-w64-x86_64-libdiscid mingw-w64-x86_64-cdparanoia mingw-w64-x86_64-flac mingw-w64-x86_64-lame mingw-w64-x86_64-vorbis-tools mingw-w64-x86_64-clang mingw-w64-x86_64-gcc mingw-w64-x86_64-crt-git mingw-w64-x86_64-headers-git mingw-w64-x86_64-libwinpthread-git
+    pacman -S --needed  mingw-w64-x86_64-gcc mingw-w64-x86_64-binutils mingw-w64-x86_64-libwinpthread-git mingw-w64-x86_64-gtk4 mingw-w64-x86_64-libadwaita mingw-w64-x86_64-glib2 mingw-w64-x86_64-gstreamer mingw-w64-x86_64-gst-plugins-base mingw-w64-x86_64-gst-plugins-good mingw-w64-x86_64-libdiscid mingw-w64-x86_64-cdparanoia mingw-w64-x86_64-flac mingw-w64-x86_64-lame mingw-w64-x86_64-vorbis-tools mingw-w64-x86_64-clang mingw-w64-x86_64-gcc mingw-w64-x86_64-crt-git mingw-w64-x86_64-headers-git mingw-w64-x86_64-libwinpthread-git
 
 ### Option B: Cross-Compile (GNU)
 Best if building for Windows from Linux. (Requires mingw-w64 package installed on Linux).
