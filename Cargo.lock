@@ -41,7 +41,7 @@ version = "0.72.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "993776b509cfb49c750f11b8f07a46fa23e0a1386ffc01fb1e7d343efc387895"
 dependencies = [
- "bitflags",
+ "bitflags 2.10.0",
  "cexpr",
  "clang-sys",
  "itertools 0.13.0",
@@ -54,6 +54,12 @@ dependencies = [
  "shlex",
  "syn",
 ]
+
+[[package]]
+name = "bitflags"
+version = "1.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
 name = "bitflags"
@@ -73,7 +79,7 @@ version = "0.22.0-alpha.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "97eb9a7228fb94c488d04daf9f9033ebbe78aae99cfe9d5730467a0e2c511107"
 dependencies = [
- "bitflags",
+ "bitflags 2.10.0",
  "cairo-sys-rs",
  "glib 0.22.0-alpha.2",
  "libc 0.2.180",
@@ -110,8 +116,11 @@ dependencies = [
  "discid",
  "discid-sys",
  "gdk-pixbuf 0.21.5",
+ "glib 0.22.0-alpha.2",
  "glib-2-0-sys",
+ "glib-build-tools",
  "gobject-2-0-sys",
+ "gobject-subclass",
  "gstreamer",
  "gstreamer-audio",
  "gtk4",
@@ -245,7 +254,7 @@ version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f5a3b96caa586f4f08a16bfdb903f8e6249b05edc31749d7bc2c9f0b07f2aa82"
 dependencies = [
- "bitflags",
+ "bitflags 2.10.0",
  "discid-sys",
 ]
 
@@ -544,11 +553,24 @@ dependencies = [
 
 [[package]]
 name = "glib"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7a333edf5b9f1411c246ef14e7881b087255f04c56dbef48c64a0cb039b4b340"
+dependencies = [
+ "bitflags 1.3.2",
+ "glib-sys 0.7.0",
+ "gobject-sys 0.7.0",
+ "lazy_static",
+ "libc 0.2.180",
+]
+
+[[package]]
+name = "glib"
 version = "0.21.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "16de123c2e6c90ce3b573b7330de19be649080ec612033d397d72da265f1bd8b"
 dependencies = [
- "bitflags",
+ "bitflags 2.10.0",
  "futures-channel",
  "futures-core",
  "futures-executor",
@@ -569,7 +591,7 @@ version = "0.22.0-alpha.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6d97df62440eff82e6c4dd9874b5ac268eecff9395ea34eeec12364ab948bee8"
 dependencies = [
- "bitflags",
+ "bitflags 2.10.0",
  "futures-channel",
  "futures-core",
  "futures-executor",
@@ -596,6 +618,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "glib-build-tools"
+version = "0.21.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "86aebe63bb050d4918cb1d629880cb35fcba7ccda6f6fc0ec1beffdaa1b9d5c3"
+dependencies = [
+ "gio 0.21.5",
+]
+
+[[package]]
 name = "glib-macros"
 version = "0.21.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -618,6 +649,16 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "glib-sys"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3573351e846caed9f11207b275cd67bc07f0c2c94fb628e5d7c92ca056c7882d"
+dependencies = [
+ "libc 0.2.180",
+ "pkg-config",
 ]
 
 [[package]]
@@ -654,6 +695,29 @@ checksum = "d6daee09e648bd33547175898cffc892b46f6eaaaf3ae0e104a682f2b728b9c4"
 dependencies = [
  "glib-2-0-sys",
  "gtypes",
+ "pkg-config",
+]
+
+[[package]]
+name = "gobject-subclass"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "23a365ac97171d914fc0f2ccf86f3a05ae4ee870427eee9c82f6bb95bbf201b6"
+dependencies = [
+ "glib 0.6.1",
+ "glib-sys 0.7.0",
+ "gobject-sys 0.7.0",
+ "libc 0.2.180",
+]
+
+[[package]]
+name = "gobject-sys"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "08475e4a08f27e6e2287005950114735ed61cec2cb8c1187682a5aec8c69b715"
+dependencies = [
+ "glib-sys 0.7.0",
+ "libc 0.2.180",
  "pkg-config",
 ]
 
@@ -1062,6 +1126,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "lazy_static"
+version = "1.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bbd2bcb4c963f2ddae06a2efc7e9f3591312473c50c6685e1f298068316e66fe"
+
+[[package]]
 name = "libadwaita"
 version = "0.9.0-alpha.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1120,7 +1190,7 @@ version = "0.1.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3d0b95e02c851351f877147b7deea7b1afb1df71b63aa5f8270716e0c5720616"
 dependencies = [
- "bitflags",
+ "bitflags 2.10.0",
  "libc 0.2.180",
 ]
 
