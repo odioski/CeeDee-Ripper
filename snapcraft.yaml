@@ -1,5 +1,5 @@
 name: ceedee-ripper
-version: '1.0'
+version: '1.0.0'
 summary: Audio CD music ripper.
 description: |
   CeeDee Ripper extracts audio from Audio CD's to set formats:
@@ -25,11 +25,14 @@ parts:
     plugin: rust
     source: .
 
+build-packages:
+  - pkg-config
+
+environment:
+  CARGO_TARGET_DIR: /root/parts/ceedee-ripper/build/target
+  
 apps:
   ceedee-ripper:
     command: bin/ceedee-ripper
+    
 
-build-packages:
-  - pkg-config
-  - glibc-source
-  - glibc-tools
