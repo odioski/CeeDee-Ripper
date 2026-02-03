@@ -16,7 +16,7 @@ description: |
   -Vorbis is a free, open, patent-free audio compression format designed for lossy encoding.
    It is usually stored in the Ogg container and intended as an efficient alternative to proprietary formats like MP3.
 
-base: core24
+base: core22
 
 confinement: devmode
 
@@ -24,6 +24,8 @@ parts:
   ceedee-ripper:
     plugin: rust
     source: .
+    rust-channel: "none"
+    rust-features: ["update", "clean", fix"]
 
 environment:
   CARGO_TARGET_DIR: /root/parts/ceedee-ripper/build/target
@@ -32,4 +34,3 @@ apps:
   ceedee-ripper:
     command: bin/ceedee-ripper
     
-
