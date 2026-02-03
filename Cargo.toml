@@ -1,5 +1,5 @@
 [package]
-name = "ceedee-ripper"
+name = "CeeDee-Ripper"
 version = "0.1.0"
 edition = "2021"
 
@@ -20,6 +20,7 @@ libc = "0.2"
 ureq = { version = "2.9", features = ["json"] }
 serde_json = "1.0"
 gdk-pixbuf = "0.21.5"
+pkg-config = "0.3.32"
 
 [build-dependencies]
 glib-build-tools = "0.20"
