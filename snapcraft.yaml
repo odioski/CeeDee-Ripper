@@ -28,3 +28,8 @@ parts:
 apps:
   ceedee-ripper:
     command: bin/ceedee-ripper
+
+build-packages:
+  - pkg-config
+  - glibc-source
+  - glibc-tools
