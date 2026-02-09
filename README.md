@@ -1,13 +1,49 @@
-# CeeDee RIPPPER
-Audio CD Ripper built with Rust for Linux and Windows Systems.
+# CeeDee Ripper — Advanced
 
-![CeeDeeRipper-action](https://github.com/user-attachments/assets/2a6f6f28-37f1-408d-bae7-c336c29cdb5f)
+A GTK4/Libadwaita-based audio CD ripper for Linux.
+
+## Dependencies
+
+This app uses external system tools and libraries to detect CDs, read tracks, and encode audio. Install these before running:
+
+- cdparanoia: secure digital audio extraction (CLI fallback)
+- cd-discid: disc ID for track/TOC calculations
+- flac: FLAC encoder (when encoder = "flac")
+- lame: MP3 encoder (when encoder = "mp3")
+ - vorbis-tools: OGG/Vorbis encoder (`oggenc`, when encoder = "ogg")
+
+Library-based ripping uses GStreamer:
+- GStreamer core and plugins: `base` and `good` sets (provides `cdparanoia` source and `wavenc`)
+
+Additionally, you need GTK4, Libadwaita, and libdiscid development packages to build from source.
+
+## Quick Install (Linux)
+
+Use the helper script to install dependencies on common distros:
+
+```bash
+# From the project root
+bash scripts/install-deps.sh
+```
+
+The script supports `apt` (Debian/Ubuntu), `pacman` (Arch), and `dnf` (Fedora/RHEL). If a package is unavailable, the script prints a hint to enable the appropriate repository (e.g., RPM Fusion for `lame` on Fedora).
+
+## Manual Install
+
+- Debian/Ubuntu:
+
+```bash
+sudo apt-get update
+ sudo apt-get install -y cdparanoia cd-discid flac lame \
+  vorbis-tools libgtk-4-dev libadwaita-1-dev libdiscid-dev \
+  gstreamer1.0-plugins-base gstreamer1.0-plugins-good
+```
 
 - Arch Linux:
 
 ```bash
- # Only libdiscid is required at runtime for CD TOC reading
- sudo pacman -S --needed libdiscid
+ sudo pacman -S --needed cdparanoia cd-discid flac lame \
+  vorbis-tools gtk4 libadwaita libdiscid gst-plugins-base gst-plugins-good
 ```
 
 - Fedora (may require RPM Fusion for `lame`):
@@ -31,6 +67,7 @@ bitrate = "320"     # for mp3
 quality = "8"       # for flac/ogg (0-10 for ogg)
 cddb_enabled = true
 ```
+
 - Environment variable (takes precedence):
 
 ```bash
@@ -61,3 +98,10 @@ gst-launch-1.0 cdparanoia device=/dev/sr0 track=1 ! wavenc ! filesink location=t
 ```bash
 cargo build
 cargo run
+```
+
+## Troubleshooting
+
+- "No CD detected on /dev/...": Ensure an audio CD is inserted, device path is correct, and permissions allow access.
+- Missing encoders: Use `flac` or `lame` per your chosen output format.
+- Fedora `lame` not found: Enable RPM Fusion (free) repos, then install `lame`.

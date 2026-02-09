@@ -1,12 +1,11 @@
 use crate::cd_reader::{CdInfo, CdReader};
 use crate::config::Config;
-use crate::ripper::Ripper;
+use crate::ripper::{RipMessage, Ripper};
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
-
 use gtk::{gio, glib};
 use std::process::Command;
-use glib::MainContext;
+use std::thread;
 
 glib::wrapper! {
     pub struct CeeDeeRipperWindow(ObjectSubclass<imp::CeeDeeRipperWindow>)
@@ -100,86 +99,6 @@ impl CeeDeeRipperWindow {
         }
     }
 
-    // Metadata lookup handled by re-detect with current selection
-
-    fn on_choose_folder_clicked(&self) {
-        let dialog = gtk::FileDialog::new();
-        dialog.set_title("Choose Output Folder");
-        dialog.set_modal(true);
-
-        let window_weak = self.downgrade();
-        dialog.select_folder(Some(self), None::<&gio::Cancellable>, move |result| {
-            if let Some(window) = window_weak.upgrade() {
-                match result {
-                    Ok(folder) => {
-                        if let Some(path) = folder.path() {
-                            window.imp().state.borrow_mut().output_dir = path;
-                        } else {
-                            window.show_error("Selected folder is not on a local filesystem.");
-                        }
-                    }
-                    Err(err) => {
-                        window.show_error(&format!("Folder selection failed: {}", err));
-                    }
-                }
-            }
-        });
-    }
-
-    fn on_rip_clicked(&self) {
-        let imp = self.imp();
-        let mut state = imp.state.borrow_mut();
-
-        if let Some(cd_info) = state.cd_info.clone() {
-            let mut config = Config::load();
-            // Map UI selection to encoder string
-            let selected = imp.format_selector.selected();
-            let encoder = match selected {
-                0 => "flac",
-                1 => "mp3",
-                2 => "wav",
-                3 => "ogg",
-                _ => "flac",
-            };
-            config.encoder = encoder.to_string();
-            // Map metadata selector to config
-            let meta_sel = imp.metadata_selector.selected();
-            config.metadata_source = match meta_sel {
-                1 => "musicbrainz".to_string(),
-                2 => "cddb".to_string(),
-                _ => "none".to_string(),
-            };
-            // Best-effort persist so user's choice sticks next time
-            let _ = config.save();
-            let ripper = std::sync::Arc::new(Ripper::new(config, state.output_dir.clone()));
-            // Store ripper for cancellation
-            state.ripper = Some(ripper.clone());
-
-            state.is_ripping = true;
-            drop(state); // Release borrow before async work
-
-            // Toggle rip button to Stop and show progress
-            imp.rip_button.set_label("Stop");
-            imp.rip_button.remove_css_class("suggested-action");
-            imp.rip_button.add_css_class("destructive-action");
-            imp.progress_box.set_visible(true);
-
-            // Start ripping in background on the GTK main context
-            let window_weak = self.downgrade();
-
-            MainContext::default().spawn_local(async move {
-                if let Some(window) = window_weak.upgrade() {
-                    match ripper.rip(&cd_info).await {
-                        Ok(_) => window.on_rip_complete(),
-                        Err(e) => window.show_error(&format!("Ripping failed: {}", e)),
-                    }
-                }
-            });
-        } else {
-            self.show_error("No CD detected.");
-        }
-    }
-
     fn on_metadata_lookup_clicked(&self) {
         let imp = self.imp();
         // Update config from selector
@@ -197,6 +116,87 @@ impl CeeDeeRipperWindow {
             Err(e) => {
                 self.show_error(&format!("Metadata lookup failed: {}", e));
             }
+        }
+    }
+
+    fn on_choose_folder_clicked(&self) {
+        let dialog = gtk::FileChooserDialog::new(
+            Some("Choose Output Folder"),
+            Some(self),
+            gtk::FileChooserAction::SelectFolder,
+            &[("Cancel", gtk::ResponseType::Cancel), ("Select", gtk::ResponseType::Accept)],
+        );
+        
+        let window_weak = self.downgrade();
+        dialog.connect_response(move |dialog, response| {
+            if response == gtk::ResponseType::Accept {
+                if let Some(window) = window_weak.upgrade() {
+                    if let Some(file) = dialog.file() {
+                        if let Some(path) = file.path() {
+                            window.imp().state.borrow_mut().output_dir = path;
+                        }
+                    }
+                }
+            }
+            dialog.close();
+        });
+        
+        dialog.show();
+    }
+
+    fn on_rip_clicked(&self) {
+        let imp = self.imp();
+        let mut state = imp.state.borrow_mut();
+
+        if let Some(cd_info) = state.cd_info.clone() {
+            let mut config = Config::load();
+            let selected = imp.format_selector.selected();
+            config.encoder = match selected {
+                0 => "flac",
+                1 => "mp3",
+                2 => "wav",
+                3 => "ogg",
+                _ => "flac",
+            }
+            .to_string();
+            let meta_sel = imp.metadata_selector.selected();
+            config.metadata_source = match meta_sel {
+                1 => "musicbrainz".to_string(),
+                2 => "cddb".to_string(),
+                _ => "none".to_string(),
+            };
+            let _ = config.save();
+
+            let (sender, mut receiver) = tokio::sync::mpsc::unbounded_channel();
+            let ripper = std::sync::Arc::new(Ripper::new(
+                config,
+                state.output_dir.clone(),
+                sender,
+            ));
+            state.ripper = Some(ripper.clone());
+            state.is_ripping = true;
+
+            imp.rip_button.set_label("Stop");
+            imp.rip_button.remove_css_class("suggested-action");
+            imp.rip_button.add_css_class("destructive-action");
+            imp.progress_box.set_visible(true);
+
+            let window_weak = self.downgrade();
+            glib::spawn_future_local(async move {
+                while let Some(msg) = receiver.recv().await {
+                    if let Some(window) = window_weak.upgrade() {
+                        window.handle_rip_message(msg);
+                    }
+                }
+            });
+
+            let cd_info_clone = cd_info.clone();
+            let ripper_clone = ripper.clone();
+            thread::spawn(move || {
+                ripper_clone.rip(&cd_info_clone);
+            });
+        } else {
+            self.show_error("No CD detected.");
         }
     }
 
@@ -274,19 +274,7 @@ impl CeeDeeRipperWindow {
         imp.cd_info.set_visible(true);
 
         imp.cd_title.set_label(&cd_info.title);
-        imp.cd_artist.set_label(&cd_info.artist);        if let Some(url) = &cd_info.album_cover_url {
-            let pixbuf = gdk_pixbuf::Pixbuf::from_file(url);
-            match pixbuf {
-                Ok(pb) => {
-                    let cover_image = gtk::Picture::for_pixbuf(&pb);
-                    imp.cd_info.append(&cover_image);
-                },
-                Err(e) => {
-                    eprintln!("Failed to load album cover from URL {}: {}", url, e);
-                }
-            }
-        }
-        
+        imp.cd_artist.set_label(&cd_info.artist);
 
         // Clear and populate track list
         while let Some(child) = imp.track_list.first_child() {
@@ -321,23 +309,51 @@ impl CeeDeeRipperWindow {
     }
 
     fn show_error(&self, message: &str) {
-        let dialog = gtk::AlertDialog::builder()
-            .message("Error")
-            .detail(message)
-            .default_button(0)
-            .build();
-        dialog.set_buttons(&["OK"]);
-        dialog.choose(Some(self), None::<&gio::Cancellable>, |_| ());
+        let dialog = gtk::MessageDialog::new(
+            Some(self),
+            gtk::DialogFlags::MODAL,
+            gtk::MessageType::Error,
+            gtk::ButtonsType::Ok,
+            "Error",
+        );
+        dialog.set_secondary_text(Some(message));
+        dialog.run_async(|dialog, _| {
+            dialog.close();
+        });
     }
 
     fn show_success(&self, message: &str) {
-        let dialog = gtk::AlertDialog::builder()
-            .message("Success")
-            .detail(message)
-            .default_button(0)
-            .build();
-        dialog.set_buttons(&["OK"]);
-        dialog.choose(Some(self), None::<&gio::Cancellable>, |_| ());
+        let dialog = gtk::MessageDialog::new(
+            Some(self),
+            gtk::DialogFlags::MODAL,
+            gtk::MessageType::Info,
+            gtk::ButtonsType::Ok,
+            "Success",
+        );
+        dialog.set_secondary_text(Some(message));
+        dialog.run_async(|dialog, _| {
+            dialog.close();
+        });
+    }
+
+    fn handle_rip_message(&self, msg: RipMessage) {
+        let imp = self.imp();
+        match msg {
+            RipMessage::Progress(fraction, message) => {
+                imp.progress_bar.set_fraction(fraction);
+                imp.progress_label.set_label(&message);
+            }
+            RipMessage::TrackComplete(_track_num) => {
+                // Could update UI to show which tracks are done
+            }
+            RipMessage::Success => {
+                self.on_rip_complete();
+            }
+            RipMessage::Error(e) => {
+                self.show_error(&format!("Ripping failed: {}", e));
+                self.on_stop_clicked(); // Reset UI
+            }
+        }
     }
 }
 

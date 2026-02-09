@@ -2,27 +2,42 @@ use crate::cd_reader::CdInfo;
 use crate::config::Config;
 use std::error::Error;
 use std::path::PathBuf;
-use std::process::{Command, Child};
-use std::sync::{Arc, Mutex};
+use std::process::{Child, Command};
 use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use gstreamer as gst;
 use gstreamer::prelude::*;
+use tokio::runtime::Runtime;
+use tokio::sync::mpsc::UnboundedSender;
+
+#[derive(Debug, Clone)]
+pub enum RipMessage {
+    Progress(f64, String),
+    TrackComplete(usize),
+    Success,
+    Error(String),
+}
 
 pub struct Ripper {
     config: Config,
     output_dir: PathBuf,
     cancel_flag: Arc<AtomicBool>,
     current_child: Arc<Mutex<Option<Child>>>,
+    sender: UnboundedSender<RipMessage>,
+    runtime: Arc<Runtime>,
 }
 
 impl Ripper {
-    pub fn new(config: Config, output_dir: PathBuf) -> Self {
+    pub fn new(config: Config, output_dir: PathBuf, sender: UnboundedSender<RipMessage>) -> Self {
+        let runtime = Arc::new(Runtime::new().unwrap());
         Self {
             config,
             output_dir,
             cancel_flag: Arc::new(AtomicBool::new(false)),
             current_child: Arc::new(Mutex::new(None)),
+            sender,
+            runtime,
         }
     }
 
@@ -36,24 +51,64 @@ impl Ripper {
         }
     }
 
-    pub async fn rip(&self, cd_info: &CdInfo) -> Result<(), Box<dyn Error>> {
+    pub fn rip(&self, cd_info: &CdInfo) {
         let album_dir = self.output_dir.join(&cd_info.title);
-        std::fs::create_dir_all(&album_dir)?;
-
-        if cd_info.tracks.is_empty() {
-            return Err("No tracks found to rip. Please detect again.".into());
+        if let Err(e) = std::fs::create_dir_all(&album_dir) {
+            self.sender
+                .send(RipMessage::Error(format!(
+                    "Failed to create directory: {}",
+                    e
+                )))
+                .unwrap();
+            return;
         }
 
-        // Rip all tracks
+        if cd_info.tracks.is_empty() {
+            self.sender
+                .send(RipMessage::Error(
+                    "No tracks found to rip. Please detect again.".into(),
+                ))
+                .unwrap();
+            return;
+        }
+
+        let total_tracks = cd_info.tracks.len();
         for (i, track_name) in cd_info.tracks.iter().enumerate() {
             let track_num = i + 1;
             if self.cancel_flag.load(Ordering::SeqCst) {
-                return Err("Ripping cancelled".into());
+                self.sender
+                    .send(RipMessage::Error("Ripping cancelled".into()))
+                    .unwrap();
+                return;
             }
-            self.rip_track(track_num, track_name, &album_dir).await?;
+
+            let progress = (track_num as f64) / (total_tracks as f64);
+            let message = format!("Ripping track {} of {}...", track_num, total_tracks);
+            self.sender
+                .send(RipMessage::Progress(progress, message))
+                .unwrap();
+
+            let track_name_clone = track_name.clone();
+            let album_dir_clone = album_dir.clone();
+            let runtime = self.runtime.clone();
+            let res =
+                runtime.block_on(self.rip_track(track_num, &track_name_clone, &album_dir_clone));
+
+            if let Err(e) = res {
+                self.sender
+                    .send(RipMessage::Error(format!(
+                        "Failed to rip track {}: {}",
+                        track_num, e
+                    )))
+                    .unwrap();
+                return;
+            }
+            self.sender
+                .send(RipMessage::TrackComplete(track_num))
+                .unwrap();
         }
 
-        Ok(())
+        self.sender.send(RipMessage::Success).unwrap();
     }
 
     async fn rip_track(
@@ -308,6 +363,4 @@ impl Ripper {
 
         Ok(output)
     }
-
-    
 }
