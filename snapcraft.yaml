@@ -1,0 +1,39 @@
+name: ceedee-ripper
+version: '1.0.0'
+summary: Audio CD music ripper.
+description: |
+  CeeDee Ripper extracts audio from Audio CD's to set formats:
+
+  -FLAC is an open, royalty-free audio codec that provides lossless compression,
+   meaning the audio is reduced in size without any loss of quality when decoded.
+
+  -MP3 is a coding format for digital audio using lossy data compression,
+   defined by the MPEG-1 and MPEG-2 standards. It reduces file size by removing audio data considered less audible to human hearing.
+
+  -WAV is a standard digital audio file format used for storing audio on Windows systems.
+   It is based on the RIFF container and typically stores uncompressed PCM audio.
+  
+  -Vorbis is a free, open, patent-free audio compression format designed for lossy encoding.
+   It is usually stored in the Ogg container and intended as an efficient alternative to proprietary formats like MP3.
+
+base: core22
+
+confinement: devmode
+
+parts:
+  ceedee-ripper:
+    plugin: rust
+    source: .
+    rust-channel: "none"
+    rust-features: ["update", "clean", fix"]
+
+environment:
+  CARGO_TARGET_DIR: /root/parts/ceedee-ripper/build/target
+
+apps:
+  ceedee-ripper:
+    command: bin/ceedee-ripper
+    plugs:
+      - audio-record
+      - removable-media
+      - network
