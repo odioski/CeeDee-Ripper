@@ -148,7 +148,46 @@ impl CeeDeeRipperWindow {
         let imp = self.imp();
         let mut state = imp.state.borrow_mut();
 
-        if let Some(cd_info) = state.cd_info.clone() {
+        if let Some(mut cd_info) = state.cd_info.clone() {
+            // Collect which tracks are checked
+            let mut checked_tracks = Vec::new();
+            let mut child = imp.track_list.first_child();
+            while let Some(row_w) = child {
+                let next_row = row_w.next_sibling();
+                if let Ok(row) = row_w.downcast::<gtk::ListBoxRow>() {
+                    if let Some(hb_w) = row.child() {
+                        if let Ok(hbox) = hb_w.downcast::<gtk::Box>() {
+                            let inner = hbox.first_child();
+                            if let Some(cb_w) = inner {
+                                if let Ok(cb) = cb_w.clone().downcast::<gtk::CheckButton>() {
+                                    if cb.is_active() {
+                                        checked_tracks.push(true);
+                                    } else {
+                                        checked_tracks.push(false);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                child = next_row;
+            }
+
+            // Filter tracks to only include checked ones
+            cd_info.tracks = cd_info
+                .tracks
+                .into_iter()
+                .zip(checked_tracks.iter())
+                .filter(|(_, &is_checked)| is_checked)
+                .map(|(track, _)| track)
+                .collect();
+
+            // Check if any tracks are selected
+            if cd_info.tracks.is_empty() {
+                self.show_error("No tracks selected. Please select at least one track.");
+                return;
+            }
+
             let mut config = Config::load();
             let selected = imp.format_selector.selected();
             config.encoder = match selected {
