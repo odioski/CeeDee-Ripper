@@ -3,14 +3,14 @@ set -euo pipefail
 
 PKGS=(cdparanoia cd-discid flac lame vorbis-tools)
 # Build deps for GUI and disc detection via libdiscid
-DEV_PKGS_DEB=(libgtk-4-dev libadwaita-1-dev libdiscid-dev)
-DEV_PKGS_ARCH=(gtk4 libadwaita libdiscid)
-DEV_PKGS_DNF=(gtk4-devel libadwaita-devel libdiscid-devel)
+DEV_PKGS_DEB=(libgtk-4-dev libadwaita-1-dev libdiscid-dev libgstreamer1.0-dev libglib2.0-dev build-essential)
+DEV_PKGS_ARCH=(gtk4 libadwaita libdiscid gstreamer glib2 base-devel)
+DEV_PKGS_DNF=(gtk4-devel libadwaita-devel libdiscid-devel gstreamer1-devel glib2-devel gcc make)
 
 # GStreamer plugins needed for cdparanoia element and WAV encoding
-GST_PKGS_DEB=(gstreamer1.0-plugins-base gstreamer1.0-plugins-good)
+GST_PKGS_DEB=(gstreamer1.0-plugins-base gstreamer1.0-plugins-good libgstreamer-plugins-base1.0-dev)
 GST_PKGS_ARCH=(gst-plugins-base gst-plugins-good)
-GST_PKGS_DNF=(gstreamer1-plugins-base gstreamer1-plugins-good)
+GST_PKGS_DNF=(gstreamer1-plugins-base gstreamer1-plugins-good gstreamer1-plugins-base-devel)
 
 have() { command -v "$1" >/dev/null 2>&1; }
 
