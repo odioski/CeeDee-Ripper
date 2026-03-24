@@ -330,6 +330,7 @@ impl Ripper {
         
         let status = Command::new("flac")
             .arg("-8")
+            .arg("-f")
             .arg(input)
             .arg("-o")
             .arg(&output)
