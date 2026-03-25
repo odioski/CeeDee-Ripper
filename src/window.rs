@@ -16,9 +16,7 @@ glib::wrapper! {
 
 impl CeeDeeRipperWindow {
     pub fn new(app: &libadwaita::Application) -> Self {
-        glib::Object::builder()
-            .property("application", app)
-            .build()
+        glib::Object::builder().property("application", app).build()
     }
 
     fn setup_callbacks(&self) {
@@ -104,7 +102,11 @@ impl CeeDeeRipperWindow {
         // Update config from selector
         let mut cfg = Config::load();
         let meta_sel = imp.metadata_selector.selected();
-        cfg.metadata_source = match meta_sel { 1 => "musicbrainz".into(), 2 => "cddb".into(), _ => "none".into() };
+        cfg.metadata_source = match meta_sel {
+            1 => "musicbrainz".into(),
+            2 => "cddb".into(),
+            _ => "none".into(),
+        };
         let _ = cfg.save();
 
         match CdReader::detect() {
@@ -124,9 +126,12 @@ impl CeeDeeRipperWindow {
             Some("Choose Output Folder"),
             Some(self),
             gtk::FileChooserAction::SelectFolder,
-            &[("Cancel", gtk::ResponseType::Cancel), ("Select", gtk::ResponseType::Accept)],
+            &[
+                ("Cancel", gtk::ResponseType::Cancel),
+                ("Select", gtk::ResponseType::Accept),
+            ],
         );
-        
+
         let window_weak = self.downgrade();
         dialog.connect_response(move |dialog, response| {
             if response == gtk::ResponseType::Accept {
@@ -140,7 +145,7 @@ impl CeeDeeRipperWindow {
             }
             dialog.close();
         });
-        
+
         dialog.show();
     }
 
@@ -207,11 +212,7 @@ impl CeeDeeRipperWindow {
             let _ = config.save();
 
             let (sender, mut receiver) = tokio::sync::mpsc::unbounded_channel();
-            let ripper = std::sync::Arc::new(Ripper::new(
-                config,
-                state.output_dir.clone(),
-                sender,
-            ));
+            let ripper = std::sync::Arc::new(Ripper::new(config, state.output_dir.clone(), sender));
             state.ripper = Some(ripper.clone());
             state.is_ripping = true;
 
@@ -284,7 +285,9 @@ impl CeeDeeRipperWindow {
     fn on_eject_clicked(&self) {
         match Command::new("eject").status() {
             Ok(status) if status.success() => self.show_success("Disc ejected."),
-            Ok(_) => self.show_error("Eject command failed. Ensure 'eject' is installed and you have permission."),
+            Ok(_) => self.show_error(
+                "Eject command failed. Ensure 'eject' is installed and you have permission.",
+            ),
             Err(err) => self.show_error(&format!("Could not run 'eject': {}", err)),
         }
     }
@@ -397,12 +400,12 @@ impl CeeDeeRipperWindow {
 }
 
 mod imp {
-    use super::*;
-    use std::path::PathBuf;
-    use std::cell::RefCell; // FIX: needed for state
-    use gtk::subclass::widget::TemplateChild;
     use super::glib;
+    use super::*;
+    use gtk::subclass::widget::TemplateChild;
     use libadwaita::subclass::prelude::*;
+    use std::cell::RefCell; // FIX: needed for state
+    use std::path::PathBuf;
 
     pub struct AppState {
         pub cd_info: Option<CdInfo>,
@@ -415,8 +418,10 @@ mod imp {
         fn default() -> Self {
             Self {
                 cd_info: None,
-                output_dir: PathBuf::from(std::env::var("HOME").unwrap_or_else(|_| ".".to_string()))
-                    .join("Music"),
+                output_dir: PathBuf::from(
+                    std::env::var("HOME").unwrap_or_else(|_| ".".to_string()),
+                )
+                .join("Music"),
                 is_ripping: false,
                 ripper: None,
             }
@@ -495,9 +500,7 @@ mod imp {
             self.cd_info.add_css_class("info-box");
             self.track_list.add_css_class("track_list");
 
-           // Provide a model for the DropDown to avoid template cascade issues
-
-
+            // Provide a model for the DropDown to avoid template cascade issues
 
             // Provide a model for the DropDown to avoid template cascade issues
             let formats = gtk::StringList::new(&["FLAC", "MP3", "WAV", "OGG"]);

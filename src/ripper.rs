@@ -1,13 +1,13 @@
 use crate::cd_reader::CdInfo;
 use crate::config::Config;
+use gstreamer as gst;
+use gstreamer::prelude::*;
 use std::error::Error;
 use std::path::PathBuf;
 use std::process::{Child, Command};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
-use gstreamer as gst;
-use gstreamer::prelude::*;
 use tokio::runtime::Runtime;
 use tokio::sync::mpsc::UnboundedSender;
 
@@ -26,6 +26,81 @@ pub struct Ripper {
     current_child: Arc<Mutex<Option<Child>>>,
     sender: UnboundedSender<RipMessage>,
     runtime: Arc<Runtime>,
+}
+
+fn sanitize_path_component(value: &str, fallback: &str) -> String {
+    let mut sanitized = String::with_capacity(value.len());
+    let mut pending_space = false;
+
+    for ch in value.chars() {
+        let normalized = match ch {
+            '<' | '>' | ':' | '"' | '/' | '\\' | '|' | '?' | '*' => ' ',
+            _ if ch.is_control() => ' ',
+            _ if ch.is_whitespace() => ' ',
+            _ => ch,
+        };
+
+        if normalized == ' ' {
+            pending_space = !sanitized.is_empty();
+            continue;
+        }
+
+        if pending_space {
+            sanitized.push(' ');
+            pending_space = false;
+        }
+
+        sanitized.push(normalized);
+    }
+
+    let sanitized = sanitized
+        .trim_matches(|c: char| c == ' ' || c == '.')
+        .to_string();
+
+    if sanitized.is_empty()
+        || sanitized == "."
+        || sanitized == ".."
+        || is_windows_reserved_name(&sanitized)
+    {
+        fallback.to_string()
+    } else {
+        sanitized
+    }
+}
+
+fn sanitize_track_name(track_name: &str, track_num: usize) -> String {
+    sanitize_path_component(track_name, &format!("Track {:02}", track_num))
+}
+
+fn is_windows_reserved_name(value: &str) -> bool {
+    let upper = value.to_ascii_uppercase();
+
+    matches!(
+        upper.as_str(),
+        "CON"
+            | "PRN"
+            | "AUX"
+            | "NUL"
+            | "CLOCK$"
+            | "COM1"
+            | "COM2"
+            | "COM3"
+            | "COM4"
+            | "COM5"
+            | "COM6"
+            | "COM7"
+            | "COM8"
+            | "COM9"
+            | "LPT1"
+            | "LPT2"
+            | "LPT3"
+            | "LPT4"
+            | "LPT5"
+            | "LPT6"
+            | "LPT7"
+            | "LPT8"
+            | "LPT9"
+    )
 }
 
 impl Ripper {
@@ -52,7 +127,8 @@ impl Ripper {
     }
 
     pub fn rip(&self, cd_info: &CdInfo) {
-        let album_dir = self.output_dir.join(&cd_info.title);
+        let album_name = sanitize_path_component(&cd_info.title, "Unknown Album");
+        let album_dir = self.output_dir.join(album_name);
         if let Err(e) = std::fs::create_dir_all(&album_dir) {
             self.sender
                 .send(RipMessage::Error(format!(
@@ -117,8 +193,9 @@ impl Ripper {
         track_name: &str,
         output_dir: &PathBuf,
     ) -> Result<(), Box<dyn Error>> {
+        let safe_track_name = sanitize_track_name(track_name, track_num);
         let wav_file = output_dir.join(format!("track{:02}.wav", track_num));
-        
+
         // Prefer library-based ripping via GStreamer cdparanoia element
         if let Err(e) = self.rip_track_via_gstreamer(track_num, &wav_file) {
             // Fallback: rip track with cdparanoia CLI, explicitly set device
@@ -145,8 +222,12 @@ impl Ripper {
                             let ok = status.success();
                             guard.take();
                             Some(ok)
-                        } else { None }
-                    } else { Some(false) }
+                        } else {
+                            None
+                        }
+                    } else {
+                        Some(false)
+                    }
                 };
                 if let Some(ok) = completed {
                     if ok {
@@ -175,15 +256,23 @@ impl Ripper {
                                         let ok2 = status2.success();
                                         guard.take();
                                         Some(ok2)
-                                    } else { None }
-                                } else { Some(false) }
+                                    } else {
+                                        None
+                                    }
+                                } else {
+                                    Some(false)
+                                }
                             };
                             if let Some(ok2) = completed2 {
                                 if ok2 {
                                     break;
                                 } else {
                                     // Try generic SCSI interface (-g) mapping sr -> sg
-                                    if let Some(sg_dev) = crate::cd_reader::CdReader::find_generic_scsi_for_block(&self.config.device) {
+                                    if let Some(sg_dev) =
+                                        crate::cd_reader::CdReader::find_generic_scsi_for_block(
+                                            &self.config.device,
+                                        )
+                                    {
                                         let child3 = Command::new("cdparanoia")
                                             .arg("-g")
                                             .arg(sg_dev)
@@ -206,17 +295,33 @@ impl Ripper {
                                                         let ok3 = status3.success();
                                                         guard.take();
                                                         Some(ok3)
-                                                    } else { None }
-                                                } else { Some(false) }
+                                                    } else {
+                                                        None
+                                                    }
+                                                } else {
+                                                    Some(false)
+                                                }
                                             };
                                             if let Some(ok3) = completed3 {
-                                                if ok3 { break; } else { return Err(format!("Failed to rip track {} (lib error: {})", track_num, e).into()); }
+                                                if ok3 {
+                                                    break;
+                                                } else {
+                                                    return Err(format!(
+                                                        "Failed to rip track {} (lib error: {})",
+                                                        track_num, e
+                                                    )
+                                                    .into());
+                                                }
                                             }
                                             std::thread::sleep(Duration::from_millis(200));
                                         }
                                         break;
                                     } else {
-                                        return Err(format!("Failed to rip track {} (lib error: {})", track_num, e).into());
+                                        return Err(format!(
+                                            "Failed to rip track {} (lib error: {})",
+                                            track_num, e
+                                        )
+                                        .into());
                                     }
                                 }
                             }
@@ -231,20 +336,10 @@ impl Ripper {
 
         // Encode based on format
         let output_file = match self.config.encoder.as_str() {
-            "flac" => self.encode_flac(&wav_file, track_name, output_dir)?,
-            "mp3" => self.encode_mp3(&wav_file, track_name, output_dir)?,
-            "ogg" => self.encode_ogg(&wav_file, track_name, output_dir)?,
-            "wav" => {
-                // Keep WAV but rename to track name for consistency
-                let dest = output_dir.join(format!("{}.wav", track_name));
-                if dest != wav_file {
-                    // Ignore error if rename fails; keep original file name
-                    let _ = std::fs::rename(&wav_file, &dest);
-                    dest
-                } else {
-                    wav_file.clone()
-                }
-            }
+            "flac" => self.encode_flac(&wav_file, &safe_track_name, output_dir)?,
+            "mp3" => self.encode_mp3(&wav_file, &safe_track_name, output_dir)?,
+            "ogg" => self.encode_ogg(&wav_file, &safe_track_name, output_dir)?,
+            "wav" => self.finalize_wav_output(&wav_file, &safe_track_name, output_dir)?,
             _ => wav_file.clone(),
         };
 
@@ -254,6 +349,29 @@ impl Ripper {
         }
 
         Ok(())
+    }
+
+    fn finalize_wav_output(
+        &self,
+        wav_file: &PathBuf,
+        track_name: &str,
+        output_dir: &PathBuf,
+    ) -> Result<PathBuf, Box<dyn Error>> {
+        let dest = output_dir.join(format!("{}.wav", track_name));
+        if dest == *wav_file {
+            return Ok(wav_file.clone());
+        }
+
+        let status = Command::new("mv")
+            .arg("-f")
+            .arg(wav_file)
+            .arg(&dest)
+            .status()?;
+        if !status.success() {
+            return Err(format!("Failed to overwrite WAV output: {}", dest.display()).into());
+        }
+
+        Ok(dest)
     }
 
     fn encode_ogg(
@@ -281,7 +399,11 @@ impl Ripper {
         Ok(output)
     }
 
-    fn rip_track_via_gstreamer(&self, track_num: usize, wav_file: &PathBuf) -> Result<(), Box<dyn Error>> {
+    fn rip_track_via_gstreamer(
+        &self,
+        track_num: usize,
+        wav_file: &PathBuf,
+    ) -> Result<(), Box<dyn Error>> {
         // Build a pipeline: cdparanoia device=<dev> track=<n> ! wavenc ! filesink location=<path>
         let pipe_str = format!(
             "cdparanoia device={} track={} ! wavenc ! filesink location={}",
@@ -291,7 +413,8 @@ impl Ripper {
         );
 
         let element = gst::parse::launch(&pipe_str)?;
-        let pipeline = element.dynamic_cast::<gst::Pipeline>()
+        let pipeline = element
+            .dynamic_cast::<gst::Pipeline>()
             .map_err(|_| "Failed to create GStreamer pipeline")?;
 
         pipeline.set_state(gst::State::Playing)?;
@@ -327,7 +450,7 @@ impl Ripper {
         output_dir: &PathBuf,
     ) -> Result<PathBuf, Box<dyn Error>> {
         let output = output_dir.join(format!("{}.flac", track_name));
-        
+
         let status = Command::new("flac")
             .arg("-8")
             .arg("-f")
@@ -350,7 +473,7 @@ impl Ripper {
         output_dir: &PathBuf,
     ) -> Result<PathBuf, Box<dyn Error>> {
         let output = output_dir.join(format!("{}.mp3", track_name));
-        
+
         let status = Command::new("lame")
             .arg("-b")
             .arg(&self.config.bitrate)
@@ -363,5 +486,25 @@ impl Ripper {
         }
 
         Ok(output)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{is_windows_reserved_name, sanitize_path_component, sanitize_track_name};
+
+    #[test]
+    fn sanitizes_invalid_filename_characters() {
+        assert_eq!(
+            sanitize_path_component("AC/DC: Live?  ", "Fallback"),
+            "AC DC Live"
+        );
+    }
+
+    #[test]
+    fn falls_back_for_empty_or_reserved_names() {
+        assert_eq!(sanitize_path_component("..", "Track 01"), "Track 01");
+        assert!(is_windows_reserved_name("con"));
+        assert_eq!(sanitize_track_name("CON", 7), "Track 07");
     }
 }
