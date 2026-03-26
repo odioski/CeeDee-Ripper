@@ -3,7 +3,7 @@ use crate::config::Config;
 use gstreamer as gst;
 use gstreamer::prelude::*;
 use std::error::Error;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::process::{Child, Command};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
@@ -70,6 +70,39 @@ fn sanitize_path_component(value: &str, fallback: &str) -> String {
 
 fn sanitize_track_name(track_name: &str, track_num: usize) -> String {
     sanitize_path_component(track_name, &format!("Track {:02}", track_num))
+}
+
+fn final_output_path(encoder: &str, track_name: &str, output_dir: &Path) -> PathBuf {
+    let extension = match encoder {
+        "flac" => "flac",
+        "mp3" => "mp3",
+        "ogg" => "ogg",
+        _ => "wav",
+    };
+
+    output_dir.join(format!("{}.{}", track_name, extension))
+}
+
+fn working_wav_path(encoder: &str, track_num: usize, track_name: &str, output_dir: &Path) -> PathBuf {
+    if encoder == "wav" {
+        final_output_path(encoder, track_name, output_dir)
+    } else {
+        output_dir.join(format!("track{:02}.wav", track_num))
+    }
+}
+
+fn quote_gstreamer_string(value: &str) -> String {
+    let mut quoted = String::with_capacity(value.len() + 2);
+    quoted.push('"');
+    for ch in value.chars() {
+        match ch {
+            '\\' => quoted.push_str("\\\\"),
+            '"' => quoted.push_str("\\\""),
+            _ => quoted.push(ch),
+        }
+    }
+    quoted.push('"');
+    quoted
 }
 
 fn is_windows_reserved_name(value: &str) -> bool {
@@ -194,7 +227,9 @@ impl Ripper {
         output_dir: &PathBuf,
     ) -> Result<(), Box<dyn Error>> {
         let safe_track_name = sanitize_track_name(track_name, track_num);
-        let wav_file = output_dir.join(format!("track{:02}.wav", track_num));
+        let final_output = final_output_path(&self.config.encoder, &safe_track_name, output_dir);
+        let wav_file =
+            working_wav_path(&self.config.encoder, track_num, &safe_track_name, output_dir);
 
         // Prefer library-based ripping via GStreamer cdparanoia element
         if let Err(e) = self.rip_track_via_gstreamer(track_num, &wav_file) {
@@ -339,7 +374,7 @@ impl Ripper {
             "flac" => self.encode_flac(&wav_file, &safe_track_name, output_dir)?,
             "mp3" => self.encode_mp3(&wav_file, &safe_track_name, output_dir)?,
             "ogg" => self.encode_ogg(&wav_file, &safe_track_name, output_dir)?,
-            "wav" => self.finalize_wav_output(&wav_file, &safe_track_name, output_dir)?,
+            "wav" => final_output,
             _ => wav_file.clone(),
         };
 
@@ -349,29 +384,6 @@ impl Ripper {
         }
 
         Ok(())
-    }
-
-    fn finalize_wav_output(
-        &self,
-        wav_file: &PathBuf,
-        track_name: &str,
-        output_dir: &PathBuf,
-    ) -> Result<PathBuf, Box<dyn Error>> {
-        let dest = output_dir.join(format!("{}.wav", track_name));
-        if dest == *wav_file {
-            return Ok(wav_file.clone());
-        }
-
-        let status = Command::new("mv")
-            .arg("-f")
-            .arg(wav_file)
-            .arg(&dest)
-            .status()?;
-        if !status.success() {
-            return Err(format!("Failed to overwrite WAV output: {}", dest.display()).into());
-        }
-
-        Ok(dest)
     }
 
     fn encode_ogg(
@@ -405,11 +417,13 @@ impl Ripper {
         wav_file: &PathBuf,
     ) -> Result<(), Box<dyn Error>> {
         // Build a pipeline: cdparanoia device=<dev> track=<n> ! wavenc ! filesink location=<path>
+        let quoted_device = quote_gstreamer_string(&self.config.device);
+        let quoted_location = quote_gstreamer_string(&wav_file.to_string_lossy());
         let pipe_str = format!(
             "cdparanoia device={} track={} ! wavenc ! filesink location={}",
-            self.config.device,
+            quoted_device,
             track_num,
-            wav_file.display()
+            quoted_location
         );
 
         let element = gst::parse::launch(&pipe_str)?;
@@ -435,7 +449,7 @@ impl Ripper {
                     }
                     _ => {}
                 },
-                None => break,
+                None => continue,
             }
         }
 
@@ -491,7 +505,11 @@ impl Ripper {
 
 #[cfg(test)]
 mod tests {
-    use super::{is_windows_reserved_name, sanitize_path_component, sanitize_track_name};
+    use super::{
+        final_output_path, is_windows_reserved_name, quote_gstreamer_string,
+        sanitize_path_component, sanitize_track_name, working_wav_path,
+    };
+    use std::path::Path;
 
     #[test]
     fn sanitizes_invalid_filename_characters() {
@@ -506,5 +524,41 @@ mod tests {
         assert_eq!(sanitize_path_component("..", "Track 01"), "Track 01");
         assert!(is_windows_reserved_name("con"));
         assert_eq!(sanitize_track_name("CON", 7), "Track 07");
+    }
+
+    #[test]
+    fn uses_final_name_as_working_wav_for_wav_output() {
+        let output_dir = Path::new("/tmp/My Album");
+
+        assert_eq!(
+            working_wav_path("wav", 3, "Song Title", output_dir),
+            output_dir.join("Song Title.wav")
+        );
+    }
+
+    #[test]
+    fn keeps_numbered_temp_wav_for_encoded_formats() {
+        let output_dir = Path::new("/tmp/My Album");
+
+        assert_eq!(
+            working_wav_path("flac", 3, "Song Title", output_dir),
+            output_dir.join("track03.wav")
+        );
+        assert_eq!(
+            final_output_path("flac", "Song Title", output_dir),
+            output_dir.join("Song Title.flac")
+        );
+    }
+
+    #[test]
+    fn quotes_gstreamer_strings_for_paths_with_spaces() {
+        assert_eq!(
+            quote_gstreamer_string("/tmp/My Album/Track 01.wav"),
+            "\"/tmp/My Album/Track 01.wav\""
+        );
+        assert_eq!(
+            quote_gstreamer_string("quote\"slash\\test"),
+            "\"quote\\\"slash\\\\test\""
+        );
     }
 }
