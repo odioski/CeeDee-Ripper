@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="160" y1="112" x2="896" y2="928" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#18344c"/>
+      <stop offset="1" stop-color="#0d2435"/>
+    </linearGradient>
+    <linearGradient id="disc" x1="294" y1="238" x2="732" y2="784" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff9ef"/>
+      <stop offset="1" stop-color="#dbd5cb"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="26" stdDeviation="28" flood-color="#09141d" flood-opacity="0.34"/>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1024" rx="232" fill="url(#bg)"/>
+  <rect x="40" y="40" width="944" height="944" rx="192" fill="none" stroke="#3cc9cf" stroke-opacity="0.18" stroke-width="10"/>
+
+  <g filter="url(#shadow)">
+    <circle cx="512" cy="512" r="292" fill="#081119" opacity="0.30"/>
+    <circle cx="512" cy="512" r="276" fill="url(#disc)"/>
+    <circle cx="512" cy="512" r="92" fill="#1c3f59"/>
+    <circle cx="512" cy="512" r="36" fill="#fff9ef"/>
+  </g>
+
+  <g fill="none" stroke="#7d8792" stroke-opacity="0.56">
+    <circle cx="512" cy="512" r="236" stroke-width="10"/>
+    <circle cx="512" cy="512" r="198" stroke-width="8"/>
+    <circle cx="512" cy="512" r="160" stroke-width="7"/>
+    <circle cx="512" cy="512" r="122" stroke-width="6"/>
+  </g>
+
+  <path d="M512 236 A276 276 0 0 1 753 376 L640 488 A116 116 0 0 0 512 396 Z" fill="#f6ad3c"/>
+  <path d="M286 652 A276 276 0 0 1 248 488 L396 492 A132 132 0 0 0 424 582 Z" fill="#fff9ef"/>
+
+  <path d="M660 330 A290 290 0 0 1 818 506" fill="none" stroke="#51e3d4" stroke-width="24" stroke-linecap="round"/>
+
+  <path
+    d="M656 344 L744 422 L694 472 L748 528 L688 596 L742 650 L664 732 L598 670 L640 620 L596 574 L640 520 L596 474 Z"
+    fill="#0d2435"
+  />
+  <path
+    d="M634 362 L706 426 L666 468 L712 522 L664 578 L706 622 L640 692"
+    fill="none"
+    stroke="#ff7a45"
+    stroke-width="26"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

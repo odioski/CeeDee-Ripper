@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="144" y1="128" x2="900" y2="896" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f7f0e5"/>
+      <stop offset="1" stop-color="#ead5b7"/>
+    </linearGradient>
+    <linearGradient id="cd" x1="280" y1="252" x2="720" y2="760" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.52" stop-color="#dde4ea"/>
+      <stop offset="1" stop-color="#bbc3cc"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="1024" rx="232" fill="url(#bg)"/>
+  <rect x="70" y="70" width="884" height="884" rx="182" fill="none" stroke="#0f2940" stroke-opacity="0.10" stroke-width="10"/>
+
+  <g fill="#12263a">
+    <rect x="122" y="184" width="104" height="82" rx="4"/>
+    <rect x="204" y="152" width="88" height="114" rx="4"/>
+    <rect x="278" y="112" width="118" height="154" rx="4"/>
+    <rect x="378" y="188" width="72" height="78" rx="4"/>
+    <rect x="438" y="164" width="94" height="102" rx="4"/>
+    <rect x="520" y="132" width="118" height="134" rx="4"/>
+    <rect x="624" y="182" width="84" height="84" rx="4"/>
+    <rect x="694" y="142" width="114" height="124" rx="4"/>
+    <rect x="794" y="168" width="88" height="98" rx="4"/>
+  </g>
+  <rect x="90" y="266" width="844" height="20" rx="10" fill="#12263a"/>
+
+  <circle cx="512" cy="592" r="286" fill="#12263a" opacity="0.12"/>
+  <circle cx="512" cy="560" r="254" fill="url(#cd)"/>
+  <circle cx="512" cy="560" r="76" fill="#18344c"/>
+  <circle cx="512" cy="560" r="26" fill="#f7f0e5"/>
+  <circle cx="512" cy="560" r="214" fill="none" stroke="#7d8792" stroke-width="8" stroke-opacity="0.40"/>
+  <circle cx="512" cy="560" r="176" fill="none" stroke="#7d8792" stroke-width="7" stroke-opacity="0.34"/>
+  <circle cx="512" cy="560" r="138" fill="none" stroke="#7d8792" stroke-width="6" stroke-opacity="0.28"/>
+
+  <path d="M512 306 A254 254 0 0 1 738 446 L626 562 A106 106 0 0 0 512 452 Z" fill="#ff8f1f"/>
+  <path d="M350 700 A254 254 0 0 1 292 534 L424 534 A112 112 0 0 0 448 620 Z" fill="#46c7be"/>
+
+  <path
+    d="M632 402 L700 464 L662 506 L706 552 L658 606 L702 650 L634 716"
+    fill="none"
+    stroke="#17324c"
+    stroke-width="34"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M632 402 L700 464 L662 506 L706 552 L658 606 L702 650 L634 716"
+    fill="none"
+    stroke="#ff8f1f"
+    stroke-width="14"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
