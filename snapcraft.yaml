@@ -1,14 +1,22 @@
 name: ceedee-ripper
 version: '1.0.0'
 title: CeeDee Ripper
-summary: Audio CD music ripper with multiple format support.
+summary: Rip audio CDs to FLAC, MP3, WAV, and Ogg Vorbis.
 description: |
-  CeeDee Ripper extracts audio from Audio CDs to multiple formats including
-  FLAC, MP3, WAV, and Vorbis.
+  CeeDee Ripper is a GTK4 and Libadwaita desktop app for extracting audio CDs.
+
+  It detects inserted discs, looks up metadata, lets you choose which tracks to
+  keep, and saves them as FLAC, MP3, WAV, or Ogg Vorbis files.
 
 base: core22
+grade: stable
 confinement: strict
 license: GPL-3.0-or-later
+icon: snap/gui/ceedee-ripper.png
+website: https://github.com/odioski/CeeDeeRipper
+source-code: https://github.com/odioski/CeeDeeRipper
+issues: https://github.com/odioski/CeeDeeRipper/issues
+contact: https://github.com/odioski/CeeDeeRipper/issues
 
 parts:
   ceedee-ripper:
@@ -20,17 +28,35 @@ parts:
       - pkg-config
       - libgtk-4-dev
       - libadwaita-1-dev
+      - libdiscid-dev
       - libgstreamer1.0-dev
       - libgstreamer-plugins-base1.0-dev
       - libdbus-1-dev
       - libclang-dev
+    stage-packages:
+      - cd-discid
+      - cdparanoia
+      - eject
+      - flac
+      - gstreamer1.0-plugins-base
+      - gstreamer1.0-plugins-good
+      - lame
+      - libdiscid0
+      - vorbis-tools
 
 apps:
   ceedee-ripper:
     command: bin/ceedee-ripper
+    extensions:
+      - gnome
     plugs:
-      - audio-record
-      - removable-media
-      - network
       - home
-      - desktop
+      - network
+      - optical-drive
+      - removable-media
+
+slots:
+  ceedee-ripper-dbus:
+    interface: dbus
+    bus: session
+    name: org.ceedeeripper.CeeDeeRipper

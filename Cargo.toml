@@ -3,6 +3,10 @@ name = "CeeDee-Ripper"
 version = "1.0.0"
 edition = "2021"
 
+[[bin]]
+name = "ceedee-ripper"
+path = "src/main.rs"
+
 [dependencies]
 gtk = { version = "0.7.3", package = "gtk4" }
 libadwaita = "0.5.0"
