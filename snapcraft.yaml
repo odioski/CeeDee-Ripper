@@ -59,4 +59,4 @@ slots:
   ceedee-ripper-dbus:
     interface: dbus
     bus: session
-    name: org.ceedeeripper.CeeDeeRipper
+    name: io.github.odioski.CeeDeeRipper
