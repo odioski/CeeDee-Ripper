@@ -15,3 +15,6 @@ CACHEDIR.TAG
 
 # Shell history files
 .bash_history
+
+# Misc.
+parts/ceedee-ripper/build

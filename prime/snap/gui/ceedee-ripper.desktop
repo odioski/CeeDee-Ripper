@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=CeeDee Ripper
+Comment=Rip audio CDs to FLAC, MP3, WAV, and Ogg Vorbis
+Exec=ceedee-ripper
+Icon=${SNAP}/meta/gui/ceedee-ripper.png
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=AudioVideo;Audio;GTK;GNOME;
