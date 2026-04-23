@@ -21,6 +21,47 @@ pub struct CdInfo {
 pub struct CdReader;
 
 impl CdReader {
+    fn fallback_device_candidates() -> Vec<String> {
+        let mut candidates = Vec::new();
+
+        // Prefer standard optical symlinks when present.
+        for path in ["/dev/cdrom", "/dev/cdrw", "/dev/dvd", "/dev/dvdrw"] {
+            if Path::new(path).exists() {
+                candidates.push(path.to_string());
+            }
+        }
+
+        // Discover all sr* block devices so we don't assume only sr0/sr1 exist.
+        if let Ok(entries) = std::fs::read_dir("/dev") {
+            let mut sr_devs: Vec<String> = entries
+                .flatten()
+                .filter_map(|entry| {
+                    let name = entry.file_name().to_string_lossy().to_string();
+                    if name.starts_with("sr") && name[2..].chars().all(|c| c.is_ascii_digit()) {
+                        Some(format!("/dev/{}", name))
+                    } else {
+                        None
+                    }
+                })
+                .collect();
+
+            // Keep ordering stable: sr0, sr1, sr2...
+            sr_devs.sort_by_key(|dev| {
+                dev.trim_start_matches("/dev/sr")
+                    .parse::<u32>()
+                    .unwrap_or(u32::MAX)
+            });
+
+            for dev in sr_devs {
+                if !candidates.contains(&dev) {
+                    candidates.push(dev);
+                }
+            }
+        }
+
+        candidates
+    }
+
     fn get_active_device_path() -> String {
         // Highest priority: environment override
         if let Ok(dev) = std::env::var("CD_DEVICE") {
@@ -35,13 +76,12 @@ impl CdReader {
             return cfg.device;
         }
 
-        // Fallback: common device paths
-        let candidates = ["/dev/cdrom", "/dev/sr0", "/dev/sr1"];
-        for device in candidates {
-            if Path::new(device).exists() {
-                return device.to_string();
-            }
+        // Fallback: discovered optical device paths.
+        for device in Self::fallback_device_candidates() {
+            return device;
         }
+
+        // Last resort default if nothing exists yet.
         "/dev/sr0".to_string()
     }
 
