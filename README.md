@@ -2,6 +2,8 @@
 
 A GTK4/Libadwaita-based audio CD ripper for Linux.
 
+[![ceedee-ripper](https://snapcraft.io/ceedee-ripper/badge.svg)](https://snapcraft.io/ceedee-ripper)
+
 # ![Screenshot_20260209_022455](https://github.com/user-attachments/assets/14ba465d-656c-4e89-84a0-5e367b922f3e)
 
 
