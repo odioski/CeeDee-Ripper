@@ -50,8 +50,6 @@ parts:
 apps:
   ceedee-ripper:
     command: bin/ceedee-ripper
-    extensions:
-      - gnome
     plugs:
       - home
       - network
