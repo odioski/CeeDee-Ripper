@@ -1,5 +1,5 @@
 .main-window-with-bg {
-    background-image: url('resource:///io/github/odioski/CeeDeeRipper/images/CeeDeeRipper.png');
+    background-image: url('resource:///org/ceedeeripper/CeeDeeRipper/images/CeeDeeRipper.png');
     background-size: fit;
     background-position: center;
     background-repeat: no-repeat;
@@ -10,3 +10,4 @@
     background-blend-mode: darken;
     background-color: rgba(60, 57, 62, 0.6); /* 20% transparency */
 }
+

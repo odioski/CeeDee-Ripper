@@ -1,62 +1,54 @@
 name: ceedee-ripper
-version: '1.0.0'
 title: CeeDee Ripper
-summary: Rip audio CDs to FLAC, MP3, WAV, and Ogg Vorbis.
+version: '1.0.0'
+summary: Audio CD music ripper.
 description: |
+
   CeeDee Ripper is a GTK4 and Libadwaita desktop app for extracting audio CDs.
 
   It detects inserted discs, looks up metadata, lets you choose which tracks to
   keep, and saves them as FLAC, MP3, WAV, or Ogg Vorbis files.
+
+  CeeDee Ripper extracts audio from Audio CD's to these formats:
+
+  -FLAC is an open, royalty-free audio codec that provides lossless compression,
+   meaning the audio is reduced in size without any loss of quality when decoded.
+
+  -MP3 is a coding format for digital audio using lossy data compression,
+   defined by the MPEG-1 and MPEG-2 standards. It reduces file size by removing audio data considered less audible to human hearing.
+
+  -WAV is a standard digital audio file format used for storing audio on Windows systems.
+   It is based on the RIFF container and typically stores uncompressed PCM audio.
+  
+  -Vorbis is a free, open, patent-free audio compression format designed for lossy encoding.
+   It is usually stored in the Ogg container and intended as an efficient alternative to proprietary formats like MP3.
 
 base: core22
 grade: stable
 confinement: strict
 license: GPL-3.0-or-later
 icon: snap/gui/ceedee-ripper.png
-website: https://github.com/odioski/CeeDeeRipper
-source-code: https://github.com/odioski/CeeDeeRipper
-issues: https://github.com/odioski/CeeDeeRipper/issues
-contact: https://github.com/odioski/CeeDeeRipper/issues
+website: https://github.com/odioski/CeeDee-Ripper
+source-code: https://github.com/odioski/CeeDee-Ripper
+issues: https://github.com/odioski/CeeDee-Ripper/issues
+contact: https://github.com/odioski/CeeDee-Ripper/issues
+donation: https://buymeacoffee.com/odioski
 
 parts:
   ceedee-ripper:
     plugin: rust
     source: .
-    rust-channel: "stable"
-    build-packages:
-      - build-essential
-      - pkg-config
-      - libgtk-4-dev
-      - libadwaita-1-dev
-      - libdiscid-dev
-      - libgstreamer1.0-dev
-      - libgstreamer-plugins-base1.0-dev
-      - libdbus-1-dev
-      - libclang-dev
-    stage-packages:
-      - cd-discid
-      - cdparanoia
-      - eject
-      - flac
-      - gstreamer1.0-plugins-base
-      - gstreamer1.0-plugins-good
-      - lame
-      - libdiscid0
-      - vorbis-tools
+    rust-channel: "none"
+
+environment:
+  CARGO_TARGET_DIR: target
 
 apps:
   ceedee-ripper:
-    command: bin/ceedee-ripper
-    extensions:
-      - gnome
+    command: bin/CeeDee-Ripper
     plugs:
-      - home
-      - network
       - optical-drive
+      - audio-playback
+      - audio-record
       - removable-media
-
-slots:
-  ceedee-ripper-dbus:
-    interface: dbus
-    bus: session
-    name: io.github.odioski.CeeDeeRipper
+      - network

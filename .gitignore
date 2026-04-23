@@ -7,6 +7,7 @@ CACHEDIR.TAG
 
 # Editor directories (optional)
 .vscode/
+.idea/
 
 # Logs and misc
 *.log

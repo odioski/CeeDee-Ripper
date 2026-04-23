@@ -16,7 +16,9 @@ glib::wrapper! {
 
 impl CeeDeeRipperWindow {
     pub fn new(app: &libadwaita::Application) -> Self {
-        glib::Object::builder().property("application", app).build()
+        glib::Object::builder()
+            .property("application", app)
+            .build()
     }
 
     fn setup_callbacks(&self) {
@@ -102,11 +104,7 @@ impl CeeDeeRipperWindow {
         // Update config from selector
         let mut cfg = Config::load();
         let meta_sel = imp.metadata_selector.selected();
-        cfg.metadata_source = match meta_sel {
-            1 => "musicbrainz".into(),
-            2 => "cddb".into(),
-            _ => "none".into(),
-        };
+        cfg.metadata_source = match meta_sel { 1 => "musicbrainz".into(), 2 => "cddb".into(), _ => "none".into() };
         let _ = cfg.save();
 
         match CdReader::detect() {
@@ -126,12 +124,9 @@ impl CeeDeeRipperWindow {
             Some("Choose Output Folder"),
             Some(self),
             gtk::FileChooserAction::SelectFolder,
-            &[
-                ("Cancel", gtk::ResponseType::Cancel),
-                ("Select", gtk::ResponseType::Accept),
-            ],
+            &[("Cancel", gtk::ResponseType::Cancel), ("Select", gtk::ResponseType::Accept)],
         );
-
+        
         let window_weak = self.downgrade();
         dialog.connect_response(move |dialog, response| {
             if response == gtk::ResponseType::Accept {
@@ -145,7 +140,7 @@ impl CeeDeeRipperWindow {
             }
             dialog.close();
         });
-
+        
         dialog.show();
     }
 
@@ -153,46 +148,7 @@ impl CeeDeeRipperWindow {
         let imp = self.imp();
         let mut state = imp.state.borrow_mut();
 
-        if let Some(mut cd_info) = state.cd_info.clone() {
-            // Collect which tracks are checked
-            let mut checked_tracks = Vec::new();
-            let mut child = imp.track_list.first_child();
-            while let Some(row_w) = child {
-                let next_row = row_w.next_sibling();
-                if let Ok(row) = row_w.downcast::<gtk::ListBoxRow>() {
-                    if let Some(hb_w) = row.child() {
-                        if let Ok(hbox) = hb_w.downcast::<gtk::Box>() {
-                            let inner = hbox.first_child();
-                            if let Some(cb_w) = inner {
-                                if let Ok(cb) = cb_w.clone().downcast::<gtk::CheckButton>() {
-                                    if cb.is_active() {
-                                        checked_tracks.push(true);
-                                    } else {
-                                        checked_tracks.push(false);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                child = next_row;
-            }
-
-            // Filter tracks to only include checked ones
-            cd_info.tracks = cd_info
-                .tracks
-                .into_iter()
-                .zip(checked_tracks.iter())
-                .filter(|(_, &is_checked)| is_checked)
-                .map(|(track, _)| track)
-                .collect();
-
-            // Check if any tracks are selected
-            if cd_info.tracks.is_empty() {
-                self.show_error("No tracks selected. Please select at least one track.");
-                return;
-            }
-
+        if let Some(cd_info) = state.cd_info.clone() {
             let mut config = Config::load();
             let selected = imp.format_selector.selected();
             config.encoder = match selected {
@@ -212,7 +168,11 @@ impl CeeDeeRipperWindow {
             let _ = config.save();
 
             let (sender, mut receiver) = tokio::sync::mpsc::unbounded_channel();
-            let ripper = std::sync::Arc::new(Ripper::new(config, state.output_dir.clone(), sender));
+            let ripper = std::sync::Arc::new(Ripper::new(
+                config,
+                state.output_dir.clone(),
+                sender,
+            ));
             state.ripper = Some(ripper.clone());
             state.is_ripping = true;
 
@@ -285,9 +245,7 @@ impl CeeDeeRipperWindow {
     fn on_eject_clicked(&self) {
         match Command::new("eject").status() {
             Ok(status) if status.success() => self.show_success("Disc ejected."),
-            Ok(_) => self.show_error(
-                "Eject command failed. Ensure 'eject' is installed and you have permission.",
-            ),
+            Ok(_) => self.show_error("Eject command failed. Ensure 'eject' is installed and you have permission."),
             Err(err) => self.show_error(&format!("Could not run 'eject': {}", err)),
         }
     }
@@ -400,12 +358,12 @@ impl CeeDeeRipperWindow {
 }
 
 mod imp {
-    use super::glib;
     use super::*;
-    use gtk::subclass::widget::TemplateChild;
-    use libadwaita::subclass::prelude::*;
-    use std::cell::RefCell; // FIX: needed for state
     use std::path::PathBuf;
+    use std::cell::RefCell; // FIX: needed for state
+    use gtk::subclass::widget::TemplateChild;
+    use super::glib;
+    use libadwaita::subclass::prelude::*;
 
     pub struct AppState {
         pub cd_info: Option<CdInfo>,
@@ -418,10 +376,8 @@ mod imp {
         fn default() -> Self {
             Self {
                 cd_info: None,
-                output_dir: PathBuf::from(
-                    std::env::var("HOME").unwrap_or_else(|_| ".".to_string()),
-                )
-                .join("Music"),
+                output_dir: PathBuf::from(std::env::var("HOME").unwrap_or_else(|_| ".".to_string()))
+                    .join("Music"),
                 is_ripping: false,
                 ripper: None,
             }
@@ -429,7 +385,7 @@ mod imp {
     }
 
     #[derive(gtk::CompositeTemplate, Default)]
-    #[template(resource = "/io/github/odioski/CeeDeeRipper/ui/window.ui")]
+    #[template(resource = "/org/ceedeeripper/CeeDeeRipper/ui/window.ui")]
     pub struct CeeDeeRipperWindow {
         #[template_child]
         pub detect_button: TemplateChild<gtk::Button>,
@@ -500,7 +456,9 @@ mod imp {
             self.cd_info.add_css_class("info-box");
             self.track_list.add_css_class("track_list");
 
-            // Provide a model for the DropDown to avoid template cascade issues
+           // Provide a model for the DropDown to avoid template cascade issues
+
+
 
             // Provide a model for the DropDown to avoid template cascade issues
             let formats = gtk::StringList::new(&["FLAC", "MP3", "WAV", "OGG"]);

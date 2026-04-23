@@ -2,11 +2,6 @@
 
 A GTK4/Libadwaita-based audio CD ripper for Linux.
 
-[![ceedee-ripper](https://snapcraft.io/ceedee-ripper/badge.svg)](https://snapcraft.io/ceedee-ripper)
-
-<img width="720" height="240" alt="cee-dee" src="https://github.com/user-attachments/assets/8b7bd2dd-d965-4d29-b30f-2a2efd11f71e" />
-
-
 ## Dependencies
 
 This app uses external system tools and libraries to detect CDs, read tracks, and encode audio. Install these before running:

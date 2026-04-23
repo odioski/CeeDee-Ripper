@@ -15,7 +15,7 @@ fn main() -> glib::ExitCode {
 
     // Create a new application
     let app = libadwaita::Application::builder()
-        .application_id("io.github.odioski.CeeDeeRipper")
+        .application_id("org.ceedeeripper.CeeDeeRipper")
         .build();
 
     // Connect to "startup" signal to perform one-time initialization
@@ -28,7 +28,7 @@ fn main() -> glib::ExitCode {
 
         // Load CSS
         let provider = gtk::CssProvider::new();
-        provider.load_from_resource("/io/github/odioski/CeeDeeRipper/style.css");
+        provider.load_from_resource("/org/ceedeeripper/CeeDeeRipper/style.css");
         gtk::style_context_add_provider_for_display(
             &gtk::gdk::Display::default().expect("Could not connect to a display."),
             &provider,
