@@ -8,6 +8,8 @@ description: |
   It detects inserted discs, looks up metadata, lets you choose which tracks to
   keep, and saves them as FLAC, MP3, WAV, or Ogg Vorbis files.
 
+  You can buy me a cup of coffee if you'd like.
+
 base: core22
 grade: stable
 confinement: strict
@@ -17,6 +19,7 @@ website: https://github.com/odioski/CeeDeeRipper
 source-code: https://github.com/odioski/CeeDeeRipper
 issues: https://github.com/odioski/CeeDeeRipper/issues
 contact: https://github.com/odioski/CeeDeeRipper/issues
+donation: https://buymeacoffee.com/odioski
 
 parts:
   ceedee-ripper:
