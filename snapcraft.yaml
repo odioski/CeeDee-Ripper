@@ -9,6 +9,7 @@ description: |
   It detects inserted discs, looks up metadata, lets you choose which tracks to
   keep, and saves them as FLAC, MP3, WAV, or Ogg Vorbis files.
 
+<<<<<<< HEAD
   CeeDee Ripper extracts audio from Audio CD's to these formats:
 
   -FLAC is an open, royalty-free audio codec that provides lossless compression,
@@ -22,22 +23,33 @@ description: |
   
   -Vorbis is a free, open, patent-free audio compression format designed for lossy encoding.
    It is usually stored in the Ogg container and intended as an efficient alternative to proprietary formats like MP3.
+=======
+  You can buy me a cup of coffee if you'd like.
+>>>>>>> 53ecea1d969186bac23a01991893602211473499
 
 base: core22
 grade: stable
 confinement: strict
 license: GPL-3.0-or-later
 icon: snap/gui/ceedee-ripper.png
+<<<<<<< HEAD
 website: https://github.com/odioski/CeeDee-Ripper
 source-code: https://github.com/odioski/CeeDee-Ripper
 issues: https://github.com/odioski/CeeDee-Ripper/issues
 contact: https://github.com/odioski/CeeDee-Ripper/issues
+=======
+website: https://github.com/odioski/CeeDeeRipper
+source-code: https://github.com/odioski/CeeDeeRipper
+issues: https://github.com/odioski/CeeDeeRipper/issues
+contact: https://github.com/odioski/CeeDeeRipper/issues
+>>>>>>> 53ecea1d969186bac23a01991893602211473499
 donation: https://buymeacoffee.com/odioski
 
 parts:
   ceedee-ripper:
     plugin: rust
     source: .
+<<<<<<< HEAD
     rust-channel: "none"
 
 environment:
@@ -46,6 +58,34 @@ environment:
 apps:
   ceedee-ripper:
     command: bin/CeeDee-Ripper
+=======
+    rust-channel: "stable"
+    build-packages:
+      - build-essential
+      - pkg-config
+      - libgtk-4-dev
+      - libadwaita-1-0
+      - libadwaita-1-dev
+      - libdiscid-dev
+      - libgstreamer1.0-dev
+      - libgstreamer-plugins-base1.0-dev
+      - libdbus-1-dev
+      - libclang-dev
+    stage-packages:
+      - cd-discid
+      - cdparanoia
+      - eject
+      - flac
+      - gstreamer1.0-plugins-base
+      - gstreamer1.0-plugins-good
+      - lame
+      - libdiscid0
+      - vorbis-tools
+
+apps:
+  ceedee-ripper:
+    command: bin/ceedee-ripper
+>>>>>>> 53ecea1d969186bac23a01991893602211473499
     plugs:
       - optical-drive
       - audio-playback

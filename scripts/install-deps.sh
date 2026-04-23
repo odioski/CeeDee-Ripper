@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PKGS=(cdparanoia cd-discid flac lame vorbis-tools)
+PKGS=(cdparanoia cd-discid eject flac lame vorbis-tools)
 # Build deps for GUI and disc detection via libdiscid
+<<<<<<< HEAD
 DEV_PKGS_DEB=(libgtk-4-dev libadwaita-1-dev libdiscid-dev)
 DEV_PKGS_ARCH=(gtk4 libadwaita libdiscid)
 DEV_PKGS_DNF=(gtk4-devel libadwaita-devel libdiscid-devel)
+=======
+DEV_PKGS_DEB=(build-essential pkg-config libgtk-4-dev libadwaita-1-dev libdiscid-dev libgstreamer1.0-dev libglib2.0-dev libdbus-1-dev libclang-dev)
+DEV_PKGS_ARCH=(base-devel pkgconf gtk4 libadwaita libdiscid gstreamer glib2 dbus clang)
+DEV_PKGS_DNF=(gcc make pkgconf-pkg-config gtk4-devel libadwaita-devel libdiscid-devel gstreamer1-devel glib2-devel dbus-devel clang-devel)
+>>>>>>> 53ecea1d969186bac23a01991893602211473499
 
 # GStreamer plugins needed for cdparanoia element and WAV encoding
 GST_PKGS_DEB=(gstreamer1.0-plugins-base gstreamer1.0-plugins-good)
