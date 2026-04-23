@@ -30,6 +30,7 @@ parts:
       - build-essential
       - pkg-config
       - libgtk-4-dev
+      - libadwaita-1-0
       - libadwaita-1-dev
       - libdiscid-dev
       - libgstreamer1.0-dev
