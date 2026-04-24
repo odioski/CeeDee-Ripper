@@ -28,7 +28,7 @@ architectures:
 base: core22
 apps:
   ceedee-ripper:
-    command: bin/CeeDee-Ripper
+    command: stage/bin/CeeDee-Ripper
     plugs:
     - optical-drive
     - audio-playback

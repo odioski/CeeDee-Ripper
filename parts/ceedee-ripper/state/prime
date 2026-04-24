@@ -1,8 +1,7 @@
 dependency_paths: !!set {}
-directories: !!set
-  bin: null
+directories: !!set {}
 files: !!set
-  bin/CeeDee-Ripper: null
+  CeeDee-Ripper: null
 part_properties:
   after: null
   build-attributes: []

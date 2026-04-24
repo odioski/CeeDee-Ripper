@@ -4,8 +4,10 @@ assets:
   stage-snaps: null
 directories: !!set {}
 files: !!set {}
-outdated_dirs: []
+outdated_dirs:
+- target
 outdated_files:
+- .bash_history
 - snapcraft.yaml
 part_properties:
   after: null

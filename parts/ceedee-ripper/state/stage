@@ -1,9 +1,8 @@
 backstage_directories: !!set {}
 backstage_files: !!set {}
-directories: !!set
-  bin: null
+directories: !!set {}
 files: !!set
-  bin/CeeDee-Ripper: null
+  CeeDee-Ripper: null
 overlay_hash: 6554e32fa718d54160d0511b36f81458e4cb2357
 part_properties:
   after: null
