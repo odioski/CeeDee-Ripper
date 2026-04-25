@@ -17,4 +17,5 @@ CACHEDIR.TAG
 .bash_history
 
 # Misc.
-parts/ceedee-ripper/build
+parts/
+prime/
