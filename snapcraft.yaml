@@ -39,13 +39,14 @@ parts:
     plugin: rust
     source: .
     rust-channel: stable
+    build-environment:
+      - CARGO_TARGET_DIR: target
 
 apps:  
   ceedee-ripper:
-    command: target/debug/CeeDee-Ripper
+    command: bin/CeeDee-Ripper
     plugs:
       - removable-media
       - network
       - home
 
-      

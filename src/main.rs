@@ -3,7 +3,7 @@ mod config;
 mod ripper;
 mod window;
 
-use gtk::{gio, glib, prelude::*};
+use gtk4::{gio, glib, prelude::*};
 use window::CeeDeeRipperWindow;
 
 fn main() -> glib::ExitCode {
@@ -27,12 +27,12 @@ fn main() -> glib::ExitCode {
         gio::resources_register(&resource);
 
         // Load CSS
-        let provider = gtk::CssProvider::new();
+        let provider = gtk4::CssProvider::new();
         provider.load_from_resource("/org/ceedeeripper/CeeDeeRipper/style.css");
-        gtk::style_context_add_provider_for_display(
-            &gtk::gdk::Display::default().expect("Could not connect to a display."),
+        gtk4::style_context_add_provider_for_display(
+            &gtk4::gdk::Display::default().expect("Could not connect to a display."),
             &provider,
-            gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
+            gtk4::STYLE_PROVIDER_PRIORITY_APPLICATION,
         );
     });
 

@@ -1,17 +1,17 @@
 use crate::cd_reader::{CdInfo, CdReader};
 use crate::config::Config;
 use crate::ripper::{RipMessage, Ripper};
-use gtk::prelude::*;
-use gtk::subclass::prelude::*;
-use gtk::{gio, glib};
+use gtk4::prelude::*;
+use gtk4::subclass::prelude::*;
+use gtk4::{gio, glib};
 use std::process::Command;
 use std::thread;
 
 glib::wrapper! {
     pub struct CeeDeeRipperWindow(ObjectSubclass<imp::CeeDeeRipperWindow>)
-        @extends libadwaita::ApplicationWindow, gtk::ApplicationWindow, gtk::Window, gtk::Widget,
-        @implements gio::ActionGroup, gio::ActionMap, gtk::Accessible, gtk::Buildable,
-                    gtk::ConstraintTarget, gtk::Native, gtk::Root, gtk::ShortcutManager;
+        @extends libadwaita::ApplicationWindow, gtk4::ApplicationWindow, gtk4::Window, gtk4::Widget,
+        @implements gio::ActionGroup, gio::ActionMap, gtk4::Accessible, gtk4::Buildable,
+                    gtk4::ConstraintTarget, gtk4::Native, gtk4::Root, gtk4::ShortcutManager;
 }
 
 impl CeeDeeRipperWindow {
@@ -122,19 +122,19 @@ impl CeeDeeRipperWindow {
     }
 
     fn on_choose_folder_clicked(&self) {
-        let dialog = gtk::FileChooserDialog::new(
+        let dialog = gtk4::FileChooserDialog::new(
             Some("Choose Output Folder"),
             Some(self),
-            gtk::FileChooserAction::SelectFolder,
+            gtk4::FileChooserAction::SelectFolder,
             &[
-                ("Cancel", gtk::ResponseType::Cancel),
-                ("Select", gtk::ResponseType::Accept),
+                ("Cancel", gtk4::ResponseType::Cancel),
+                ("Select", gtk4::ResponseType::Accept),
             ],
         );
 
         let window_weak = self.downgrade();
         dialog.connect_response(move |dialog, response| {
-            if response == gtk::ResponseType::Accept {
+            if response == gtk4::ResponseType::Accept {
                 if let Some(window) = window_weak.upgrade() {
                     if let Some(file) = dialog.file() {
                         if let Some(path) = file.path() {
@@ -159,12 +159,12 @@ impl CeeDeeRipperWindow {
             let mut child = imp.track_list.first_child();
             while let Some(row_w) = child {
                 let next_row = row_w.next_sibling();
-                if let Ok(row) = row_w.downcast::<gtk::ListBoxRow>() {
+                if let Ok(row) = row_w.downcast::<gtk4::ListBoxRow>() {
                     if let Some(hb_w) = row.child() {
-                        if let Ok(hbox) = hb_w.downcast::<gtk::Box>() {
+                        if let Ok(hbox) = hb_w.downcast::<gtk4::Box>() {
                             let inner = hbox.first_child();
                             if let Some(cb_w) = inner {
-                                if let Ok(cb) = cb_w.clone().downcast::<gtk::CheckButton>() {
+                                if let Ok(cb) = cb_w.clone().downcast::<gtk4::CheckButton>() {
                                     if cb.is_active() {
                                         checked_tracks.push(true);
                                     } else {
@@ -263,13 +263,13 @@ impl CeeDeeRipperWindow {
         let mut child = imp.track_list.first_child();
         while let Some(row_w) = child {
             let next_row = row_w.next_sibling();
-            if let Ok(row) = row_w.downcast::<gtk::ListBoxRow>() {
+            if let Ok(row) = row_w.downcast::<gtk4::ListBoxRow>() {
                 if let Some(hb_w) = row.child() {
-                    if let Ok(hbox) = hb_w.downcast::<gtk::Box>() {
+                    if let Ok(hbox) = hb_w.downcast::<gtk4::Box>() {
                         let mut inner = hbox.first_child();
                         while let Some(w) = inner {
                             let next = w.next_sibling();
-                            if let Ok(cb) = w.clone().downcast::<gtk::CheckButton>() {
+                            if let Ok(cb) = w.clone().downcast::<gtk4::CheckButton>() {
                                 cb.set_active(false);
                             }
                             inner = next;
@@ -329,20 +329,20 @@ impl CeeDeeRipperWindow {
         }
     }
 
-    fn create_track_row(&self, track_num: usize, track_name: &str) -> gtk::ListBoxRow {
-        let row = gtk::ListBoxRow::new();
-        let hbox = gtk::Box::new(gtk::Orientation::Horizontal, 12);
+    fn create_track_row(&self, track_num: usize, track_name: &str) -> gtk4::ListBoxRow {
+        let row = gtk4::ListBoxRow::new();
+        let hbox = gtk4::Box::new(gtk4::Orientation::Horizontal, 12);
         hbox.set_margin_top(6);
         hbox.set_margin_bottom(6);
         hbox.set_margin_start(12);
         hbox.set_margin_end(12);
 
-        let check = gtk::CheckButton::new();
+        let check = gtk4::CheckButton::new();
         check.set_active(true);
         hbox.append(&check);
 
-        let label = gtk::Label::new(Some(&format!("{}. {}", track_num, track_name)));
-        label.set_halign(gtk::Align::Start);
+        let label = gtk4::Label::new(Some(&format!("{}. {}", track_num, track_name)));
+        label.set_halign(gtk4::Align::Start);
         label.set_hexpand(true);
         hbox.append(&label);
 
@@ -351,11 +351,11 @@ impl CeeDeeRipperWindow {
     }
 
     fn show_error(&self, message: &str) {
-        let dialog = gtk::MessageDialog::new(
+        let dialog = gtk4::MessageDialog::new(
             Some(self),
-            gtk::DialogFlags::MODAL,
-            gtk::MessageType::Error,
-            gtk::ButtonsType::Ok,
+            gtk4::DialogFlags::MODAL,
+            gtk4::MessageType::Error,
+            gtk4::ButtonsType::Ok,
             "Error",
         );
         dialog.set_secondary_text(Some(message));
@@ -365,11 +365,11 @@ impl CeeDeeRipperWindow {
     }
 
     fn show_success(&self, message: &str) {
-        let dialog = gtk::MessageDialog::new(
+        let dialog = gtk4::MessageDialog::new(
             Some(self),
-            gtk::DialogFlags::MODAL,
-            gtk::MessageType::Info,
-            gtk::ButtonsType::Ok,
+            gtk4::DialogFlags::MODAL,
+            gtk4::MessageType::Info,
+            gtk4::ButtonsType::Ok,
             "Success",
         );
         dialog.set_secondary_text(Some(message));
@@ -402,7 +402,7 @@ impl CeeDeeRipperWindow {
 mod imp {
     use super::glib;
     use super::*;
-    use gtk::subclass::widget::TemplateChild;
+    use gtk4::subclass::widget::TemplateChild;
     use libadwaita::subclass::prelude::*;
     use std::cell::RefCell; // FIX: needed for state
     use std::path::PathBuf;
@@ -428,39 +428,39 @@ mod imp {
         }
     }
 
-    #[derive(gtk::CompositeTemplate, Default)]
+    #[derive(gtk4::CompositeTemplate, Default)]
     #[template(resource = "/org/ceedeeripper/CeeDeeRipper/ui/window.ui")]
     pub struct CeeDeeRipperWindow {
         #[template_child]
-        pub detect_button: TemplateChild<gtk::Button>,
+        pub detect_button: TemplateChild<gtk4::Button>,
         #[template_child]
-        pub rip_button: TemplateChild<gtk::Button>,
+        pub rip_button: TemplateChild<gtk4::Button>,
         #[template_child]
-        pub eject_button: TemplateChild<gtk::Button>,
+        pub eject_button: TemplateChild<gtk4::Button>,
         #[template_child]
-        pub format_selector: TemplateChild<gtk::DropDown>,
+        pub format_selector: TemplateChild<gtk4::DropDown>,
         #[template_child]
-        pub metadata_selector: TemplateChild<gtk::DropDown>,
+        pub metadata_selector: TemplateChild<gtk4::DropDown>,
         #[template_child]
-        pub metadata_button: TemplateChild<gtk::Button>,
+        pub metadata_button: TemplateChild<gtk4::Button>,
         #[template_child]
-        pub choose_folder_button: TemplateChild<gtk::Button>,
+        pub choose_folder_button: TemplateChild<gtk4::Button>,
         #[template_child]
-        pub track_list: TemplateChild<gtk::ListBox>,
+        pub track_list: TemplateChild<gtk4::ListBox>,
         #[template_child]
-        pub cd_info: TemplateChild<gtk::Box>,
+        pub cd_info: TemplateChild<gtk4::Box>,
         #[template_child]
-        pub cd_title: TemplateChild<gtk::Label>,
+        pub cd_title: TemplateChild<gtk4::Label>,
         #[template_child]
-        pub cd_artist: TemplateChild<gtk::Label>,
+        pub cd_artist: TemplateChild<gtk4::Label>,
         #[template_child]
         pub status_page: TemplateChild<libadwaita::StatusPage>,
         #[template_child]
-        pub progress_box: TemplateChild<gtk::Box>,
+        pub progress_box: TemplateChild<gtk4::Box>,
         #[template_child]
-        pub progress_bar: TemplateChild<gtk::ProgressBar>,
+        pub progress_bar: TemplateChild<gtk4::ProgressBar>,
         #[template_child]
-        pub progress_label: TemplateChild<gtk::Label>,
+        pub progress_label: TemplateChild<gtk4::Label>,
 
         pub state: RefCell<AppState>,
     }
@@ -503,7 +503,7 @@ mod imp {
             // Provide a model for the DropDown to avoid template cascade issues
 
             // Provide a model for the DropDown to avoid template cascade issues
-            let formats = gtk::StringList::new(&["FLAC", "MP3", "WAV", "OGG"]);
+            let formats = gtk4::StringList::new(&["FLAC", "MP3", "WAV", "OGG"]);
             self.format_selector.set_model(Some(&formats));
             self.format_selector.set_selected(0);
 
