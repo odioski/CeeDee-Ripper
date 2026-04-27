@@ -27,28 +27,25 @@ base: core22
 grade: stable
 confinement: strict
 license: GPL-3.0-or-later
-icon: snap/gui/ceedee-ripper.png
+icon: resources/images/ceedee-ripper.png
 website: https://github.com/odioski/CeeDee-Ripper
 source-code: https://github.com/odioski/CeeDee-Ripper
 issues: https://github.com/odioski/CeeDee-Ripper/issues
 contact: https://github.com/odioski/CeeDee-Ripper/issues
 donation: https://buymeacoffee.com/odioski
 
-parts:
+parts: 
   ceedee-ripper:
     plugin: rust
     source: .
-    rust-channel: "none"
+    rust-channel: stable
 
-environment:
-  CARGO_TARGET_DIR: target
-
-apps:
+apps:  
   ceedee-ripper:
-    command: bin/CeeDee-Ripper
+    command: target/debug/CeeDee-Ripper
     plugs:
-      - optical-drive
-      - audio-playback
-      - audio-record
       - removable-media
       - network
+      - home
+
+      

@@ -43,7 +43,7 @@ impl Config {
 
     pub fn save(&self) -> std::io::Result<()> {
         let config_path = Self::config_path();
-        
+
         if let Some(parent) = config_path.parent() {
             fs::create_dir_all(parent)?;
         }
