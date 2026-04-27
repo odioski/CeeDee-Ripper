@@ -61,3 +61,36 @@ Command Prompt (cmd):
 
     REM Target the D: drive
     set CD_DEVICE=D:
+
+## Snap Build and Release (Linux)
+
+Use these commands from the project root to build and publish a snap package.
+
+Prerequisites (Ubuntu/Debian):
+
+    sudo apt update
+    sudo apt install -y snapd snapcraft
+    sudo snap install core
+
+Build the snap:
+
+    snapcraft clean
+    snapcraft
+
+Local install test (without publishing):
+
+    sudo snap install --dangerous ./*.snap
+
+Remove local test install:
+
+    sudo snap remove ceedee-ripper
+
+Upload and release to Snap Store:
+
+    snapcraft login
+    snapcraft upload --release=stable ./*.snap
+
+Notes:
+
+- Snapcraft builds release artifacts for publishing; debug builds are only for local development.
+- Bump the `version` field in `snapcraft.yaml` before uploading a new release.
