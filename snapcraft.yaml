@@ -50,6 +50,7 @@ parts:
       - libgstreamer-plugins-base1.0-dev
       - libdiscid-dev
     stage-packages:
+      - libglib2.0-devhis
       - libadwaita-1-0
       - libgstreamer1.0-0
       - libgtk-4-1
@@ -93,20 +94,26 @@ parts:
       - -usr/lib/*/libsamplerate.so*
     build-environment:
       - CARGO_TARGET_DIR: target
-    override-build: |
-      set -eux
-      cargo build --release
-      install -Dm755 target/release/CeeDee-Ripper "$CRAFT_PART_INSTALL/bin/CeeDee-Ripper"
-      install -Dm644 resources/images/ceedee-ripper.png \
-        "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png"
-      install -Dm644 resources/ceedee-ripper.desktop \
-        "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
+
+    # Uncomment the following if you want Snapcraft to finish the installation.
+    # Use: snapcraft clean && snapcraft --destructive-mode.
+    #
+    # Obviously, this would be pointless on a headless server.
+    # 
+    # override-build: |
+    #   set -eux
+    #   cargo build --release
+    #   install -Dm755 target/release/CeeDee-Ripper "$CRAFT_PART_INSTALL/bin/CeeDee-Ripper"
+    #   install -Dm644 resources/images/ceedee-ripper.png \
+    #     "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png"
+    #   install -Dm644 resources/ceedee-ripper.desktop \
+    #     "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
 
 apps:  
   ceedee-ripper:
     command: bin/CeeDee-Ripper
-    slots:
-      - snap.ceedee-ripper.CeeDee-Ripper
+#   slots:
+#     - snap.ceedee-ripper.CeeDee-Ripper
     plugs:
       - desktop
       - desktop-legacy
@@ -117,9 +124,9 @@ apps:
       - network
       - home
 
-slots:
-  snap.ceedee-ripper.CeeDee-Ripper:
-    interface: dbus
-    bus: session
-    name: snap.ceedee-ripper.CeeDee-Ripper
+# slots:
+#   snap.ceedee-ripper.CeeDee-Ripper:
+#     interface: dbus
+#     bus: session
+#     name: snap.ceedee-ripper.CeeDee-Ripper
 
