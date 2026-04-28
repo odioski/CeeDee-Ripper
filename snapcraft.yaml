@@ -39,14 +39,79 @@ parts:
     plugin: rust
     source: .
     rust-channel: stable
+    build-packages:
+      - pkg-config
+      - clang
+      - libclang-dev
+      - libglib2.0-dev
+      - libgtk-4-dev
+      - libadwaita-1-dev
+      - libgstreamer1.0-dev
+      - libgstreamer-plugins-base1.0-dev
+      - libdiscid-dev
+    stage-packages:
+      - libadwaita-1-0
+      - libgstreamer1.0-0
+      - libgtk-4-1
+      - libdiscid0
+      - cdparanoia
+      - cd-discid
+      - flac
+      - lame
+      - vorbis-tools
+      - gstreamer1.0-plugins-base
+      - gstreamer1.0-plugins-good
+    prime:
+      - -usr/lib/*/ao/plugins-4/libalsa.so
+      - -usr/lib/*/ao/plugins-4/libnas.so
+      - -usr/lib/*/ao/plugins-4/libsndio.so
+      - -usr/lib/*/caca/libgl_plugin.so*
+      - -usr/lib/*/libcaca++.so*
+      - -usr/lib/*/libcolordprivate.so*
+      - -usr/lib/*/libdconf.so*
+      - -usr/lib/*/libgstcheck-1.0.so*
+      - -usr/lib/*/libgstcontroller-1.0.so*
+      - -usr/lib/*/libicuio.so*
+      - -usr/lib/*/libicutest.so*
+      - -usr/lib/*/libjacknet.so*
+      - -usr/lib/*/libjackserver.so*
+      - -usr/lib/*/liborc-test-0.4.so*
+      - -usr/lib/*/libsoup-2.4.so*
+      - -usr/lib/*/libunwind-coredump.so*
+      - -usr/lib/*/libunwind-ptrace.so*
+      - -usr/lib/*/libunwind-x86_64.so*
+      - -usr/lib/*/libicutu.so*
+      - -usr/lib/*/libicui18n.so*
+      - -usr/lib/*/libsamplerate.so*
     build-environment:
       - CARGO_TARGET_DIR: target
+    override-build: |
+      set -eux
+      cargo build --release
+      install -Dm755 target/release/CeeDee-Ripper "$CRAFT_PART_INSTALL/bin/CeeDee-Ripper"
+      install -Dm644 resources/images/ceedee-ripper.png \
+        "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png"
+      install -Dm644 resources/ceedee-ripper.desktop \
+        "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
 
 apps:  
   ceedee-ripper:
     command: bin/CeeDee-Ripper
+    slots:
+      - snap.ceedee-ripper.CeeDee-Ripper
     plugs:
+      - desktop
+      - desktop-legacy
+      - wayland
+      - x11
+      - opengl
       - removable-media
       - network
       - home
+
+slots:
+  snap.ceedee-ripper.CeeDee-Ripper:
+    interface: dbus
+    bus: session
+    name: snap.ceedee-ripper.CeeDee-Ripper
 

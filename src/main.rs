@@ -15,7 +15,7 @@ fn main() -> glib::ExitCode {
 
     // Create a new application
     let app = libadwaita::Application::builder()
-        .application_id("snap.ceedee-ripper.CeeDeeRipper")
+        .application_id("snap.ceedee-ripper.CeeDee-Ripper")
         .build();
 
     // Connect to "startup" signal to perform one-time initialization
@@ -28,7 +28,7 @@ fn main() -> glib::ExitCode {
 
         // Load CSS
         let provider = gtk4::CssProvider::new();
-        provider.load_from_resource("/org/ceedeeripper/CeeDeeRipper/style.css");
+        provider.load_from_resource("/org/ceedeeripper/CeeDee-Ripper/style.css");
         gtk4::style_context_add_provider_for_display(
             &gtk4::gdk::Display::default().expect("Could not connect to a display."),
             &provider,

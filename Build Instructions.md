@@ -43,7 +43,7 @@ Build
 
 # Device Target Designation (Runtime)
 
-These commands tell CeeDeeRipper which physical drive to use if the default detection fails.
+These commands tell CeeDee-Ripper which physical drive to use if the default detection fails.
 
 Linux System
 Using the export command in your shell (Bash/Zsh).

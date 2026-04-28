@@ -429,7 +429,7 @@ mod imp {
     }
 
     #[derive(gtk4::CompositeTemplate, Default)]
-    #[template(resource = "/org/ceedeeripper/CeeDeeRipper/ui/window.ui")]
+    #[template(resource = "/org/ceedeeripper/CeeDee-Ripper/ui/window.ui")]
     pub struct CeeDeeRipperWindow {
         #[template_child]
         pub detect_button: TemplateChild<gtk4::Button>,

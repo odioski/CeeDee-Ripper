@@ -14,3 +14,6 @@ CACHEDIR.TAG
 
 # Shell history files
 .bash_history
+
+# Misc.
+*.snap

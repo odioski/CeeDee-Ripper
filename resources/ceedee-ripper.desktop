@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=CeeDee Ripper
+Comment=Audio CD music ripper
+Exec=ceedee-ripper
+Icon=ceedee-ripper
+Categories=AudioVideo;Audio;Utility;
+Terminal=false
+StartupNotify=true
+StartupWMClass=CeeDee-Ripper
