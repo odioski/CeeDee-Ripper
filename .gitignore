@@ -20,4 +20,7 @@ CACHEDIR.TAG
 .bash_history
 
 # Misc.
+~/.cache/*
+~/.android/*
+.cache/*
 *.snap
