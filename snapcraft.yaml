@@ -23,7 +23,8 @@ description: |
   -Vorbis is a free, open, patent-free audio compression format designed for lossy encoding.
    It is usually stored in the Ogg container and intended as an efficient alternative to proprietary formats like MP3.
 
-base: core22
+# core24 (Ubuntu 24.04) ships glibc 2.39, which includes GLIBC_2.38 and GLIBC_2.39.
+base: core24
 grade: stable
 confinement: strict
 license: GPL-3.0-or-later
@@ -49,6 +50,8 @@ parts:
       - libgstreamer1.0-dev
       - libgstreamer-plugins-base1.0-dev
       - libdiscid-dev
+      - libmount-dev
+
     stage-packages:
       - libc6
       - libpcre2-16-0
@@ -58,13 +61,14 @@ parts:
       - libgstreamer1.0-0
       - libgtk-4-1
       - libdiscid0
+      - libmount1
       - cdparanoia
       - cd-discid
       - flac
       - lame
       - vorbis-tools
-      - gstreamer1.0-plugins-base
-      - gstreamer1.0-plugins-good
+      - gstreamer-1.0
+      
     prime:
       - -usr/lib/*/ao/plugins-4/libalsa.so
       - -usr/lib/*/ao/plugins-4/libnas.so
@@ -95,6 +99,10 @@ parts:
       - -usr/lib/*/libicutu.so*
       - -usr/lib/*/libicui18n.so*
       - -usr/lib/*/libsamplerate.so*
+      - -usr/lib/*/libc.so*
+      - -usr/lib/*/libgstpulseaudio.so*
+      - -usr/lib/*/libpulsecommon-16.1.so*
+
     build-environment:
       - CARGO_TARGET_DIR: target
 
@@ -115,8 +123,6 @@ parts:
 apps:  
   ceedee-ripper:
     command: bin/CeeDee-Ripper
-#   slots:
-#     - snap.ceedee-ripper.CeeDee-Ripper
     plugs:
       - desktop
       - desktop-legacy
@@ -125,7 +131,6 @@ apps:
       - opengl
       - removable-media
       - network
-      - home
 
 # slots:
 #   snap.ceedee-ripper.CeeDee-Ripper:
