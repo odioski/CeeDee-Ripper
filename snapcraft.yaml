@@ -50,7 +50,10 @@ parts:
       - libgstreamer-plugins-base1.0-dev
       - libdiscid-dev
     stage-packages:
-      - libglib2.0-devhis
+      - libc6
+      - libpcre2-16-0
+      - libpcre2-32-0
+      - libpcre2-posix2
       - libadwaita-1-0
       - libgstreamer1.0-0
       - libgtk-4-1
