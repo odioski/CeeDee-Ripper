@@ -1,6 +1,6 @@
 .main-window-with-bg {
     background-image: url('resource:///org/ceedeeripper/CeeDee-Ripper/images/CeeDee-Ripper.png');
-    background-size: fit;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
