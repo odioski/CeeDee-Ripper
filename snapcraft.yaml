@@ -62,12 +62,6 @@ parts:
       - libgtk-4-1
       - libdiscid0
       - libmount1
-      - cdparanoia
-      - cd-discid
-      - flac
-      - lame
-      - vorbis-tools
-      - gstreamer-1.0
       
     prime:
       - -usr/lib/*/ao/plugins-4/libalsa.so
@@ -132,9 +126,9 @@ apps:
       - removable-media
       - network
 
-# slots:
-#   snap.ceedee-ripper.CeeDee-Ripper:
-#     interface: dbus
-#     bus: session
-#     name: snap.ceedee-ripper.CeeDee-Ripper
+slots:
+  snap.ceedee-ripper.CeeDee-Ripper:
+    interface: dbus
+    bus: session
+    name: snap.ceedee-ripper.CeeDee-Ripper
 

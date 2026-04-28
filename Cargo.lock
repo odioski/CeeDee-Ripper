@@ -3,29 +3,6 @@
 version = 4
 
 [[package]]
-name = "CeeDee-Ripper"
-version = "1.0.0"
-dependencies = [
- "dirs",
- "discid",
- "gio 0.18.4",
- "glib 0.22.6",
- "glib-2-0-sys",
- "glib-build-tools",
- "gstreamer",
- "gstreamer-audio",
- "gtk4",
- "libadwaita",
- "libadwaita-sys",
- "libc",
- "serde",
- "serde_json",
- "tokio",
- "toml 0.8.2",
- "ureq",
-]
-
-[[package]]
 name = "adler2"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -129,6 +106,29 @@ checksum = "d16d90359e986641506914ba71350897565610e87ce0ad9e6f28569db3dd5c6d"
 dependencies = [
  "find-msvc-tools",
  "shlex",
+]
+
+[[package]]
+name = "ceedee-ripper"
+version = "1.0.0"
+dependencies = [
+ "dirs",
+ "discid",
+ "gio 0.18.4",
+ "glib 0.22.6",
+ "glib-2-0-sys",
+ "glib-build-tools",
+ "gstreamer",
+ "gstreamer-audio",
+ "gtk4",
+ "libadwaita",
+ "libadwaita-sys",
+ "libc",
+ "serde",
+ "serde_json",
+ "tokio",
+ "toml 0.8.2",
+ "ureq",
 ]
 
 [[package]]
@@ -1496,9 +1496,9 @@ dependencies = [
 
 [[package]]
 name = "rustls"
-version = "0.23.39"
+version = "0.23.40"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7c2c118cb077cca2822033836dfb1b975355dfb784b5e8da48f7b6c5db74e60e"
+checksum = "ef86cd5876211988985292b91c96a8f2d298df24e75989a43a3c73f2d4d8168b"
 dependencies = [
  "log",
  "once_cell",

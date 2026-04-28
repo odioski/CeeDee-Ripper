@@ -93,6 +93,60 @@ cd-discid /dev/sr0
 gst-launch-1.0 cdparanoia device=/dev/sr0 track=1 ! wavenc ! filesink location=track01.wav
 ```
 
+## Installation
+
+### Snap
+
+```bash
+# Build the snap
+snapcraft
+
+# Install from the built snap package
+snap install --dangerous ./ceedee-ripper_*.snap
+```
+
+### From Source (Cargo)
+
+First, ensure you've installed the dependencies (see [Dependencies](#dependencies) above).
+
+```bash
+# Build
+cargo build --release
+
+# Run directly
+cargo run --release
+
+# Or install to ~/.cargo/bin
+cargo install --path .
+ceedee-ripper
+```
+
+### System-Wide Installation
+
+After building with `cargo build --release`, install to `/usr/local/bin`:
+
+```bash
+# Build first
+cargo build --release
+
+# Install binary
+sudo install -Dm755 target/release/CeeDee-Ripper /usr/local/bin/ceedee-ripper
+
+# Install desktop entry
+sudo install -Dm644 resources/ceedee-ripper.desktop \
+  /usr/share/applications/ceedee-ripper.desktop
+
+# Install icon
+sudo install -Dm644 resources/images/ceedee-ripper.png \
+  /usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png
+
+# Update icon cache (optional)
+sudo gtk-update-icon-cache /usr/share/icons/hicolor/
+
+# Now run from anywhere
+ceedee-ripper
+```
+
 ## Build & Run
 
 ```bash
