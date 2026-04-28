@@ -18,6 +18,18 @@ Build
     
     cargo build --release --target x86_64-unknown-linux-gnu
 
+Install
+
+    install -Dm755 target/release/CeeDee-Ripper "$CRAFT_PART_INSTALL/bin/CeeDee-Ripper"
+      
+    install -Dm644 resources/images/ceedee-ripper.png \
+    
+        "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png"
+    
+    install -Dm644 resources/ceedee-ripper.desktop \
+     
+        "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
+
 ## Windows System
 There are two common targets for Windows.
 

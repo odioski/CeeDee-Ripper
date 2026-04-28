@@ -1,4 +1,5 @@
 # Rust build artifacts
+overlay/
 parts/
 prime/
 stage/
