@@ -15,7 +15,7 @@ fn main() -> glib::ExitCode {
 
     // Create a new application
     let app = libadwaita::Application::builder()
-        .application_id("snap.ceedee-ripper.CeeDee-Ripper")
+        .application_id("snap.ceedee-ripper.ceedee-ripper")
         .build();
 
     // Connect to "startup" signal to perform one-time initialization

@@ -116,7 +116,7 @@ parts:
 
 apps:  
   ceedee-ripper:
-    command: bin/CeeDee-Ripper
+    command: bin/ceedee-ripper
     plugs:
       - desktop
       - desktop-legacy
@@ -125,10 +125,12 @@ apps:
       - opengl
       - removable-media
       - network
+    slots:
+      - ceedee-ripper-dbus
 
 slots:
-  snap.ceedee-ripper.CeeDee-Ripper:
+  ceedee-ripper-dbus:
     interface: dbus
     bus: session
-    name: snap.ceedee-ripper.CeeDee-Ripper
+    name: snap.ceedee-ripper.ceedee-ripper
 
