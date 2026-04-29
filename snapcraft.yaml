@@ -37,20 +37,17 @@ donation: https://buymeacoffee.com/odioski
 
 parts: 
   ceedee-ripper:
-    plugin: rust
+    plugin: nil
     source: .
-    rust-channel: stable
-    build-packages:
-      - pkg-config
-      - clang
-      - libclang-dev
-      - libglib2.0-dev
-      - libgtk-4-dev
-      - libadwaita-1-dev
-      - libgstreamer1.0-dev
-      - libgstreamer-plugins-base1.0-dev
-      - libdiscid-dev
-      - libmount-dev
+
+    # override-build: |
+    #   set -eux
+
+    #   if [ ! -x target/release/ceedee-ripper ]; then
+    #     echo "Missing prebuilt binary: target/release/ceedee-ripper"
+    #     echo "Build it first with: cargo build --release"
+    #     exit 1
+    #   fi
 
     stage-packages:
       - libc6
@@ -62,44 +59,16 @@ parts:
       - libgtk-4-1
       - libdiscid0
       - libmount1
-      
-    prime:
-      - -usr/lib/*/ao/plugins-4/libalsa.so
-      - -usr/lib/*/ao/plugins-4/libnas.so
-      - -usr/lib/*/ao/plugins-4/libsndio.so
-      - -usr/lib/*/caca/libgl_plugin.so*
-      - -usr/lib/*/libcaca++.so*
-      - -usr/lib/*/libcolordprivate.so*
-      - -usr/lib/*/libdconf.so*
-      - -usr/lib/*/libEGL_mesa.so*
-      - -usr/lib/*/libGLESv2.so*
-      - -usr/lib/*/libGLX_mesa.so*
-      - -usr/lib/*/libgstcheck-1.0.so*
-      - -usr/lib/*/libgstcontroller-1.0.so*
-      - -usr/lib/*/libgthread-2.0.so*
-      - -usr/lib/*/libicuio.so*
-      - -usr/lib/*/libicutest.so*
-      - -usr/lib/*/libjacknet.so*
-      - -usr/lib/*/libjackserver.so*
-      - -usr/lib/*/libopusurl.so*
-      - -usr/lib/*/liborc-test-0.4.so*
-      - -usr/lib/*/libsoup-2.4.so*
-      - -usr/lib/*/libsoup-3.0.so*
-      - -usr/lib/*/libXxf86vm.so*
-      - -usr/lib/*/libxcb-glx.so*
-      - -usr/lib/*/libunwind-coredump.so*
-      - -usr/lib/*/libunwind-ptrace.so*
-      - -usr/lib/*/libunwind-x86_64.so*
-      - -usr/lib/*/libicutu.so*
-      - -usr/lib/*/libicui18n.so*
-      - -usr/lib/*/libsamplerate.so*
-      - -usr/lib/*/libc.so*
-      - -usr/lib/*/libgstpulseaudio.so*
-      - -usr/lib/*/libpulsecommon-16.1.so*
+      - libmedialibrary-dev
+      - libglib2.0-dev
+      - glib-networking
+      - libgupnp-dlna-2.0-4
+      - libgstreamer1.0-0
 
-    build-environment:
-      - CARGO_TARGET_DIR: target
-
+lint:
+  ignore:
+    - library
+        
     # Uncomment the following if you want Snapcraft to finish the installation.
     # Use: snapcraft clean && snapcraft --destructive-mode.
     #
@@ -116,7 +85,11 @@ parts:
 
 apps:  
   ceedee-ripper:
+    extensions:
+      - gnome
     command: bin/ceedee-ripper
+    environment:
+      GDK_BACKEND: x11,wayland
     plugs:
       - desktop
       - desktop-legacy

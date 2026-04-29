@@ -3,10 +3,61 @@ mod config;
 mod ripper;
 mod window;
 
+use std::{env, path::PathBuf};
+
 use gtk4::{gio, glib, prelude::*};
+use libadwaita::{ColorScheme, StyleManager};
 use window::CeeDeeRipperWindow;
 
+fn has_graphical_display() -> bool {
+    if env::var_os("DISPLAY").is_some_and(|display| !display.is_empty()) {
+        return true;
+    }
+
+    let Some(runtime_dir) = env::var_os("XDG_RUNTIME_DIR") else {
+        return false;
+    };
+
+    let wayland_display = env::var_os("WAYLAND_DISPLAY")
+        .filter(|display| !display.is_empty())
+        .unwrap_or_else(|| "wayland-0".into());
+
+    let wayland_socket = {
+        let path = PathBuf::from(&wayland_display);
+        if path.is_absolute() {
+            path
+        } else {
+            PathBuf::from(runtime_dir).join(path)
+        }
+    };
+
+    wayland_socket.exists()
+}
+
 fn main() -> glib::ExitCode {
+    if !has_graphical_display() {
+        eprintln!(
+            "CeeDee Ripper requires a graphical X11 or Wayland session. Start it from a desktop session with access to a display."
+        );
+        return glib::ExitCode::FAILURE;
+    }
+
+    if let Err(e) = gtk4::init() {
+        eprintln!("Failed to initialize GTK: {}", e);
+        return glib::ExitCode::FAILURE;
+    }
+
+    if let Some(settings) = gtk4::Settings::default() {
+        settings.set_gtk_application_prefer_dark_theme(false);
+    }
+
+    if let Err(e) = libadwaita::init() {
+        eprintln!("Failed to initialize Libadwaita: {}", e);
+        return glib::ExitCode::FAILURE;
+    }
+
+    StyleManager::default().set_color_scheme(ColorScheme::Default);
+
     // Initialize GStreamer
     if let Err(e) = gstreamer::init() {
         eprintln!("Failed to initialize GStreamer: {}", e);

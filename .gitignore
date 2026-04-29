@@ -25,4 +25,3 @@ CACHEDIR.TAG
 .cache/*
 *.snap
 Cargo.lock
-cleanup

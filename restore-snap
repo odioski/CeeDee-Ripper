@@ -1,0 +1,28 @@
+#!/bin/bash
+
+sudo snap remove ceedee-ripper
+
+sudo snap remove gtk-common-themes mesa-2404
+
+sudo snap remove gnome-46-2404
+
+sudo snap remove bare
+
+echo "Moving old snap to /home/mrod/... for safe keeping."
+
+sleep 2
+
+echo "Press enter if that's ok..."
+
+read -r OK
+
+if [[ "$OK" = ""  ]];then
+
+        mv -v *.snap /home/mrod/
+fi
+
+clear
+
+snap list
+
+
