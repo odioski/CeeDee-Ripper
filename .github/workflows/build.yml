@@ -61,3 +61,9 @@ jobs:
           name: ceedee-ripper-snap
           path: ${{ steps.snapcraft.outputs.snap }}
           retention-days: 7
+
+      - name: Publish to Snap Store
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
+        run: snapcraft upload --release=stable ${{ steps.snapcraft.outputs.snap }}

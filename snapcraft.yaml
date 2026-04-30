@@ -115,6 +115,7 @@ slots:
   ceedee-ripper-dbus:
     interface: dbus
     bus: session
+    name: snap.ceedee-ripper.ceedee-ripper
 
 plugs:
   optical-drive:
@@ -124,5 +125,4 @@ plugs:
     interface: raw-usb
   block-devices:
     interface: block-devices
-    name: snap.ceedee-ripper.ceedee-ripper
 
