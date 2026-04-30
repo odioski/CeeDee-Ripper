@@ -42,16 +42,22 @@ jobs:
       - name: Build release binary
         run: cargo build --release
 
-      - name: Install Snapcraft
+      - name: Initialize LXD
         run: |
-          sudo snap install snapcraft --classic
+          sudo lxd init --auto
+          sudo usermod -aG lxd $USER
+          newgrp lxd
 
-      - name: Pack snap
-        run: snapcraft pack --destructive-mode
+      - name: Build and pack snap
+        uses: snapcore/action-build@v1
+        id: snapcraft
+        with:
+          snapcraft-channel: latest/stable
+          snapcraft-args: "--use-lxd"
 
       - name: Upload snap artifact
         uses: actions/upload-artifact@v4
         with:
           name: ceedee-ripper-snap
-          path: "*.snap"
+          path: ${{ steps.snapcraft.outputs.snap }}
           retention-days: 7
