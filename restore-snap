@@ -4,7 +4,7 @@ sudo snap remove ceedee-ripper
 
 sudo snap remove gtk-common-themes mesa-2404
 
-sudo snap remove gnome-46-2404
+sudo snap remove gnome-46-2404 gnome-42-2204 gnome-42-2204-sdk
 
 sudo snap remove bare
 
