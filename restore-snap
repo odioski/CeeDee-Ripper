@@ -25,4 +25,10 @@ clear
 
 snap list
 
+sleep 5
 
+ls ~/
+
+sleep 6
+
+clear

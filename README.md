@@ -154,6 +154,23 @@ cargo build
 cargo run
 ```
 
+## Continuous Integration
+
+Every push to `master` automatically triggers a GitHub Actions workflow that:
+
+1. Builds the release binary via `cargo build --release` on a clean Ubuntu 24.04 runner
+2. Packs the snap via `snapcraft pack --destructive-mode`
+3. Uploads the resulting `.snap` as a downloadable build artifact (retained 7 days)
+
+Build status and artifacts: https://github.com/odioski/CeeDee-Ripper/actions
+
+To check status from the terminal (requires `gh`):
+
+```bash
+gh run list --repo odioski/CeeDee-Ripper
+gh run watch --repo odioski/CeeDee-Ripper
+```
+
 ## Troubleshooting
 
 - "No CD detected on /dev/...": Ensure an audio CD is inserted, device path is correct, and permissions allow access.

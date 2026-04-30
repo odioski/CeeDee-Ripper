@@ -2,7 +2,11 @@
 
 ## Overview
 
-CeeDee Ripper is a GTK4/libadwaita CD ripping application written in Rust. It extracts audio tracks from CDs, fetches metadata from online databases, and encodes to multiple formats.
+CeeDee Ripper is a GTK4/libadwaita CD ripping application written in Rust.
+
+CI builds and snap artifacts are published automatically on every push to `master`:
+https://github.com/odioski/CeeDee-Ripper/actions
+ It extracts audio tracks from CDs, fetches metadata from online databases, and encodes to multiple formats.
 
 ---
 

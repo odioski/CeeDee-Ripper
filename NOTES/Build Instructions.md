@@ -160,3 +160,28 @@ Notes:
 
 - Snapcraft builds release artifacts for publishing; debug builds are only for local development.
 - Bump the `version` field in `snapcraft.yaml` before uploading a new release.
+
+## CI / GitHub Actions
+
+The workflow at `.github/workflows/build.yml` runs on every push to `master`.
+
+What it does:
+
+1. Checks out the repo on a clean Ubuntu 24.04 runner
+2. Installs the Rust stable toolchain
+3. Installs build-time system dependencies (GTK4, GStreamer, libdiscid, etc.)
+4. Runs `cargo build --release`
+5. Installs Snapcraft and runs `snapcraft pack --destructive-mode`
+6. Uploads the `.snap` as a build artifact (7-day retention)
+
+The CI environment has no host-system library leakage, so it reliably catches any missing `stage-packages` entries before a release.
+
+Check build status:
+
+```bash
+# Requires GitHub CLI (snap install gh && gh auth login)
+gh run list --repo odioski/CeeDee-Ripper
+gh run watch --repo odioski/CeeDee-Ripper
+```
+
+Or open: https://github.com/odioski/CeeDee-Ripper/actions
