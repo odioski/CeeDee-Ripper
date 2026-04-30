@@ -54,13 +54,6 @@ parts:
         exit 1
       fi
 
-      install -Dm755 "$CRAFT_PART_SRC/target/release/ceedee-ripper" \
-        "$CRAFT_PART_INSTALL/bin/ceedee-ripper"
-      install -Dm644 "$CRAFT_PART_SRC/resources/images/ceedee-ripper.png" \
-        "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png"
-      install -Dm644 "$CRAFT_PART_SRC/resources/ceedee-ripper.desktop" \
-        "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
-
     stage-packages:
       - libc6
       - libpcre2-16-0
