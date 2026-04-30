@@ -45,14 +45,21 @@ parts:
     plugin: nil
     source: .
 
-    # override-build: |
-    #   set -eux
+    override-build: |
+      set -eux
 
-    #   if [ ! -x target/release/ceedee-ripper ]; then
-    #     echo "Missing prebuilt binary: target/release/ceedee-ripper"
-    #     echo "Build it first with: cargo build --release"
-    #     exit 1
-    #   fi
+      if [ ! -x "$CRAFT_PART_SRC/target/release/ceedee-ripper" ]; then
+        echo "Missing prebuilt binary: target/release/ceedee-ripper"
+        echo "Build it first with: cargo build --release"
+        exit 1
+      fi
+
+      install -Dm755 "$CRAFT_PART_SRC/target/release/ceedee-ripper" \
+        "$CRAFT_PART_INSTALL/bin/ceedee-ripper"
+      install -Dm644 "$CRAFT_PART_SRC/resources/images/ceedee-ripper.png" \
+        "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png"
+      install -Dm644 "$CRAFT_PART_SRC/resources/ceedee-ripper.desktop" \
+        "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
 
     stage-packages:
       - libc6
@@ -78,7 +85,7 @@ parts:
     # override-build: |
     #   set -eux
     #   cargo build --release
-    #   install -Dm755 target/release/CeeDee-Ripper "$CRAFT_PART_INSTALL/bin/CeeDee-Ripper"
+    #   install -Dm755 target/release/CeeDee-Ripper "$CRAFT_PART_INSTALL/bin/ceedee-ripper"
     #   install -Dm644 resources/images/ceedee-ripper.png \
     #     "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png"
     #   install -Dm644 resources/ceedee-ripper.desktop \
