@@ -67,15 +67,32 @@ parts:
       - libpcre2-32-0
       - libpcre2-posix3
       - libadwaita-1-0
-      - libgstreamer1.0-0
       - libgtk-4-1
       - libdiscid0
       - libmount1
-      - libmedialibrary-dev
       - libglib2.0-dev
       - glib-networking
-      - libgupnp-dlna-2.0-4
+      # GStreamer core + all plugins needed for ripping/encoding
       - libgstreamer1.0-0
+      - gstreamer1.0-plugins-base
+      - gstreamer1.0-plugins-good
+      - gstreamer1.0-plugins-ugly
+      - gstreamer1.0-plugins-bad
+      - gstreamer1.0-libav
+      - gstreamer1.0-tools
+      # CD audio source plugin (cdparanoia-based)
+      - gstreamer1.0-plugins-base-apps
+      - libgstreamer-plugins-base1.0-0
+      - libgstreamer-plugins-good1.0-0
+      - libgstreamer-plugins-bad1.0-0
+      # Codec libs the plugins link against
+      - libflac12t64
+      - libmp3lame0
+      - libvorbis0a
+      - libvorbisenc2
+      - libogg0
+      - libopus0
+      - libcdparanoia0
         
 
 apps:  

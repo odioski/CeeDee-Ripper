@@ -1,6 +1,13 @@
 #!/bin/bash
 
+snap list
+
+sleep 6
 
 sudo snap install *.snap --dangerous
 
 snap list
+
+sleep 4
+
+ceedee-ripper
