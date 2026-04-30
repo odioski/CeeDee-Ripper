@@ -35,6 +35,11 @@ issues: https://github.com/odioski/CeeDee-Ripper/issues
 contact: https://github.com/odioski/CeeDee-Ripper/issues
 donation: https://buymeacoffee.com/odioski
 
+lint:
+  ignore:
+    - classic
+    - library
+
 parts: 
   ceedee-ripper:
     plugin: nil
@@ -64,10 +69,6 @@ parts:
       - glib-networking
       - libgupnp-dlna-2.0-4
       - libgstreamer1.0-0
-
-lint:
-  ignore:
-    - library
         
     # Uncomment the following if you want Snapcraft to finish the installation.
     # Use: snapcraft clean && snapcraft --destructive-mode.
