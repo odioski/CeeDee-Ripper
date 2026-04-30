@@ -27,7 +27,7 @@ snap list
 
 sleep 5
 
-ls ~/
+ls ~/*.snap
 
 sleep 6
 
