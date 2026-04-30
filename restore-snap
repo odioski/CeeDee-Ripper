@@ -18,7 +18,7 @@ read -r OK
 
 if [[ "$OK" = ""  ]];then
 
-        mv -v *.snap /home/mrod/
+        mv -fv *.snap /home/mrod/
 fi
 
 clear

@@ -54,6 +54,13 @@ parts:
         exit 1
       fi
 
+      install -Dm755 "$CRAFT_PART_SRC/target/release/ceedee-ripper" \
+        "$CRAFT_PART_INSTALL/bin/ceedee-ripper"
+      install -Dm644 "$CRAFT_PART_SRC/resources/images/ceedee-ripper.png" \
+        "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png"
+      install -Dm644 "$CRAFT_PART_SRC/resources/ceedee-ripper.desktop" \
+        "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
+
     stage-packages:
       - libc6
       - libpcre2-16-0
@@ -70,19 +77,6 @@ parts:
       - libgupnp-dlna-2.0-4
       - libgstreamer1.0-0
         
-    # Uncomment the following if you want Snapcraft to finish the installation.
-    # Use: snapcraft clean && snapcraft --destructive-mode.
-    #
-    # Obviously, this would be pointless on a headless server.
-    # 
-    # override-build: |
-    #   set -eux
-    #   cargo build --release
-    #   install -Dm755 target/release/CeeDee-Ripper "$CRAFT_PART_INSTALL/bin/ceedee-ripper"
-    #   install -Dm644 resources/images/ceedee-ripper.png \
-    #     "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png"
-    #   install -Dm644 resources/ceedee-ripper.desktop \
-    #     "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
 
 apps:  
   ceedee-ripper:
@@ -91,6 +85,7 @@ apps:
     command: bin/ceedee-ripper
     environment:
       GDK_BACKEND: x11,wayland
+      GTK_MEDIA: none
     plugs:
       - desktop
       - desktop-legacy
@@ -98,6 +93,7 @@ apps:
       - x11
       - opengl
       - removable-media
+      - optical-drive
       - network
     slots:
       - ceedee-ripper-dbus

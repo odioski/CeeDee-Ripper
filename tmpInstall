@@ -2,3 +2,5 @@
 
 
 sudo snap install *.snap --dangerous
+
+snap list
