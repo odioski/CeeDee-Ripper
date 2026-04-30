@@ -93,6 +93,11 @@ parts:
       - libogg0
       - libopus0
       - libcdparanoia0
+      # PipeWire/PulseAudio backend (libpxbackend)
+      - libpipewire-0.3-0
+      - libpulse0
+      # BLAS needed by libgstlibav
+      - libblas3
         
 
 apps:  
