@@ -62,42 +62,30 @@ parts:
         "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
 
     stage-packages:
+      # Core runtime
       - libc6
-      - libpcre2-16-0
-      - libpcre2-32-0
-      - libpcre2-posix3
       - libadwaita-1-0
       - libgtk-4-1
       - libdiscid0
-      - libmount1
-      - libglib2.0-dev
+      - libglib2.0-0
       - glib-networking
-      # GStreamer core + all plugins needed for ripping/encoding
+      # GStreamer — only the three elements the pipeline uses:
+      # cdparanoia ! wavenc ! filesink
       - libgstreamer1.0-0
+      - libgstreamer-plugins-base1.0-0
       - gstreamer1.0-plugins-base
       - gstreamer1.0-plugins-good
       - gstreamer1.0-plugins-ugly
-      - gstreamer1.0-plugins-bad
-      - gstreamer1.0-libav
-      - gstreamer1.0-tools
-      # CD audio source plugin (cdparanoia-based)
-      - gstreamer1.0-plugins-base-apps
-      - libgstreamer-plugins-base1.0-0
-      - libgstreamer-plugins-good1.0-0
-      - libgstreamer-plugins-bad1.0-0
-      # Codec libs the plugins link against
-      - libflac12t64
-      - libmp3lame0
-      - libvorbis0a
-      - libvorbisenc2
-      - libogg0
-      - libopus0
       - libcdparanoia0
-      # PipeWire/PulseAudio backend (libpxbackend)
+      # CLI encoders (flac, lame, oggenc) called by ripper.rs
+      - flac
+      - lame
+      - vorbis-tools
+      # CLI rip fallback
+      - cdparanoia
+      # Audio backend
       - libpipewire-0.3-0
       - libpulse0
-      # BLAS needed by libgstlibav
-      - libblas3
         
 
 apps:  
@@ -108,6 +96,7 @@ apps:
     environment:
       GDK_BACKEND: x11,wayland
       GTK_MEDIA: none
+      GST_PLUGIN_PATH: $SNAP/usr/lib/x86_64-linux-gnu/gstreamer-1.0
     plugs:
       - desktop
       - desktop-legacy
