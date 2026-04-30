@@ -6,11 +6,13 @@ PKGS=(cdparanoia cd-discid flac lame vorbis-tools)
 DEV_PKGS_DEB=(libgtk-4-dev libadwaita-1-dev libdiscid-dev libgstreamer1.0-dev libglib2.0-dev libclang-dev pkg-config build-essential)
 DEV_PKGS_ARCH=(gtk4 libadwaita libdiscid gstreamer glib2 clang pkgconf base-devel)
 DEV_PKGS_DNF=(gtk4-devel libadwaita-devel libdiscid-devel gstreamer1-devel glib2-devel clang-devel pkgconf-pkg-config gcc make)
+DEV_PKGS_ZYPPER=(gtk4-devel libadwaita-devel libdiscid-devel gstreamer-devel glib2-devel clang-devel pkg-config gcc make)
 
 # GStreamer plugins needed for cdparanoia element and WAV encoding
 GST_PKGS_DEB=(gstreamer1.0-plugins-base gstreamer1.0-plugins-good libgstreamer-plugins-base1.0-dev)
 GST_PKGS_ARCH=(gst-plugins-base gst-plugins-good)
 GST_PKGS_DNF=(gstreamer1-plugins-base gstreamer1-plugins-good gstreamer1-plugins-base-devel)
+GST_PKGS_ZYPPER=(gstreamer-plugins-base gstreamer-plugins-good)
 
 have() { command -v "$1" >/dev/null 2>&1; }
 
@@ -22,6 +24,13 @@ if have apt-get; then
 elif have pacman; then
   echo "Detected pacman (Arch). Installing packages..."
   sudo pacman -S --needed "${PKGS[@]}" "${DEV_PKGS_ARCH[@]}" "${GST_PKGS_ARCH[@]}"
+  echo "Done."
+elif have zypper; then
+  echo "Detected zypper (openSUSE). Installing packages..."
+  # Note: 'lame' and 'cd-discid' may require the Packman repository on openSUSE:
+  #   sudo zypper ar -cfp 90 https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/ packman
+  #   sudo zypper dup --from packman --allow-vendor-change
+  sudo zypper install -y "${PKGS[@]}" "${DEV_PKGS_ZYPPER[@]}" "${GST_PKGS_ZYPPER[@]}"
   echo "Done."
 elif have dnf; then
   echo "Detected dnf (Fedora/RHEL). Installing packages..."

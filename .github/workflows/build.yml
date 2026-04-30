@@ -48,6 +48,11 @@ jobs:
           sudo usermod -aG lxd $USER
           newgrp lxd
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
       - name: Build and pack snap
         uses: snapcore/action-build@v1
         id: snapcraft
@@ -64,7 +69,7 @@ jobs:
 
       - name: Publish to Snap Store
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        uses: snapcore/action-publish@v1
+        uses: snapcore/action-publish@v1.2.0
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
         with:
