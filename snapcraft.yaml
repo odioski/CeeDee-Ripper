@@ -40,7 +40,7 @@ lint:
     - classic
     - library
 
-parts: 
+parts:
   ceedee-ripper:
     plugin: nil
     source: .
@@ -62,41 +62,52 @@ parts:
         "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
 
     stage-packages:
-      # Core runtime
+      # GTK4 / Adwaita / graphics stack
       - libc6
-      - libadwaita-1-0
-      - libgtk-4-1
-      - libdiscid0
       - libglib2.0-0
       - glib-networking
-      # GStreamer — only the three elements the pipeline uses:
-      # cdparanoia ! wavenc ! filesink
+      - libcairo2
+      - libpango-1.0-0
+      - libgdk-pixbuf-2.0-0
+      - libgraphene-1.0-0
+      - libgtk-4-1
+      - libgtk-4-media-gstreamer
+      - libadwaita-1-0
+      # Disc detection
+      - libdiscid0
+      - cd-discid
+      # GStreamer pipeline (cdparanoia ! wavenc ! filesink)
       - libgstreamer1.0-0
       - libgstreamer-plugins-base1.0-0
       - gstreamer1.0-plugins-base
       - gstreamer1.0-plugins-good
       - gstreamer1.0-plugins-ugly
       - libcdparanoia0
-      # CLI encoders (flac, lame, oggenc) called by ripper.rs
-      - flac
-      - lame
-      - vorbis-tools
-      # CLI rip fallback
-      - cdparanoia
+      - gstreamer1.0-tools
       # Audio backend
       - libpipewire-0.3-0
       - libpulse0
-      - gstreamer1.0-tools
-        
+      # CLI encoders called by ripper.rs
+      - cdparanoia
+      - flac
+      - lame
+      - vorbis-tools
 
-apps:  
+    prime:
+      - "*"
+      - "**/*.so"
+      - "**/*.so.*"
+      - usr/lib/x86_64-linux-gnu/gio/modules/libgiolibproxy.so
+      - usr/lib/x86_64-linux-gnu/gtk-4.0/4.0.0/media/libmedia-gstreamer.so
+
+apps:
   ceedee-ripper:
     extensions:
       - gnome
     command: bin/ceedee-ripper
     environment:
       GDK_BACKEND: x11,wayland
-      GTK_MEDIA: none
+      GTK_MEDIA: $SNAP/usr/lib/x86_64-linux-gnu/gtk-4.0/4.0.0/media/libmedia-gstreamer.soapt
       GST_PLUGIN_PATH: $SNAP/usr/lib/x86_64-linux-gnu/gstreamer-1.0
       GST_PLUGIN_SYSTEM_PATH: $SNAP/usr/lib/x86_64-linux-gnu/gstreamer-1.0
       GST_PLUGIN_SCANNER: $SNAP/usr/lib/x86_64-linux-gnu/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner
@@ -129,4 +140,3 @@ plugs:
     interface: raw-usb
   block-devices:
     interface: block-devices
-

@@ -127,15 +127,8 @@ impl CdReader {
     }
 
     fn fallback_track_count(device: &str) -> Option<usize> {
-        // Try cdparanoia -Q with block device
-        if let Some(n) = Self::track_count_from_cdparanoia(device, None) {
+        if let Some(n) = Self::track_count_from_cdparanoia(device) {
             return Some(n);
-        }
-        // Try with generic SCSI mapped device (-g)
-        if let Some(sg) = Self::find_generic_scsi_for_block(device) {
-            if let Some(n) = Self::track_count_from_cdparanoia(device, Some(&sg)) {
-                return Some(n);
-            }
         }
         // As a last resort, some versions of cd-discid output the number of tracks as the second field
         if let Ok(o) = Command::new("cd-discid").arg(device).output() {
@@ -156,17 +149,9 @@ impl CdReader {
         None
     }
 
-    fn track_count_from_cdparanoia(device: &str, sg_dev: Option<&str>) -> Option<usize> {
+    fn track_count_from_cdparanoia(device: &str) -> Option<usize> {
         let mut cmd = Command::new("cdparanoia");
-        cmd.arg("-Q");
-        match sg_dev {
-            Some(sg) => {
-                cmd.arg("-g").arg(sg);
-            }
-            None => {
-                cmd.arg("-d").arg(device);
-            }
-        }
+        cmd.arg("-Q").arg("-d").arg(device);
         let out = cmd.output().ok()?;
         if !out.status.success() {
             return None;
@@ -197,36 +182,9 @@ impl CdReader {
         }
     }
 
-    pub fn find_generic_scsi_for_block(block_dev: &str) -> Option<String> {
-        // Expect paths like /dev/sr0
-        let name = Path::new(block_dev)
-            .file_name()?
-            .to_string_lossy()
-            .to_string();
-        let sys_block = Path::new("/sys/class/block").join(&name).join("device");
-        let target = std::fs::read_link(&sys_block).ok()?; // symlink to SCSI device, e.g., ../../devices/pci.../hostX/targetX:X:X/X:X:X:X
-
-        // Iterate scsi_generic entries and match their device symlink to the same target
-        let sg_root = Path::new("/sys/class/scsi_generic");
-        let entries = std::fs::read_dir(sg_root).ok()?;
-        for entry in entries.flatten() {
-            let sg_name = entry.file_name();
-            let sg_path = entry.path().join("device");
-            if let Ok(link) = std::fs::read_link(&sg_path) {
-                if link == target {
-                    let dev_path = format!("/dev/{}", sg_name.to_string_lossy());
-                    if Path::new(&dev_path).exists() {
-                        return Some(dev_path);
-                    }
-                }
-            }
-        }
-        None
-    }
-
-    fn fetch_musicbrainz_metadata(_device: &str) -> Option<CdInfo> {
-        // Read disc via libdiscid
-        let disc = DiscId::read(None).ok()?;
+    fn fetch_musicbrainz_metadata(device: &str) -> Option<CdInfo> {
+        // Read disc via libdiscid using the same block device selected for ripping.
+        let disc = DiscId::read(Some(device)).ok()?;
         let mbid = disc.id();
         // Query MusicBrainz WS2 for discid
         let url = format!(

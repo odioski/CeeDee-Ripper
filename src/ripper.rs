@@ -83,7 +83,12 @@ fn final_output_path(encoder: &str, track_name: &str, output_dir: &Path) -> Path
     output_dir.join(format!("{}.{}", track_name, extension))
 }
 
-fn working_wav_path(encoder: &str, track_num: usize, track_name: &str, output_dir: &Path) -> PathBuf {
+fn working_wav_path(
+    encoder: &str,
+    track_num: usize,
+    track_name: &str,
+    output_dir: &Path,
+) -> PathBuf {
     if encoder == "wav" {
         final_output_path(encoder, track_name, output_dir)
     } else {
@@ -228,8 +233,12 @@ impl Ripper {
     ) -> Result<(), Box<dyn Error>> {
         let safe_track_name = sanitize_track_name(track_name, track_num);
         let final_output = final_output_path(&self.config.encoder, &safe_track_name, output_dir);
-        let wav_file =
-            working_wav_path(&self.config.encoder, track_num, &safe_track_name, output_dir);
+        let wav_file = working_wav_path(
+            &self.config.encoder,
+            track_num,
+            &safe_track_name,
+            output_dir,
+        );
 
         // Prefer library-based ripping via GStreamer cdparanoia element
         if let Err(e) = self.rip_track_via_gstreamer(track_num, &wav_file) {
@@ -302,62 +311,11 @@ impl Ripper {
                                 if ok2 {
                                     break;
                                 } else {
-                                    // Try generic SCSI interface (-g) mapping sr -> sg
-                                    if let Some(sg_dev) =
-                                        crate::cd_reader::CdReader::find_generic_scsi_for_block(
-                                            &self.config.device,
-                                        )
-                                    {
-                                        let child3 = Command::new("cdparanoia")
-                                            .arg("-g")
-                                            .arg(sg_dev)
-                                            .arg(format!("{}", track_num))
-                                            .arg(&wav_file)
-                                            .spawn()?;
-                                        {
-                                            let mut guard = self.current_child.lock().unwrap();
-                                            *guard = Some(child3);
-                                        }
-                                        loop {
-                                            if self.cancel_flag.load(Ordering::SeqCst) {
-                                                self.cancel();
-                                                return Err("Ripping cancelled".into());
-                                            }
-                                            let completed3 = {
-                                                let mut guard = self.current_child.lock().unwrap();
-                                                if let Some(c3) = guard.as_mut() {
-                                                    if let Ok(Some(status3)) = c3.try_wait() {
-                                                        let ok3 = status3.success();
-                                                        guard.take();
-                                                        Some(ok3)
-                                                    } else {
-                                                        None
-                                                    }
-                                                } else {
-                                                    Some(false)
-                                                }
-                                            };
-                                            if let Some(ok3) = completed3 {
-                                                if ok3 {
-                                                    break;
-                                                } else {
-                                                    return Err(format!(
-                                                        "Failed to rip track {} (lib error: {})",
-                                                        track_num, e
-                                                    )
-                                                    .into());
-                                                }
-                                            }
-                                            std::thread::sleep(Duration::from_millis(200));
-                                        }
-                                        break;
-                                    } else {
-                                        return Err(format!(
-                                            "Failed to rip track {} (lib error: {})",
-                                            track_num, e
-                                        )
-                                        .into());
-                                    }
+                                    return Err(format!(
+                                        "Failed to rip track {} (lib error: {})",
+                                        track_num, e
+                                    )
+                                    .into());
                                 }
                             }
                             std::thread::sleep(Duration::from_millis(200));
@@ -421,9 +379,7 @@ impl Ripper {
         let quoted_location = quote_gstreamer_string(&wav_file.to_string_lossy());
         let pipe_str = format!(
             "cdparanoia device={} track={} ! wavenc ! filesink location={}",
-            quoted_device,
-            track_num,
-            quoted_location
+            quoted_device, track_num, quoted_location
         );
 
         let element = gst::parse::launch(&pipe_str)?;
