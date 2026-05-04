@@ -279,7 +279,7 @@ impl Ripper {
                     } else {
                         // Try cooked ioctl interface as a last resort
                         let child2 = Command::new("cdparanoia")
-                            .arg("-k")
+                            .arg("-d")
                             .arg(&self.config.device)
                             .arg(format!("{}", track_num))
                             .arg(&wav_file)

@@ -44,23 +44,7 @@ parts:
   ceedee-ripper:
     plugin: nil
     source: .
-
-    override-build: |
-      set -eux
-
-      if [ ! -x "$CRAFT_PART_SRC/target/release/ceedee-ripper" ]; then
-        echo "Missing prebuilt binary: target/release/ceedee-ripper"
-        echo "Build it first with: cargo build --release"
-        exit 1
-      fi
-
-      install -Dm755 "$CRAFT_PART_SRC/target/release/ceedee-ripper" \
-        "$CRAFT_PART_INSTALL/bin/ceedee-ripper"
-      install -Dm644 "$CRAFT_PART_SRC/resources/images/ceedee-ripper.png" \
-        "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png"
-      install -Dm644 "$CRAFT_PART_SRC/resources/ceedee-ripper.desktop" \
-        "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
-
+    
     stage-packages:
       # GTK4 / Adwaita / graphics stack
       - libc6
@@ -94,9 +78,6 @@ parts:
       - vorbis-tools
 
     prime:
-      - "*"
-      - "**/*.so"
-      - "**/*.so.*"
       - usr/lib/x86_64-linux-gnu/gio/modules/libgiolibproxy.so
       - usr/lib/x86_64-linux-gnu/gtk-4.0/4.0.0/media/libmedia-gstreamer.so
 
@@ -107,7 +88,8 @@ apps:
     command: bin/ceedee-ripper
     environment:
       GDK_BACKEND: x11,wayland
-      GTK_MEDIA: $SNAP/usr/lib/x86_64-linux-gnu/gtk-4.0/4.0.0/media/libmedia-gstreamer.soapt
+      GTK_MEDIA: gstreamer
+      GIO_MODULE_DIR: $SNAP/usr/lib/x86_64-linux-gnu/gio/modules
       GST_PLUGIN_PATH: $SNAP/usr/lib/x86_64-linux-gnu/gstreamer-1.0
       GST_PLUGIN_SYSTEM_PATH: $SNAP/usr/lib/x86_64-linux-gnu/gstreamer-1.0
       GST_PLUGIN_SCANNER: $SNAP/usr/lib/x86_64-linux-gnu/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner
@@ -120,8 +102,6 @@ apps:
       - opengl
       - removable-media
       - optical-drive
-      - raw-usb
-      - block-devices
       - network
     slots:
       - ceedee-ripper-dbus
@@ -131,12 +111,3 @@ slots:
     interface: dbus
     bus: session
     name: snap.ceedee-ripper.ceedee-ripper
-
-plugs:
-  optical-drive:
-    interface: optical-drive
-    write: false
-  raw-usb:
-    interface: raw-usb
-  block-devices:
-    interface: block-devices

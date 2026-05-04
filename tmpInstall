@@ -8,4 +8,8 @@ sudo snap install *.snap --dangerous
 
 snap list
 
-sleep 2
+sleep 1
+
+clear
+
+ceedee-ripper
