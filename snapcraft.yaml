@@ -28,7 +28,7 @@ base: core24
 grade: stable
 confinement: strict
 license: GPL-3.0-or-later
-icon: resources/images/ceedee-ripper.png
+icon: usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png
 website: https://github.com/odioski/CeeDee-Ripper
 source-code: https://github.com/odioski/CeeDee-Ripper
 issues: https://github.com/odioski/CeeDee-Ripper/issues
@@ -42,27 +42,40 @@ lint:
 
 parts:
   ceedee-ripper:
-    plugin: nil
     source: .
-    
+    plugin: rust
+    rust-channel: "stable"
+    build-packages:
+      - libgtk-4-dev
+      - libadwaita-1-dev
+      - libgstreamer1.0-dev
+      - libgstreamer-plugins-base1.0-dev
+      - libdiscid-dev
+      - libclang-dev
+      - pkg-config
+    override-build: |
+      craftctl default
+      if [ -x "$CRAFT_PART_INSTALL/usr/bin/ceedee-ripper" ] && [ ! -x "$CRAFT_PART_INSTALL/bin/ceedee-ripper" ]; then
+        install -Dm755 "$CRAFT_PART_INSTALL/usr/bin/ceedee-ripper" \
+          "$CRAFT_PART_INSTALL/bin/ceedee-ripper"
+      fi
+      if [ ! -x "$CRAFT_PART_INSTALL/bin/ceedee-ripper" ]; then
+        built_bin="$(find "$CRAFT_PART_BUILD" -path '*/release/ceedee-ripper' -type f -executable | head -n 1)"
+        if [ -z "$built_bin" ]; then
+          echo "Could not find Snapcraft-built ceedee-ripper binary after rust plugin build" >&2
+          exit 1
+        fi
+        install -Dm755 "$built_bin" "$CRAFT_PART_INSTALL/bin/ceedee-ripper"
+      fi
+      install -Dm644 resources/ceedee-ripper.desktop \
+        "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
+      install -Dm644 resources/images/ceedee-ripper.png \
+        "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png"
     stage-packages:
-      # GTK4 / Adwaita / graphics stack
-      - libc6
-      - libglib2.0-0
-      - glib-networking
-      - libcairo2
-      - libpango-1.0-0
-      - libgdk-pixbuf-2.0-0
-      - libgraphene-1.0-0
-      - libgtk-4-1
-      - libgtk-4-media-gstreamer
-      - libadwaita-1-0
       # Disc detection
       - libdiscid0
       - cd-discid
       # GStreamer pipeline (cdparanoia ! wavenc ! filesink)
-      - libgstreamer1.0-0
-      - libgstreamer-plugins-base1.0-0
       - gstreamer1.0-plugins-base
       - gstreamer1.0-plugins-good
       - gstreamer1.0-plugins-ugly
@@ -73,30 +86,25 @@ parts:
       - libpulse0
       # CLI encoders called by ripper.rs
       - cdparanoia
+      - eject
       - flac
       - lame
       - vorbis-tools
-
-    prime:
-      - usr/lib/x86_64-linux-gnu/gio/modules/libgiolibproxy.so
-      - usr/lib/x86_64-linux-gnu/gtk-4.0/4.0.0/media/libmedia-gstreamer.so
 
 apps:
   ceedee-ripper:
     extensions:
       - gnome
     command: bin/ceedee-ripper
+    desktop: usr/share/applications/ceedee-ripper.desktop
     environment:
-      GDK_BACKEND: x11,wayland
-      GTK_MEDIA: gstreamer
-      GIO_MODULE_DIR: $SNAP/usr/lib/x86_64-linux-gnu/gio/modules
-      GST_PLUGIN_PATH: $SNAP/usr/lib/x86_64-linux-gnu/gstreamer-1.0
       GST_PLUGIN_SYSTEM_PATH: $SNAP/usr/lib/x86_64-linux-gnu/gstreamer-1.0
       GST_PLUGIN_SCANNER: $SNAP/usr/lib/x86_64-linux-gnu/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner
       GST_REGISTRY: $SNAP_USER_COMMON/gstreamer-registry.bin
     plugs:
       - desktop
       - desktop-legacy
+      - home
       - wayland
       - x11
       - opengl

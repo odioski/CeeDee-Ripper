@@ -98,12 +98,29 @@ gst-launch-1.0 cdparanoia device=/dev/sr0 track=1 ! wavenc ! filesink location=t
 ### Snap
 
 ```bash
-# Build the snap
+# Build the snap from the project root
 snapcraft
 
 # Install from the built snap package
 snap install --dangerous ./ceedee-ripper_*.snap
 ```
+
+The snap is intended to build the Rust binary inside Snapcraft rather than reusing a host-built `target/release` tree.
+
+After installing, inspect the connected interfaces before testing CD access:
+
+```bash
+snap connections ceedee-ripper
+```
+
+If optical-drive or removable-media access is not connected on the test system, connect the needed interface and retest:
+
+```bash
+sudo snap connect ceedee-ripper:optical-drive
+sudo snap connect ceedee-ripper:removable-media
+```
+
+The packaging goal is to keep the snap strictly confined. Classic confinement is only a fallback if the remaining failure is proven to be unsupported optical-device access after the strict snap payload is fixed.
 
 ### From Source (Cargo)
 
@@ -158,9 +175,10 @@ cargo run
 
 Every push to `master` automatically triggers a GitHub Actions workflow that:
 
-1. Builds the release binary via `cargo build --release` on a clean Ubuntu 24.04 runner
-2. Packs the snap via `snapcraft pack --destructive-mode`
-3. Uploads the resulting `.snap` as a downloadable build artifact (retained 7 days)
+1. Installs the build dependencies needed for the Rust/GTK/GStreamer stack on Ubuntu 24.04
+2. Performs a standalone `cargo build --release` CI sanity build
+3. Builds the snap through Snapcraft in LXD
+4. Uploads the resulting `.snap` as a downloadable build artifact (retained 7 days)
 
 Build status and artifacts: https://github.com/odioski/CeeDee-Ripper/actions
 
@@ -174,5 +192,6 @@ gh run watch --repo odioski/CeeDee-Ripper
 ## Troubleshooting
 
 - "No CD detected on /dev/...": Ensure an audio CD is inserted, device path is correct, and permissions allow access.
+- Snap starts but cannot access the drive: check `snap connections ceedee-ripper` and retest after connecting any missing interfaces.
 - Missing encoders: Use `flac` or `lame` per your chosen output format.
 - Fedora `lame` not found: Enable RPM Fusion (free) repos, then install `lame`.

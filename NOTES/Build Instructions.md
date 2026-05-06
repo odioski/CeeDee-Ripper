@@ -7,11 +7,22 @@ These commands set up the Rust toolchain to build for the specific operating sys
 ### Snap
 
 ```bash
-# Build the snap
+# Build the snap from the project root
 snapcraft
 
 # Install from the built snap package
 snap install --dangerous ./ceedee-ripper_*.snap
+```
+
+The snap packaging is intended to build the release binary inside Snapcraft.
+Do not rely on a prebuilt `target/release` artifact when validating the snap.
+
+Check interface connections before testing CD detection or ripping:
+
+```bash
+snap connections ceedee-ripper
+sudo snap connect ceedee-ripper:optical-drive
+sudo snap connect ceedee-ripper:removable-media
 ```
 
 ### From Source (Cargo)
@@ -159,6 +170,7 @@ Upload and release to Snap Store:
 Notes:
 
 - Snapcraft builds release artifacts for publishing; debug builds are only for local development.
+- Keep strict confinement unless the only remaining blocker is verified optical-device access under strict mode.
 - Bump the `version` field in `snapcraft.yaml` before uploading a new release.
 
 ## CI / GitHub Actions
