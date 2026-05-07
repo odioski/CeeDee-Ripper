@@ -1,7 +1,6 @@
 # Preferences
 
 ## Shell Commands
-- Use `;` instead of `&&` when chaining commands
 - Do NOT push to GitHub unless explicitly told to in the prompt
 - Answer questions directly first (yes/no when asked), then do only what was asked — nothing more
 - Do not take any next action proactively — wait for the next instruction

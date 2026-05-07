@@ -73,6 +73,7 @@ parts:
 
     stage-packages:
     # GTK4 / Adwaita / graphics stack
+      - glibc-source
       - libc6
       - libglib2.0-0
       - glib-networking
@@ -105,9 +106,31 @@ parts:
       - vorbis-tools
 
     prime:
+      - usr/lib/x86_64-linux-gnu/libproxy/libpxbackend-1.0.so
       - usr/lib/x86_64-linux-gnu/gio/modules/libgiolibproxy.so
       - usr/lib/x86_64-linux-gnu/gtk-4.0/4.0.0/media/libmedia-gstreamer.so
+      - usr/lib/x86_64-linux-gnu/libdiscid.so.0.6.4
       - bin/ceedee-ripper
+
+plugs:
+  ceedee-ripper-optical-drive:
+    interface: optical-drive
+    devices:
+      - /dev/sr*
+      - /dev/sg*
+      - /dev/cdrom*
+      - /dev/dvd*
+      - /dev/hdc*
+      - /dev/hd*  # For IDE drives, may include non-optical drives
+  ceedee-drive:
+    interface: block-devices
+    read-only: true
+      - /dev/sr*
+      - /dev/sg*
+      - /dev/cdrom*
+      - /dev/dvd*
+      - /dev/hdc*
+      - /dev/hd*  # For IDE drives, may include non-optical drives
 
 apps:
   ceedee-ripper:
@@ -125,19 +148,18 @@ apps:
       - wayland
       - x11
       - opengl
+      - raw-usb
+      - network
+      - ceedee-drive
+      - ceedee-ripper-optical-drive
     slots:
       - ceedee-ripper-dbus
-      - optical-drive
 
 slots:
   ceedee-ripper-dbus:
     interface: dbus
     bus: session
     name: snap.ceedee-ripper.ceedee-ripper
-  optical-drive:
-    interface: optical-drive
-    devices:
-      - /dev/sr*
-      - /dev/sg*
-      - /dev/cdrom*
+
+
 
