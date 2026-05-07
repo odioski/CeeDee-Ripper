@@ -110,6 +110,7 @@ parts:
       - usr/lib/x86_64-linux-gnu/gio/modules/libgiolibproxy.so
       - usr/lib/x86_64-linux-gnu/gtk-4.0/4.0.0/media/libmedia-gstreamer.so
       - usr/lib/x86_64-linux-gnu/libdiscid.so.0.6.4
+      - usr/lib/x86_64-linux-gnu/libdiscid.so.0
       - bin/ceedee-ripper
 
 plugs:
