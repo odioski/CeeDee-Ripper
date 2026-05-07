@@ -4,23 +4,23 @@ version: '1.0.0'
 summary: Audio CD music ripper.
 description: |
 
-  CeeDee Ripper is a GTK4 and Libadwaita desktop app for extracting audio CDs.
+  CeeDee-Ripper is a GTK4 and Libadwaita desktop app for extracting audio CDs.
 
-  It detects inserted discs, looks up metadata, lets you choose which tracks to
+  CeeDee-Ripper detects inserted discs, looks up metadata, lets you choose which tracks to
   keep, and saves them as FLAC, MP3, WAV, or Ogg Vorbis files.
 
-  CeeDee Ripper extracts audio from Audio CD's to these formats:
+  FORMAT-OPTIONS:
 
-  -FLAC is an open, royalty-free audio codec that provides lossless compression,
+  -FLAC: is an open, royalty-free audio codec that provides lossless compression,
    meaning the audio is reduced in size without any loss of quality when decoded.
 
-  -MP3 is a coding format for digital audio using lossy data compression,
+  -MP3: is a coding format for digital audio using lossy data compression,
    defined by the MPEG-1 and MPEG-2 standards. It reduces file size by removing audio data considered less audible to human hearing.
 
-  -WAV is a standard digital audio file format used for storing audio on Windows systems.
+  -WAV: is a standard digital audio file format used for storing audio on Windows systems.
    It is based on the RIFF container and typically stores uncompressed PCM audio.
   
-  -Vorbis is a free, open, patent-free audio compression format designed for lossy encoding.
+  -Vorbis: is a free, open, patent-free audio compression format designed for lossy encoding.
    It is usually stored in the Ogg container and intended as an efficient alternative to proprietary formats like MP3.
 
 # core24 (Ubuntu 24.04) ships glibc 2.39, which includes GLIBC_2.38 and GLIBC_2.39.
@@ -129,18 +129,20 @@ apps:
       - optical-drive
       - raw-usb
       - network
+      - block-devices
     slots:
       - ceedee-ripper-dbus
-      - ceedee-ripper-optical-drive
 
 slots:
   ceedee-ripper-dbus:
     interface: dbus
     bus: session
     name: snap.ceedee-ripper.ceedee-ripper
-  ceedee-ripper-optical-drive:
+  optical-drive:
     interface: optical-drive
     devices:
-      - /dev/sr[0-9]*
-      - /dev/sg[0-9]*
-      - /dev/cdrom 
+      - /dev/sr*
+      - /dev/sg*
+      - /dev/cdrom
+
+
