@@ -125,13 +125,9 @@ apps:
       - wayland
       - x11
       - opengl
-      - removable-media
-      - optical-drive
-      - raw-usb
-      - network
-      - block-devices
     slots:
       - ceedee-ripper-dbus
+      - optical-drive
 
 slots:
   ceedee-ripper-dbus:
@@ -143,6 +139,5 @@ slots:
     devices:
       - /dev/sr*
       - /dev/sg*
-      - /dev/cdrom
-
+      - /dev/cdrom*
 
