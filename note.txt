@@ -11,3 +11,18 @@ last-occurrence:  today at 04:26 CDT
 warning: |
   snap "ceedee-ripper" has bad plugs or slots: disk-access (unknown interface
   "disk-access")
+last-occurrence:  today at 04:14 CDT
+warning: |
+  snap "ceedee-ripper" has bad plugs or slots: dbus (cannot find attribute
+  'bus'); disk-access (unknown interface "disk-access")
+---
+last-occurrence:  today at 04:26 CDT
+warning: |
+  snap "ceedee-ripper" has bad plugs or slots: disk-access (unknown interface
+  "disk-access")
+---
+last-occurrence:  today at 09:52 CDT
+warning: |
+  snap "ceedee-ripper" has bad plugs or slots: ceedee-ripper-dbus, dbus (cannot
+  find attribute 'bus'); ceedee-ripper-drive (unknown interface
+  "ceedee-ripper-drive")
