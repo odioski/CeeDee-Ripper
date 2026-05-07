@@ -9,7 +9,3 @@ sudo snap install *.snap --dangerous
 snap list
 
 sleep 1
-
-clear
-
-ceedee-ripper

@@ -50,7 +50,7 @@ After building with `cargo build --release`, install to `/usr/local/bin`:
 cargo build --release
 
 # Install binary
-sudo install -Dm755 target/release/CeeDee-Ripper /usr/local/bin/ceedee-ripper
+sudo install -Dm755 target/release/ceedee-ripper /usr/local/bin/ceedee-ripper
 
 # Install desktop entry
 sudo install -Dm644 resources/ceedee-ripper.desktop \

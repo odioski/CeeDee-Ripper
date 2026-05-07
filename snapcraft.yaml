@@ -25,10 +25,9 @@ description: |
 
 # core24 (Ubuntu 24.04) ships glibc 2.39, which includes GLIBC_2.38 and GLIBC_2.39.
 base: core24
-grade: stable
 confinement: strict
 license: GPL-3.0-or-later
-icon: usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png
+icon: resources/images/ceedee-ripper.png
 website: https://github.com/odioski/CeeDee-Ripper
 source-code: https://github.com/odioski/CeeDee-Ripper
 issues: https://github.com/odioski/CeeDee-Ripper/issues
@@ -71,11 +70,25 @@ parts:
         "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
       install -Dm644 resources/images/ceedee-ripper.png \
         "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png"
+
     stage-packages:
+    # GTK4 / Adwaita / graphics stack
+      - libc6
+      - libglib2.0-0
+      - glib-networking
+      - libcairo2
+      - libpango-1.0-0
+      - libgdk-pixbuf-2.0-0
+      - libgraphene-1.0-0
+      - libgtk-4-1
+      - libgtk-4-media-gstreamer
+      - libadwaita-1-0
       # Disc detection
       - libdiscid0
       - cd-discid
       # GStreamer pipeline (cdparanoia ! wavenc ! filesink)
+      - libgstreamer1.0-0
+      - libgstreamer-plugins-base1.0-0      
       - gstreamer1.0-plugins-base
       - gstreamer1.0-plugins-good
       - gstreamer1.0-plugins-ugly
@@ -91,12 +104,16 @@ parts:
       - lame
       - vorbis-tools
 
+    prime:
+      - usr/lib/x86_64-linux-gnu/gio/modules/libgiolibproxy.so
+      - usr/lib/x86_64-linux-gnu/gtk-4.0/4.0.0/media/libmedia-gstreamer.so
+      - bin/ceedee-ripper
+
 apps:
   ceedee-ripper:
     extensions:
       - gnome
     command: bin/ceedee-ripper
-    desktop: usr/share/applications/ceedee-ripper.desktop
     environment:
       GST_PLUGIN_SYSTEM_PATH: $SNAP/usr/lib/x86_64-linux-gnu/gstreamer-1.0
       GST_PLUGIN_SCANNER: $SNAP/usr/lib/x86_64-linux-gnu/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner
@@ -110,12 +127,20 @@ apps:
       - opengl
       - removable-media
       - optical-drive
+      - raw-usb
       - network
     slots:
       - ceedee-ripper-dbus
+      - ceedee-ripper-optical-drive
 
 slots:
   ceedee-ripper-dbus:
     interface: dbus
     bus: session
     name: snap.ceedee-ripper.ceedee-ripper
+  ceedee-ripper-optical-drive:
+    interface: optical-drive
+    devices:
+      - /dev/sr[0-9]*
+      - /dev/sg[0-9]*
+      - /dev/cdrom 
