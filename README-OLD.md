@@ -1,6 +1,6 @@
 # CeeDee Ripper — Advanced
 
-A GTK4/Libadwaita-based audio CD ripper for Linux.
+A desktop audio CD ripper for Linux with an egui default UI and optional GTK4/Libadwaita UI.
 
 ## Dependencies
 
@@ -15,7 +15,7 @@ This app uses external system tools and libraries to detect CDs, read tracks, an
 Library-based ripping uses GStreamer:
 - GStreamer core and plugins: `base` and `good` sets (provides `cdparanoia` source and `wavenc`)
 
-Additionally, you need GTK4, Libadwaita, and libdiscid development packages to build from source.
+Additionally, you need libdiscid development packages to build from source. GTK4/Libadwaita development packages are only required when building the optional `gtk-ui` feature.
 
 ## Quick Install (Linux)
 
@@ -127,11 +127,14 @@ The packaging goal is to keep the snap strictly confined. Classic confinement is
 First, ensure you've installed the dependencies (see [Dependencies](#dependencies) above).
 
 ```bash
-# Build
+# Build (default egui UI)
 cargo build --release
 
-# Run directly
+# Run directly (default egui UI)
 cargo run --release
+
+# Build and run GTK UI explicitly
+cargo run --release --no-default-features --features gtk-ui
 
 # Or install to ~/.cargo/bin
 cargo install --path .
@@ -167,8 +170,12 @@ ceedee-ripper
 ## Build & Run
 
 ```bash
+# Default UI (egui)
 cargo build
 cargo run
+
+# GTK UI
+cargo run --no-default-features --features gtk-ui
 ```
 
 ## Continuous Integration
@@ -176,7 +183,7 @@ cargo run
 Every push to `master` automatically triggers a GitHub Actions workflow that:
 
 1. Installs the build dependencies needed for the Rust/GTK/GStreamer stack on Ubuntu 24.04
-2. Performs a standalone `cargo build --release` CI sanity build
+2. Performs standalone `cargo build --release` (default egui) and `cargo build --release --no-default-features --features gtk-ui` sanity builds
 3. Builds the snap through Snapcraft in LXD
 4. Uploads the resulting `.snap` as a downloadable build artifact (retained 7 days)
 

@@ -1,0 +1,28 @@
+#!/bin/sh
+set -eu
+
+real_pkg_config="${PKG_CONFIG_REAL:-/usr/bin/pkg-config}"
+
+target="${TARGET:-${CARGO_BUILD_TARGET:-}}"
+host="${HOST:-}"
+
+if [ -n "$target" ] && [ -n "$host" ] && [ "$target" != "$host" ]; then
+    export PKG_CONFIG_ALLOW_CROSS="${PKG_CONFIG_ALLOW_CROSS:-1}"
+
+    case "$target" in
+        x86_64-unknown-linux-gnu)
+            export PKG_CONFIG_LIBDIR="${PKG_CONFIG_LIBDIR:-/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig}"
+            ;;
+        x86_64-unknown-linux-musl)
+            export PKG_CONFIG_LIBDIR="${PKG_CONFIG_LIBDIR:-/usr/lib/x86_64-linux-musl/pkgconfig:/usr/share/pkgconfig}"
+            ;;
+        aarch64-unknown-linux-gnu)
+            export PKG_CONFIG_LIBDIR="${PKG_CONFIG_LIBDIR:-/usr/lib/aarch64-linux-gnu/pkgconfig:/usr/share/pkgconfig}"
+            ;;
+        armv7-unknown-linux-gnueabihf)
+            export PKG_CONFIG_LIBDIR="${PKG_CONFIG_LIBDIR:-/usr/lib/arm-linux-gnueabihf/pkgconfig:/usr/share/pkgconfig}"
+            ;;
+    esac
+fi
+
+exec "$real_pkg_config" "$@"

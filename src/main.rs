@@ -1,14 +1,28 @@
 mod cd_reader;
 mod config;
+#[cfg(all(not(feature = "gtk-ui"), feature = "egui-ui"))]
+mod egui_app;
 mod ripper;
+#[cfg(feature = "gtk-ui")]
 mod window;
 
+#[cfg(feature = "gtk-ui")]
 use std::{env, path::PathBuf};
 
+#[cfg(feature = "gtk-ui")]
 use gtk4::{gio, glib, prelude::*};
+#[cfg(feature = "gtk-ui")]
 use libadwaita::{ColorScheme, StyleManager};
+#[cfg(feature = "gtk-ui")]
 use window::CeeDeeRipperWindow;
 
+#[cfg(not(any(feature = "gtk-ui", feature = "egui-ui")))]
+compile_error!("Enable at least one UI feature: gtk-ui or egui-ui.");
+
+#[cfg(all(feature = "gtk-ui", feature = "egui-ui"))]
+compile_error!("Enable only one UI feature at a time: gtk-ui or egui-ui.");
+
+#[cfg(feature = "gtk-ui")]
 fn has_graphical_display() -> bool {
     if env::var_os("DISPLAY").is_some_and(|display| !display.is_empty()) {
         return true;
@@ -34,6 +48,7 @@ fn has_graphical_display() -> bool {
     wayland_socket.exists()
 }
 
+#[cfg(feature = "gtk-ui")]
 fn main() -> glib::ExitCode {
     if !has_graphical_display() {
         eprintln!(
@@ -94,4 +109,14 @@ fn main() -> glib::ExitCode {
 
     // Run the application
     app.run()
+}
+
+#[cfg(all(not(feature = "gtk-ui"), feature = "egui-ui"))]
+fn main() -> eframe::Result<()> {
+    if let Err(e) = gstreamer::init() {
+        eprintln!("Failed to initialize GStreamer: {}", e);
+        std::process::exit(1);
+    }
+
+    egui_app::run()
 }

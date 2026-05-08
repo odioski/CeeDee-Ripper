@@ -39,8 +39,11 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: ${{ runner.os }}-cargo-
 
-      - name: Build release binary
+      - name: Build release binary (default egui)
         run: cargo build --release
+
+      - name: Build release binary (GTK feature)
+        run: cargo build --release --no-default-features --features gtk-ui
 
       - name: Initialize LXD
         run: |

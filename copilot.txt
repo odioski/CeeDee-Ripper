@@ -1,0 +1,91 @@
+warning: field `album_cover_url` is never read
+  --> src/cd_reader.rs:18:9
+   |
+13 | pub struct CdInfo {
+   |            ------ field in this struct
+...
+18 |     pub album_cover_url: Option<String>,
+   |         ^^^^^^^^^^^^^^^
+   |
+   = note: `CdInfo` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: enum `RipMessage` is never used
+  --> src/ripper.rs:15:10
+   |
+15 | pub enum RipMessage {
+   |          ^^^^^^^^^^
+
+warning: struct `Ripper` is never constructed
+  --> src/ripper.rs:22:12
+   |
+22 | pub struct Ripper {
+   |            ^^^^^^
+
+warning: function `sanitize_path_component` is never used
+  --> src/ripper.rs:31:4
+   |
+31 | fn sanitize_path_component(value: &str, fallback: &str) -> String {
+   |    ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `sanitize_track_name` is never used
+  --> src/ripper.rs:71:4
+   |
+71 | fn sanitize_track_name(track_name: &str, track_num: usize) -> String {
+   |    ^^^^^^^^^^^^^^^^^^^
+
+warning: function `final_output_path` is never used
+  --> src/ripper.rs:75:4
+   |
+75 | fn final_output_path(encoder: &str, track_name: &str, output_dir: &Path) -> PathBuf {
+   |    ^^^^^^^^^^^^^^^^^
+
+warning: function `working_wav_path` is never used
+  --> src/ripper.rs:86:4
+   |
+86 | fn working_wav_path(
+   |    ^^^^^^^^^^^^^^^^
+
+warning: function `quote_gstreamer_string` is never used
+  --> src/ripper.rs:99:4
+   |
+99 | fn quote_gstreamer_string(value: &str) -> String {
+   |    ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `is_windows_reserved_name` is never used
+   --> src/ripper.rs:113:4
+    |
+113 | fn is_windows_reserved_name(value: &str) -> bool {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: multiple associated items are never used
+   --> src/ripper.rs:145:12
+    |
+144 | impl Ripper {
+    | ----------- associated items in this implementation
+145 |     pub fn new(config: Config, output_dir: PathBuf, sender: UnboundedSender<RipMessage>) -> Self {
+    |            ^^^
+...
+157 |     pub fn cancel(&self) {
+    |            ^^^^^^
+...
+167 |     pub fn rip(&self, cd_info: &CdInfo) {
+    |            ^^^
+...
+228 |     async fn rip_track(
+    |              ^^^^^^^^^
+...
+347 |     fn encode_ogg(
+    |        ^^^^^^^^^^
+...
+372 |     fn rip_track_via_gstreamer(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^
+...
+416 |     fn encode_flac(
+    |        ^^^^^^^^^^^
+...
+439 |     fn encode_mp3(
+    |        ^^^^^^^^^^
+
+warning: `ceedee-ripper` (bin "ceedee-ripper") generated 10 warnings
+    Finished `release` profile [optimized] target(s) in 0.25s

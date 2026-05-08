@@ -25,3 +25,5 @@ CACHEDIR.TAG
 .cache/*
 *.snap
 Cargo.lock
+target/debian/
+note.txt

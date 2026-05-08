@@ -3,6 +3,7 @@ use crate::config::Config;
 use gstreamer as gst;
 use gstreamer::prelude::*;
 use std::error::Error;
+use std::io::Read;
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command};
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -186,6 +187,8 @@ impl Ripper {
             return;
         }
 
+        self.maybe_save_album_art(cd_info, &album_dir);
+
         let total_tracks = cd_info.tracks.len();
         for (i, track_name) in cd_info.tracks.iter().enumerate() {
             let track_num = i + 1;
@@ -223,6 +226,42 @@ impl Ripper {
         }
 
         self.sender.send(RipMessage::Success).unwrap();
+    }
+
+    fn maybe_save_album_art(&self, cd_info: &CdInfo, album_dir: &Path) {
+        if self.config.album_art_download_behavior != "save-with-rip" {
+            return;
+        }
+
+        let Some(url) = &cd_info.album_cover_url else {
+            return;
+        };
+
+        if let Err(err) = Self::download_album_art(url, album_dir) {
+            eprintln!("Failed to save album art: {}", err);
+        }
+    }
+
+    fn download_album_art(url: &str, album_dir: &Path) -> Result<(), Box<dyn Error>> {
+        let response = ureq::get(url).call()?;
+        let content_type = response
+            .header("Content-Type")
+            .unwrap_or("image/jpeg")
+            .to_ascii_lowercase();
+
+        let mut bytes = Vec::new();
+        response.into_reader().read_to_end(&mut bytes)?;
+
+        let extension = if content_type.contains("png") {
+            "png"
+        } else if content_type.contains("webp") {
+            "webp"
+        } else {
+            "jpg"
+        };
+
+        std::fs::write(album_dir.join(format!("cover.{}", extension)), bytes)?;
+        Ok(())
     }
 
     async fn rip_track(

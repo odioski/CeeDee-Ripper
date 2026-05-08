@@ -11,6 +11,8 @@ pub struct Config {
     pub cddb_enabled: bool,
     pub device: String,
     pub metadata_source: String, // none | musicbrainz | cddb
+    pub album_art_size_preference: String, // auto | small | large | original
+    pub album_art_download_behavior: String, // preview-only | save-with-rip
 }
 
 impl Default for Config {
@@ -23,6 +25,8 @@ impl Default for Config {
             device: "/dev/sr0".to_string(),
             // Default to MusicBrainz so metadata auto-engages on first run
             metadata_source: "musicbrainz".to_string(),
+            album_art_size_preference: "auto".to_string(),
+            album_art_download_behavior: "preview-only".to_string(),
         }
     }
 }

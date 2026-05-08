@@ -10,17 +10,49 @@ use std::path::Path;
 use std::process::Command;
 
 #[derive(Debug, Clone)]
+pub struct AlbumArtOption {
+    pub key: String,
+    pub label: String,
+    pub url: String,
+}
+
+#[derive(Debug, Clone)]
 pub struct CdInfo {
     pub title: String,
     pub artist: String,
     pub tracks: Vec<String>,
     pub disc_id: String,
     pub album_cover_url: Option<String>,
+    pub album_art_options: Vec<AlbumArtOption>,
+}
+
+impl CdInfo {
+    pub fn preferred_album_cover_url(&self, preference: &str) -> Option<&str> {
+        let preferred_keys: &[&str] = match preference {
+            "small" => &["small", "large", "original"],
+            "large" => &["large", "original", "small"],
+            "original" => &["original", "large", "small"],
+            _ => &["large", "original", "small"],
+        };
+
+        for key in preferred_keys {
+            if let Some(option) = self.album_art_options.iter().find(|option| option.key == *key) {
+                return Some(option.url.as_str());
+            }
+        }
+
+        self.album_cover_url.as_deref()
+    }
 }
 
 pub struct CdReader;
 
 impl CdReader {
+    #[cfg(feature = "egui-ui")]
+    pub fn active_device_path() -> String {
+        Self::get_active_device_path()
+    }
+
     fn get_active_device_path() -> String {
         // Highest priority: environment override
         if let Ok(dev) = std::env::var("CD_DEVICE") {
@@ -45,7 +77,18 @@ impl CdReader {
         "/dev/sr0".to_string()
     }
 
+    #[cfg(feature = "gtk-ui")]
     pub fn detect() -> Result<CdInfo, Box<dyn Error>> {
+        let cfg = Config::load();
+        Self::detect_impl(&cfg.metadata_source)
+    }
+
+    #[cfg(feature = "egui-ui")]
+    pub fn detect_with_metadata_source(metadata_source: &str) -> Result<CdInfo, Box<dyn Error>> {
+        Self::detect_impl(metadata_source)
+    }
+
+    fn detect_impl(metadata_source: &str) -> Result<CdInfo, Box<dyn Error>> {
         let device = Self::get_active_device_path();
 
         // Try raw TOC via ioctl first
@@ -83,9 +126,8 @@ impl CdReader {
         // Build baseline info
         let mut cd_info = Self::create_default_info_with_count("", track_count);
 
-        // Attempt metadata lookup based on config
-        let cfg = Config::load();
-        match cfg.metadata_source.as_str() {
+        // Attempt metadata lookup based on the requested source.
+        match metadata_source {
             "musicbrainz" => {
                 if let Some(info) = Self::fetch_musicbrainz_metadata(&device) {
                     cd_info = info;
@@ -103,7 +145,7 @@ impl CdReader {
     }
     fn read_toc_raw(device: &str) -> Result<usize, io::Error> {
         // ioctl constants from linux/cdrom.h
-        const CDROMREADTOCHDR: libc::c_ulong = 0x5305;
+        const CDROMREADTOCHDR: libc::Ioctl = 0x5305;
         #[repr(C)]
         struct CdromTocHdr {
             cdth_trk0: libc::c_uchar,
@@ -201,6 +243,7 @@ impl CdReader {
 
         // Fetch cover art from Cover Art Archive
         let mut album_cover_url = None;
+        let mut album_art_options = Vec::new();
         if let Some(release_mbid) = first.get("id").and_then(|id| id.as_str()) {
             let cover_art_url = format!("https://coverartarchive.org/release/{}", release_mbid);
             if let Ok(cover_resp) = ureq::get(&cover_art_url).call() {
@@ -209,11 +252,33 @@ impl CdReader {
                         let front_image = images.iter().find(|img| {
                             img.get("front").and_then(|v| v.as_bool()).unwrap_or(false)
                         });
-                        // Use the "small" thumbnail for performance
-                        album_cover_url = front_image
-                            .and_then(|img| img.get("thumbnails").and_then(|t| t.get("small")))
-                            .and_then(|url| url.as_str())
-                            .map(|s| s.to_string());
+                        if let Some(img) = front_image {
+                            Self::push_album_art_option(
+                                &mut album_art_options,
+                                "small",
+                                "Small thumbnail",
+                                img.get("thumbnails").and_then(|t| t.get("small")),
+                            );
+                            Self::push_album_art_option(
+                                &mut album_art_options,
+                                "large",
+                                "Large thumbnail",
+                                img.get("thumbnails").and_then(|t| t.get("large")),
+                            );
+                            Self::push_album_art_option(
+                                &mut album_art_options,
+                                "original",
+                                "Original image",
+                                img.get("image"),
+                            );
+                        }
+
+                        let preferred_size = Config::load().album_art_size_preference;
+                        album_cover_url = Self::preferred_album_art_url(
+                            &album_art_options,
+                            &preferred_size,
+                        )
+                        .map(ToOwned::to_owned);
                     }
                 }
             }
@@ -257,6 +322,7 @@ impl CdReader {
             tracks,
             disc_id: mbid.to_string(),
             album_cover_url,
+            album_art_options,
         })
     }
 
@@ -356,6 +422,7 @@ impl CdReader {
             tracks,
             disc_id: disc_id,
             album_cover_url: None,
+            album_art_options: Vec::new(),
         })
     }
     // Disc ID retrieval is handled directly within `detect()` using libdiscid.
@@ -373,7 +440,49 @@ impl CdReader {
             tracks,
             disc_id: disc_id.to_string(),
             album_cover_url: None,
+            album_art_options: Vec::new(),
         }
+    }
+
+    fn push_album_art_option(
+        options: &mut Vec<AlbumArtOption>,
+        key: &str,
+        label: &str,
+        value: Option<&Value>,
+    ) {
+        let Some(url) = value.and_then(|value| value.as_str()) else {
+            return;
+        };
+
+        if options.iter().any(|option| option.url == url) {
+            return;
+        }
+
+        options.push(AlbumArtOption {
+            key: key.to_string(),
+            label: label.to_string(),
+            url: url.to_string(),
+        });
+    }
+
+    fn preferred_album_art_url<'a>(
+        options: &'a [AlbumArtOption],
+        preference: &str,
+    ) -> Option<&'a str> {
+        let preferred_keys: &[&str] = match preference {
+            "small" => &["small", "large", "original"],
+            "large" => &["large", "original", "small"],
+            "original" => &["original", "large", "small"],
+            _ => &["large", "original", "small"],
+        };
+
+        for key in preferred_keys {
+            if let Some(option) = options.iter().find(|option| option.key == *key) {
+                return Some(option.url.as_str());
+            }
+        }
+
+        None
     }
 
     // Track count helpers removed; libdiscid provides reliable TOC.

@@ -1,12 +1,30 @@
 [package]
 name = "ceedee-ripper"
-version = "1.0.0"
+version = "1.1.0"
 edition = "2021"
+license = "MIT"
+description = "CeeDee-Ripper is a GTK4 and Libadwaita desktop app for extracting audio CDs."
+
+[features]
+default = ["egui-ui"]
+gtk-ui = ["dep:gtk4", "dep:libadwaita", "dep:libadwaita-sys"]
+egui-ui = ["dep:eframe", "dep:egui", "dep:image"]
+
+[package.metadata.deb]
+copyright = "Copyright (c) 2026 Omar Daniels"
+assets = [
+    ["resources/images/ceedee-ripper.png", "usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png", "644"],
+    ["resources/ceedee-ripper.desktop", "usr/share/applications/ceedee-ripper.desktop", "644"],
+]
+
 
 [dependencies]
-gtk4 = "0.11.3"
-libadwaita = "0.9.1"
-libadwaita-sys = "0.9.1"
+gtk4 = { version = "0.11.3", optional = true }
+libadwaita = { version = "0.9.1", optional = true }
+libadwaita-sys = { version = "0.9.1", optional = true }
+eframe = { version = "0.34.2", optional = true }
+egui = { version = "0.34.2", optional = true }
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "webp"], optional = true }
 gstreamer = "0.25.1"
 gstreamer-audio = "0.25.0"
 serde = { version = "1.0", features = ["derive"] }

@@ -26,3 +26,27 @@ warning: |
   snap "ceedee-ripper" has bad plugs or slots: ceedee-ripper-dbus, dbus (cannot
   find attribute 'bus'); ceedee-ripper-drive (unknown interface
   "ceedee-ripper-drive")
+
+
+###################################################################################################3
+#######################################################################################################
+
+• There are 2 views in src/egui_app.rs:
+
+  1. Rip view: main working view
+  2. Settings view: preferences/config view
+
+  The functions that manage the main view are:
+
+  - run() comment 2: launches the egui window.
+  - ui() comment 4: renders the top-level app frame and switches between views/tabs.
+  - render_rip_tab() comment 5: manages the main Rip view: controls, CD metadata, track list, and album art.
+  - render_settings_tab() comment 6: manages the Settings view.
+
+  For the main Rip view specifically, render_rip_tab() is the primary function. The track list and album art layout inside it are
+  supported by helper functions 19 through 23.
+
+  To continue this session, run codex resume 019e08ed-ea75-75e0-98be-0e7aa15acb4a
+
+  #######################################################################################################
+  #######################################################################################################
