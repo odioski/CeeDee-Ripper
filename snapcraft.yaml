@@ -1,6 +1,6 @@
 name: ceedee-ripper
 title: CeeDee Ripper
-version: '1.0.0'
+version: '1.1.0'
 summary: Audio CD music ripper.
 description: |
 
@@ -26,7 +26,7 @@ description: |
 # core24 (Ubuntu 24.04) ships glibc 2.39, which includes GLIBC_2.38 and GLIBC_2.39.
 base: core24
 confinement: strict
-license: GPL-3.0-or-later
+license: MIT
 icon: resources/images/ceedee-ripper.png
 website: https://github.com/odioski/CeeDee-Ripper
 source-code: https://github.com/odioski/CeeDee-Ripper
@@ -70,6 +70,8 @@ parts:
         "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
       install -Dm644 resources/images/ceedee-ripper.png \
         "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png"
+      install -Dm644 resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml \
+        "$CRAFT_PART_INSTALL/usr/share/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml"
 
     stage-packages:
     # GTK4 / Adwaita / graphics stack
@@ -145,8 +147,7 @@ apps:
       - network
       - dbus
       - block-devices
-      - ceedee-ripper-drive
-      - ceedee-cd-drive
+      - ceedee-drive
     slots:
       - ceedee-ripper-dbus
 
@@ -155,4 +156,3 @@ slots:
     interface: dbus
     bus: session
     name: snap.ceedee-ripper.ceedee-ripper
-

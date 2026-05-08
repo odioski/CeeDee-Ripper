@@ -1,0 +1,72 @@
+CeeDee Ripper local packaging summary - 2026-05-08
+
+Files changed:
+- Cargo.toml
+- README.md
+- docs/PACKAGING.md
+- resources/ceedee-ripper.desktop
+- resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml
+- snapcraft.yaml
+- Summary.txt
+- Summary.tx
+
+Existing user/unrelated files left alone:
+- codex prompt remains untracked.
+
+Source changes:
+- No Rust source files were edited. The egui and GTK build paths already passed local validation.
+
+Commands run:
+- git status --short
+- git status --branch --short
+- rg --files
+- cargo check
+- cargo build
+- cargo check --all-targets
+- cargo check --no-default-features --features gtk-ui
+- cargo build --no-default-features --features gtk-ui
+- cargo test
+- cargo test --no-default-features --features gtk-ui
+- cargo metadata --no-deps --format-version 1
+- cargo deb --no-build --no-strip
+- cargo deb --no-strip
+- desktop-file-validate resources/ceedee-ripper.desktop
+- appstreamcli validate --pedantic resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml
+- python3 -c 'import yaml; yaml.safe_load(open("snapcraft.yaml")); print("snapcraft.yaml: YAML OK")'
+- dpkg-deb -I target/debian/ceedee-ripper_1.1.0-1_amd64.deb
+- dpkg-deb -c target/debian/ceedee-ripper_1.1.0-1_amd64.deb
+- snapcraft lint --help
+
+Build/check results:
+- Default egui cargo check: passed.
+- Default egui cargo build: passed.
+- GTK cargo check: passed.
+- GTK cargo build: passed.
+- Default egui cargo test: passed, 5 tests.
+- GTK cargo test: passed, 5 tests.
+- Desktop file validation: passed.
+- AppStream pedantic validation: passed.
+- snapcraft.yaml YAML parse: passed.
+- Local Debian package build: passed at target/debian/ceedee-ripper_1.1.0-1_amd64.deb.
+- Debian package payload now includes usr/bin/ceedee-ripper, desktop file, icon, and AppStream metainfo.
+
+Packaging/docs cleanup completed:
+- Added user-first README.md.
+- Added docs/PACKAGING.md for local-only package validation.
+- Added Cargo package metadata: authors, readme, homepage, repository, keywords, category, Debian section/maintainer/dependencies/assets.
+- Added AppStream metainfo for Discover/Flathub readiness.
+- Aligned snapcraft.yaml version/license with Cargo.toml and LICENSE.
+- Fixed snapcraft.yaml app plug references to use the defined ceedee-drive plug.
+- Installed AppStream metainfo in Debian and Snap packaging metadata.
+- Cleaned desktop Categories to avoid duplicate main-category validation hints.
+
+Remaining local blockers:
+- No local Rust build blockers found for egui or GTK.
+- Snap was not built in this pass; only YAML metadata was parsed locally.
+- Runtime CD ripping still needs hardware validation with an audio CD and optical-drive permissions.
+- Future Flathub readiness may require a broader reverse-DNS rename of the desktop file, icon names, and runtime app ID.
+
+Suggested next local step:
+- Test the built binary on a machine/session with an actual audio CD drive:
+  CD_DEVICE=/dev/sr0 target/debug/ceedee-ripper
+- Then test the local Debian package install/remove cycle in a disposable Ubuntu VM or container-capable desktop environment.

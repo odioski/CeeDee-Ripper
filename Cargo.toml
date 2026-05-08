@@ -2,8 +2,14 @@
 name = "ceedee-ripper"
 version = "1.1.0"
 edition = "2021"
+authors = ["Omar Daniels"]
 license = "MIT"
-description = "CeeDee-Ripper is a GTK4 and Libadwaita desktop app for extracting audio CDs."
+description = "Linux desktop app for extracting audio CDs to FLAC, MP3, WAV, or Ogg Vorbis."
+readme = "README.md"
+homepage = "https://github.com/odioski/CeeDee-Ripper"
+repository = "https://github.com/odioski/CeeDee-Ripper"
+keywords = ["audio", "cd", "ripper", "music"]
+categories = ["multimedia::audio"]
 
 [features]
 default = ["egui-ui"]
@@ -11,10 +17,15 @@ gtk-ui = ["dep:gtk4", "dep:libadwaita", "dep:libadwaita-sys"]
 egui-ui = ["dep:eframe", "dep:egui", "dep:image"]
 
 [package.metadata.deb]
+section = "sound"
+maintainer = "Omar Daniels"
 copyright = "Copyright (c) 2026 Omar Daniels"
+depends = "$auto, cdparanoia, cd-discid, eject, flac, lame, vorbis-tools, gstreamer1.0-plugins-base, gstreamer1.0-plugins-good, gstreamer1.0-plugins-ugly, libdiscid0, libgstreamer1.0-0, libgstreamer-plugins-base1.0-0"
 assets = [
+    ["target/release/ceedee-ripper", "usr/bin/ceedee-ripper", "755"],
     ["resources/images/ceedee-ripper.png", "usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png", "644"],
     ["resources/ceedee-ripper.desktop", "usr/share/applications/ceedee-ripper.desktop", "644"],
+    ["resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml", "usr/share/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml", "644"],
 ]
 
 
