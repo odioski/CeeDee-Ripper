@@ -1,0 +1,63 @@
+We are continuing CeeDee Ripper locally. Do not push, publish, upload, or contact GitHub/package registries unless I explicitly ask. Nor any others we are prepping for.
+
+Original goal:
+Prepare the project for future repo/package uploads, but keep work local for now.
+
+Current priority:
+Packaging work. Leave all src/ alone. Do not edit.
+
+Rules:
+- Work locally only.
+- Do not run git push.
+- Do not trigger or manage GitHub Actions.
+- Do not upload to crates.io, Snap Store, Flathub, Apt/PPA, AUR, COPR, or any package registry.
+- Be careful with existing user changes.
+- Do not delete or revert unrelated work.
+
+Source rule:
+You may inspect any file.
+You may edit Rust source only when fixing the egui build/runtime path or a real local build blocker.
+Keep source changes scoped and explain what changed.
+
+Tasks:
+1. Inspect current repo state.
+2. Check the egui path:
+   - src/egui_app.rs
+   - src/main.rs
+   - src/config.rs
+   - src/ripper.rs
+   - src/cd_reader.rs as needed
+3. Run local validation:
+   - git status
+   - cargo check
+   - cargo build if cargo check passes
+   - deb/Ubuntu repo checks. Just make sure they are valid. Mostly metadata
+4. Fix local build/runtime issues for the egui UI.
+5. Fix local build/runtime issues for the gtk UI.
+6. After gkt-ui is stable, prepare local-only packaging/docs cleanup:
+   - user-first README.md
+   - docs/PACKAGING.md if useful
+   - Cargo.toml package metadata
+   - snapcraft.yaml metadata consistency
+   - desktop/icon path checks
+   - AppStream/metainfo readiness for Discover/Flathub
+7. After egui is stable, prepare local-only packaging/docs cleanup:
+   - user-first README.md
+   - docs/PACKAGING.md if useful
+   - Cargo.toml package metadata
+   - snapcraft.yaml metadata consistency
+   - desktop/icon path checks
+   - AppStream/metainfo readiness for Discover/Flathub
+
+Important:
+If you find anything that would require remote access, credentials, publishing, or a GitHub action, DISREGARD AND CONTINUE.
+Research external platform docs if assistance is critical.
+Remember the order... Github ... other repos are extra.
+
+At the end, summarize:
+- Files changed
+- Commands run
+- Build/check results
+- Remaining local blockers
+- Suggested next local step
+- Compile the summarization to >> Summary.txt and write to CeeDee-Ripper/Summary.tx
