@@ -1,8 +1,12 @@
+![CeeDee Ripper](../resources/CeeDee-Ripper.png)
+
 # Packaging Notes
 
 These notes are for local validation before any future repository or package upload. Do not push, publish, upload, or trigger remote packaging from this checkout unless explicitly requested.
 
 ## Local Build Matrix
+
+Official package builds should use the default egui UI unless a package target explicitly needs the GTK4/Libadwaita variant. The default Cargo feature set is `egui-ui`, and `gtk-ui` remains a secondary local validation target. Users can still choose the GTK look by building with `--no-default-features --features gtk-ui`.
 
 Default egui UI:
 
@@ -48,20 +52,18 @@ appstreamcli validate --pedantic resources/metainfo/io.github.odioski.ceedee_rip
 
 The current desktop file remains `ceedee-ripper.desktop`. For Flathub readiness, expect to revisit reverse-DNS naming across the desktop file, app ID, icons, and metainfo ID.
 
-## Snap
+## Recipe Targets
 
-Snap metadata lives in `snapcraft.yaml`. It is aligned with the Cargo package version and MIT license.
+Initial recipe files live under `packaging/`:
 
-Local-only checks:
+- `packaging/flatpak/` for Flathub preparation
+- `packaging/ubuntu/debian/` for Ubuntu source package/PPA preparation
+- `packaging/appimage/` for direct GitHub release artifacts
+- `packaging/aur/` for Arch User Repository preparation
+- `packaging/fedora/` for Fedora/COPR RPM preparation
 
-```bash
-python3 -c 'import yaml; yaml.safe_load(open("snapcraft.yaml")); print("snapcraft.yaml: YAML OK")'
-snapcraft
-snapcraft lint ./ceedee-ripper_*.snap
-```
-
-Do not upload to the Snap Store from this checkout unless explicitly requested.
+These recipes assume the GitHub release tag `v1.1.0` as the upstream source anchor.
 
 ## Future Repos
 
-Treat GitHub, crates.io, Snap Store, Flathub, Apt/PPA, AUR, COPR, and similar destinations as release targets only. Keep preparation local until a release/publishing step is explicitly authorized.
+Treat GitHub, crates.io, Flathub, Apt/PPA, AUR, COPR, and similar destinations as release targets only. Keep preparation local until a release/publishing step is explicitly authorized.

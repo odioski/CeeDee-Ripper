@@ -1,8 +1,12 @@
+![CeeDee Ripper](resources/CeeDee-Ripper.png)
+
 # CeeDee Ripper
 
 CeeDee Ripper is a Linux desktop app for extracting audio CDs to FLAC, MP3, WAV, or Ogg Vorbis.
 
 The default build uses the egui interface. A GTK4/Libadwaita interface is also available for local builds and packaging experiments.
+
+The display name is **CeeDee Ripper**. The package, binary, desktop ID, and Rust crate name use **ceedee-ripper**.
 
 ## Features
 

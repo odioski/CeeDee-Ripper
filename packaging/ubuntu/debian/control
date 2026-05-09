@@ -1,0 +1,40 @@
+Source: ceedee-ripper
+Section: sound
+Priority: optional
+Maintainer: Omar Daniels <odioski@users.noreply.github.com>
+Build-Depends:
+ debhelper-compat (= 13),
+ cargo,
+ rustc,
+ pkg-config,
+ libclang-dev,
+ libdiscid-dev,
+ libglib2.0-dev,
+ libgstreamer1.0-dev,
+ libgstreamer-plugins-base1.0-dev,
+ desktop-file-utils,
+ appstream
+Standards-Version: 4.7.0
+Homepage: https://github.com/odioski/CeeDee-Ripper
+Rules-Requires-Root: no
+
+Package: ceedee-ripper
+Architecture: any
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ cd-discid,
+ cdparanoia,
+ eject,
+ flac,
+ gstreamer1.0-plugins-base,
+ gstreamer1.0-plugins-good,
+ gstreamer1.0-plugins-ugly,
+ lame,
+ libdiscid0,
+ libgstreamer1.0-0,
+ libgstreamer-plugins-base1.0-0,
+ vorbis-tools
+Description: Linux desktop app for extracting audio CDs
+ CeeDee Ripper detects audio CDs, looks up metadata, and extracts selected
+ tracks to FLAC, MP3, WAV, or Ogg Vorbis files.

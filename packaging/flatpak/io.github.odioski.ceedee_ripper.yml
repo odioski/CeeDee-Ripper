@@ -1,0 +1,29 @@
+app-id: io.github.odioski.ceedee_ripper
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+command: ceedee-ripper
+finish-args:
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=all
+  - --filesystem=xdg-music:create
+  - --share=network
+modules:
+  - name: ceedee-ripper
+    buildsystem: simple
+    build-options:
+      env:
+        CARGO_HOME: /run/build/ceedee-ripper/cargo
+    build-commands:
+      - cargo build --release --locked
+      - install -Dm755 target/release/ceedee-ripper /app/bin/ceedee-ripper
+      - install -Dm644 resources/ceedee-ripper.desktop /app/share/applications/ceedee-ripper.desktop
+      - install -Dm644 resources/images/ceedee-ripper.png /app/share/icons/hicolor/256x256/apps/ceedee-ripper.png
+      - install -Dm644 resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml /app/share/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml
+    sources:
+      - type: git
+        url: https://github.com/odioski/CeeDee-Ripper.git
+        tag: v1.1.0
+      - generated-sources.json
