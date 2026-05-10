@@ -6,7 +6,7 @@ These notes are for local validation before any future repository or package upl
 
 ## Local Build Matrix
 
-Official package builds should use the default egui UI unless a package target explicitly needs the GTK4/Libadwaita variant. The default Cargo feature set is `egui-ui`, and `gtk-ui` remains a secondary local validation target. Users can still choose the GTK look by building with `--no-default-features --features gtk-ui`.
+Official package builds use the default egui UI. The default Cargo feature set is `egui-ui`, so packaging recipes that run plain `cargo build --release` produce egui artifacts. The GTK4/Libadwaita interface remains available for explicit builds with `--no-default-features --features gtk-ui`.
 
 Default egui UI:
 
@@ -24,6 +24,11 @@ cargo build --no-default-features --features gtk-ui
 
 The `gtk-ui` and `egui-ui` features are intentionally mutually exclusive.
 
+Package recipes may ship the default egui binary or produce a GTK variant by
+changing the build command to `cargo build --release --no-default-features
+--features gtk-ui`. Keep runtime dependencies matched to the UI variant being
+shipped.
+
 ## Debian/Ubuntu
 
 Local metadata/package check:
@@ -36,7 +41,7 @@ The Debian package metadata is defined in `Cargo.toml` under `[package.metadata.
 
 - `usr/bin/ceedee-ripper`
 - `usr/share/applications/ceedee-ripper.desktop`
-- `usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png`
+- `usr/share/icons/hicolor/256x256/apps/io.github.odioski.ceedee_ripper.png`
 - `usr/share/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml`
 
 Before a real package release, verify runtime dependencies on a clean Ubuntu install and decide whether package-level dependency declarations should be pinned more tightly.
@@ -50,7 +55,7 @@ desktop-file-validate resources/ceedee-ripper.desktop
 appstreamcli validate --pedantic resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml
 ```
 
-The current desktop file remains `ceedee-ripper.desktop`. For Flathub readiness, expect to revisit reverse-DNS naming across the desktop file, app ID, icons, and metainfo ID.
+The current desktop file remains `ceedee-ripper.desktop`, while the AppStream ID and icon name use `io.github.odioski.ceedee_ripper`.
 
 ## Recipe Targets
 

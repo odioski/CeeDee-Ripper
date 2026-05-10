@@ -7,7 +7,7 @@ ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)"
 APPDIR="$ROOT/target/appimage/${APP}.AppDir"
 
 cd "$ROOT"
-cargo build --release --locked
+cargo build --release
 
 rm -rf "$APPDIR"
 install -Dm755 target/release/ceedee-ripper "$APPDIR/usr/bin/ceedee-ripper"

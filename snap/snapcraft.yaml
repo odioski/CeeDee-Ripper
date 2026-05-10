@@ -1,0 +1,65 @@
+name: ceedee-ripper
+base: core24
+version: '1.1.0'
+title: CeeDee Ripper
+summary: Audio CD music ripper
+description: |
+  CeeDee Ripper detects audio CDs, looks up album metadata, and extracts
+  selected tracks to FLAC, MP3, WAV, or Ogg Vorbis files.
+license: MIT
+contact: https://github.com/odioski/CeeDee-Ripper/issues
+issues: https://github.com/odioski/CeeDee-Ripper/issues
+source-code: https://github.com/odioski/CeeDee-Ripper
+website: https://github.com/odioski/CeeDee-Ripper
+
+grade: stable
+confinement: strict
+
+apps:
+  ceedee-ripper:
+    command: usr/bin/ceedee-ripper
+    desktop: usr/share/applications/ceedee-ripper.desktop
+    plugs:
+      - desktop
+      - desktop-legacy
+      - home
+      - mount-observe
+      - network
+      - opengl
+      - optical-drive
+      - removable-media
+      - wayland
+      - x11
+
+parts:
+  ceedee-ripper:
+    plugin: rust
+    source: .
+    build-packages:
+      - libclang-dev
+      - libdiscid-dev
+      - libglib2.0-dev
+      - libgstreamer-plugins-base1.0-dev
+      - libgstreamer1.0-dev
+      - pkg-config
+    stage-packages:
+      - cd-discid
+      - cdparanoia
+      - eject
+      - flac
+      - gstreamer1.0-plugins-base
+      - gstreamer1.0-plugins-good
+      - gstreamer1.0-plugins-ugly
+      - lame
+      - libdiscid0
+      - libgstreamer-plugins-base1.0-0
+      - libgstreamer1.0-0
+      - mesa-vulkan-drivers
+      - vorbis-tools
+    override-build: |
+      cargo build --release
+      install -Dm755 target/release/ceedee-ripper "$CRAFT_PART_INSTALL/usr/bin/ceedee-ripper"
+      install -Dm644 resources/ceedee-ripper.desktop "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
+      install -Dm644 resources/images/ceedee-ripper.png "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/io.github.odioski.ceedee_ripper.png"
+      install -Dm644 resources/images/ceedee-ripper.png "$CRAFT_PART_INSTALL/usr/share/pixmaps/io.github.odioski.ceedee_ripper.png"
+      install -Dm644 resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml "$CRAFT_PART_INSTALL/usr/share/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml"

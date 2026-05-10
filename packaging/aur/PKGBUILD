@@ -22,6 +22,8 @@ depends=(
 makedepends=(
   'cargo'
   'git'
+  'gtk4'
+  'libadwaita'
   'pkgconf'
 )
 source=("${pkgname}::git+https://github.com/odioski/CeeDee-Ripper.git#tag=v${pkgver}")
@@ -34,7 +36,7 @@ prepare() {
 
 build() {
   cd "${pkgname}"
-  cargo build --release --locked
+  cargo build --release
 }
 
 check() {
@@ -51,7 +53,7 @@ package() {
   install -Dm644 "resources/ceedee-ripper.desktop" \
     "${pkgdir}/usr/share/applications/ceedee-ripper.desktop"
   install -Dm644 "resources/images/ceedee-ripper.png" \
-    "${pkgdir}/usr/share/icons/hicolor/256x256/apps/ceedee-ripper.png"
+    "${pkgdir}/usr/share/icons/hicolor/256x256/apps/io.github.odioski.ceedee_ripper.png"
   install -Dm644 "resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml" \
     "${pkgdir}/usr/share/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml"
   install -Dm644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"

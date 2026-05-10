@@ -4,7 +4,7 @@
 
 CeeDee Ripper is a Linux desktop app for extracting audio CDs to FLAC, MP3, WAV, or Ogg Vorbis.
 
-The default build uses the egui interface. A GTK4/Libadwaita interface is also available for local builds and packaging experiments.
+The default build uses the egui interface. A GTK4/Libadwaita interface is also available as the `gtk-ui` Cargo feature.
 
 The display name is **CeeDee Ripper**. The package, binary, desktop ID, and Rust crate name use **ceedee-ripper**.
 
@@ -28,7 +28,7 @@ CeeDee Ripper needs access to an optical drive and these runtime tools:
 - `vorbis-tools`
 - GStreamer base/good plugins, including the cdparanoia source and `wavenc`
 
-Building from source also requires Rust, `pkg-config`, `libdiscid` development headers, and GStreamer development headers. The optional GTK UI also requires GTK4 and Libadwaita development headers.
+Building from source also requires Rust, `pkg-config`, `libdiscid` development headers, and GStreamer development headers. GTK4 and Libadwaita development headers are only required when building with `--no-default-features --features gtk-ui`.
 
 On Debian or Ubuntu:
 
@@ -40,7 +40,7 @@ sudo apt-get install -y cdparanoia cd-discid eject flac lame vorbis-tools \
   gstreamer1.0-plugins-ugly pkg-config
 ```
 
-For the optional GTK UI, also install:
+For the optional GTK UI:
 
 ```bash
 sudo apt-get install -y libgtk-4-dev libadwaita-1-dev

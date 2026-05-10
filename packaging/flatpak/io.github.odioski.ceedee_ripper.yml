@@ -1,7 +1,10 @@
 app-id: io.github.odioski.ceedee_ripper
 runtime: org.freedesktop.Platform
-runtime-version: '24.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.llvm21
+  - org.freedesktop.Sdk.Extension.rust-stable
 command: ceedee-ripper
 finish-args:
   - --share=ipc
@@ -11,19 +14,36 @@ finish-args:
   - --filesystem=xdg-music:create
   - --share=network
 modules:
+  - name: libdiscid
+    buildsystem: autotools
+    sources:
+      - type: archive
+        url: https://ftp.musicbrainz.org/pub/musicbrainz/libdiscid/libdiscid-0.6.4.tar.gz
+        sha256: dd5e8f1c9aead442e23b749a9cc9336372e62e88ad7079a2b62895b0390cb282
+
   - name: ceedee-ripper
     buildsystem: simple
     build-options:
+      append-path: /usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm21/bin
+      build-args:
+        - --share=network
       env:
         CARGO_HOME: /run/build/ceedee-ripper/cargo
+        LIBRARY_PATH: /app/lib
+        LD_LIBRARY_PATH: /app/lib
+        LIBCLANG_PATH: /usr/lib/sdk/llvm21/lib
+        PKG_CONFIG_PATH: /app/lib/pkgconfig
     build-commands:
-      - cargo build --release --locked
+      - cargo build --release
       - install -Dm755 target/release/ceedee-ripper /app/bin/ceedee-ripper
-      - install -Dm644 resources/ceedee-ripper.desktop /app/share/applications/ceedee-ripper.desktop
-      - install -Dm644 resources/images/ceedee-ripper.png /app/share/icons/hicolor/256x256/apps/ceedee-ripper.png
+      - install -Dm644 resources/ceedee-ripper.desktop /app/share/applications/io.github.odioski.ceedee_ripper.desktop
+      - install -Dm644 packaging/flatpak/io.github.odioski.ceedee_ripper.png /app/share/icons/hicolor/512x512/apps/io.github.odioski.ceedee_ripper.png
       - install -Dm644 resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml /app/share/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml
+      - sed -i 's/ceedee-ripper.desktop/io.github.odioski.ceedee_ripper.desktop/' /app/share/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml
     sources:
-      - type: git
-        url: https://github.com/odioski/CeeDee-Ripper.git
-        tag: v1.1.0
-      - generated-sources.json
+      - type: dir
+        path: ../..
+        skip:
+          - .git
+          - .flatpak-builder
+          - target
