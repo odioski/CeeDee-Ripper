@@ -17,8 +17,8 @@ enum AppTab {
 struct CeeDeeRipperEguiApp {
     active_tab: AppTab,
     cd_info: Option<CdInfo>,
-    metadata_source_index: usize,
     format_index: usize,
+    ui_backend_index: usize,
     album_art_size_index: usize,
     album_art_download_index: usize,
     output_dir: String,
@@ -39,11 +39,6 @@ impl Default for CeeDeeRipperEguiApp {
     // ## Builds the initial egui app state from saved config and defaults. 1
     fn default() -> Self {
         let cfg = Config::load();
-        let metadata_source_index = match cfg.metadata_source.as_str() {
-            "musicbrainz" => 1,
-            "cddb" => 2,
-            _ => 0,
-        };
         let format_index = match cfg.encoder.as_str() {
             "mp3" => 1,
             "wav" => 2,
@@ -60,6 +55,10 @@ impl Default for CeeDeeRipperEguiApp {
             "save-with-rip" => 1,
             _ => 0,
         };
+        let ui_backend_index = match cfg.ui_backend.as_str() {
+            "gtk" if cfg!(feature = "gtk-ui") => 1,
+            _ => 0,
+        };
         let output_dir = dirs::audio_dir()
             .or_else(|| dirs::home_dir().map(|home| home.join("Music")))
             .unwrap_or_else(|| PathBuf::from("Music"))
@@ -69,8 +68,8 @@ impl Default for CeeDeeRipperEguiApp {
         Self {
             active_tab: AppTab::Rip,
             cd_info: None,
-            metadata_source_index,
             format_index,
+            ui_backend_index,
             album_art_size_index,
             album_art_download_index,
             output_dir,
@@ -119,6 +118,34 @@ impl eframe::App for CeeDeeRipperEguiApp {
         ui.spacing_mut().item_spacing.y = 8.0;
 
         ui.horizontal(|ui| {
+            ui.menu_button("View", |ui| {
+                ui.label("Interface");
+                let egui_selected = self.ui_backend_index == 0;
+                if ui.radio(egui_selected, "egui").clicked() {
+                    self.save_ui_backend_choice(0);
+                    ui.close();
+                }
+
+                #[cfg(feature = "gtk-ui")]
+                {
+                    let gtk_selected = self.ui_backend_index == 1;
+                    if ui.radio(gtk_selected, "GTK").clicked() {
+                        self.save_ui_backend_choice(1);
+                        ui.close();
+                    }
+                }
+
+                #[cfg(not(feature = "gtk-ui"))]
+                {
+                    ui.add_enabled(false, egui::RadioButton::new(false, "GTK"));
+                }
+
+                ui.separator();
+                ui.label("Restart required");
+            });
+        });
+
+        ui.horizontal(|ui| {
             ui.selectable_value(&mut self.active_tab, AppTab::Rip, "Rip");
             ui.selectable_value(&mut self.active_tab, AppTab::Settings, "Settings");
         });
@@ -161,17 +188,7 @@ impl CeeDeeRipperEguiApp {
 
         ui.horizontal(|ui| {
             ui.label("Metadata:");
-            egui::ComboBox::from_id_salt("metadata_source")
-                .selected_text(match self.metadata_source_index {
-                    1 => "MusicBrainz",
-                    2 => "CDDB",
-                    _ => "None",
-                })
-                .show_ui(ui, |ui| {
-                    ui.selectable_value(&mut self.metadata_source_index, 0, "None");
-                    ui.selectable_value(&mut self.metadata_source_index, 1, "MusicBrainz");
-                    ui.selectable_value(&mut self.metadata_source_index, 2, "CDDB");
-                });
+            ui.label("MusicBrainz");
         });
 
         ui.horizontal(|ui| {
@@ -321,6 +338,24 @@ impl CeeDeeRipperEguiApp {
     // ## Renders settings for metadata source and album art preferences. 6
     fn render_settings_tab(&mut self, ui: &mut egui::Ui) {
         ui.heading("Settings");
+        ui.horizontal(|ui| {
+            ui.label("Interface:");
+            egui::ComboBox::from_id_salt("ui_backend")
+                .selected_text(match self.ui_backend_index {
+                    1 => "GTK",
+                    _ => "egui",
+                })
+                .show_ui(ui, |ui| {
+                    ui.selectable_value(&mut self.ui_backend_index, 0, "egui");
+                    #[cfg(feature = "gtk-ui")]
+                    ui.selectable_value(&mut self.ui_backend_index, 1, "GTK");
+                    #[cfg(not(feature = "gtk-ui"))]
+                    ui.add_enabled(false, egui::Button::new("GTK"));
+                });
+        });
+        ui.label("Interface changes take effect after restart.");
+        ui.separator();
+
         ui.label("Album art preferences");
 
         let previous_size_index = self.album_art_size_index;
@@ -380,7 +415,7 @@ impl CeeDeeRipperEguiApp {
         }
 
         ui.separator();
-        ui.label("MusicBrainz mode pulls text metadata from MusicBrainz and artwork from the Cover Art Archive. CDDB metadata currently has no album art source in this app.");
+        ui.label("MusicBrainz pulls text metadata from MusicBrainz and artwork from the Cover Art Archive.");
 
         if ui.button("Save Settings").clicked() {
             self.save_ui_settings();
@@ -392,7 +427,14 @@ impl CeeDeeRipperEguiApp {
         let metadata_source = self.metadata_source_key();
         match CdReader::detect_with_metadata_source(metadata_source) {
             Ok(cd_info) => {
-                self.status = format!("Detected {} tracks", cd_info.tracks.len());
+                self.status = if let Some(err) = &cd_info.metadata_error {
+                    format!(
+                        "Detected {} tracks. Metadata lookup failed: {err}",
+                        cd_info.tracks.len()
+                    )
+                } else {
+                    format!("Detected {} tracks", cd_info.tracks.len())
+                };
                 self.selected_tracks = vec![true; cd_info.tracks.len()];
                 self.reset_album_cover_state();
                 self.cd_info = Some(cd_info);
@@ -460,7 +502,11 @@ impl CeeDeeRipperEguiApp {
         ctx: &egui::Context,
         url: &str,
     ) -> Result<egui::TextureHandle, String> {
-        let response = ureq::get(url)
+        let agent = ureq::AgentBuilder::new()
+            .timeout(Duration::from_secs(10))
+            .build();
+        let response = agent
+            .get(url)
             .call()
             .map_err(|err| format!("Failed to fetch album cover: {err}"))?;
 
@@ -484,6 +530,7 @@ impl CeeDeeRipperEguiApp {
     fn save_ui_settings(&mut self) {
         let mut cfg = Config::load();
         cfg.encoder = self.encoder_key().to_string();
+        cfg.ui_backend = self.ui_backend_key().to_string();
         cfg.metadata_source = self.metadata_source_key().to_string();
         cfg.album_art_size_preference = self.album_art_size_key().to_string();
         cfg.album_art_download_behavior = self.album_art_download_key().to_string();
@@ -493,6 +540,18 @@ impl CeeDeeRipperEguiApp {
                 self.status = "Settings saved.".to_string();
             }
             Err(err) => self.status = format!("Failed to save settings: {err}"),
+        }
+    }
+
+    fn save_ui_backend_choice(&mut self, backend_index: usize) {
+        self.ui_backend_index = backend_index;
+        let mut cfg = Config::load();
+        cfg.ui_backend = self.ui_backend_key().to_string();
+        match cfg.save() {
+            Ok(()) => {
+                self.status = "Interface preference saved. Restart required.".to_string();
+            }
+            Err(err) => self.status = format!("Failed to save interface preference: {err}"),
         }
     }
 
@@ -517,6 +576,7 @@ impl CeeDeeRipperEguiApp {
 
         let mut cfg = Config::load();
         cfg.encoder = self.encoder_key().to_string();
+        cfg.ui_backend = self.ui_backend_key().to_string();
         cfg.metadata_source = self.metadata_source_key().to_string();
         cfg.album_art_size_preference = self.album_art_size_key().to_string();
         cfg.album_art_download_behavior = self.album_art_download_key().to_string();
@@ -732,11 +792,7 @@ impl CeeDeeRipperEguiApp {
 
     // ## Maps the metadata source UI index to its config key. 25
     fn metadata_source_key(&self) -> &'static str {
-        match self.metadata_source_index {
-            1 => "musicbrainz",
-            2 => "cddb",
-            _ => "none",
-        }
+        "musicbrainz"
     }
 
     // ## Maps the encoder UI index to its config key. 26
@@ -746,6 +802,13 @@ impl CeeDeeRipperEguiApp {
             2 => "wav",
             3 => "ogg",
             _ => "flac",
+        }
+    }
+
+    fn ui_backend_key(&self) -> &'static str {
+        match self.ui_backend_index {
+            1 => "gtk",
+            _ => "egui",
         }
     }
 

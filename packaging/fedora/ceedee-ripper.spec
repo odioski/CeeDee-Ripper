@@ -42,7 +42,7 @@ cargo build --release
 
 %check
 cargo test --locked
-cargo test --locked --no-default-features --features gtk-ui
+cargo test --locked --features gtk-ui
 desktop-file-validate resources/ceedee-ripper.desktop
 appstream-util validate-relax --nonet resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml
 

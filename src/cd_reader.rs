@@ -8,6 +8,7 @@ use std::io;
 use std::os::fd::AsRawFd;
 use std::path::Path;
 use std::process::Command;
+use std::time::Duration;
 
 #[derive(Debug, Clone)]
 pub struct AlbumArtOption {
@@ -24,6 +25,7 @@ pub struct CdInfo {
     pub disc_id: String,
     pub album_cover_url: Option<String>,
     pub album_art_options: Vec<AlbumArtOption>,
+    pub metadata_error: Option<String>,
 }
 
 impl CdInfo {
@@ -36,7 +38,11 @@ impl CdInfo {
         };
 
         for key in preferred_keys {
-            if let Some(option) = self.album_art_options.iter().find(|option| option.key == *key) {
+            if let Some(option) = self
+                .album_art_options
+                .iter()
+                .find(|option| option.key == *key)
+            {
                 return Some(option.url.as_str());
             }
         }
@@ -126,19 +132,12 @@ impl CdReader {
         // Build baseline info
         let mut cd_info = Self::create_default_info_with_count("", track_count);
 
-        // Attempt metadata lookup based on the requested source.
-        match metadata_source {
-            "musicbrainz" => {
-                if let Some(info) = Self::fetch_musicbrainz_metadata(&device) {
-                    cd_info = info;
-                }
+        // MusicBrainz is the single supported metadata source.
+        if metadata_source == "musicbrainz" {
+            match Self::fetch_musicbrainz_metadata(&device) {
+                Ok(info) => cd_info = info,
+                Err(err) => cd_info.metadata_error = Some(err),
             }
-            "cddb" => {
-                if let Some(info) = Self::fetch_cddb_metadata(&device) {
-                    cd_info = info;
-                }
-            }
-            _ => {}
         }
 
         Ok(cd_info)
@@ -224,29 +223,41 @@ impl CdReader {
         }
     }
 
-    fn fetch_musicbrainz_metadata(device: &str) -> Option<CdInfo> {
+    fn fetch_musicbrainz_metadata(device: &str) -> Result<CdInfo, String> {
         // Read disc via libdiscid using the same block device selected for ripping.
-        let disc = DiscId::read(Some(device)).ok()?;
+        let disc = DiscId::read(Some(device))
+            .map_err(|err| format!("MusicBrainz Disc ID lookup failed: {err}"))?;
         let mbid = disc.id();
         // Query MusicBrainz WS2 for discid
         let url = format!(
             "https://musicbrainz.org/ws/2/discid/{}?inc=artists+recordings+release-groups&fmt=json",
             mbid
         );
-        let resp = ureq::get(&url)
+        let agent = ureq::AgentBuilder::new()
+            .timeout(Duration::from_secs(10))
+            .build();
+        let resp = agent
+            .get(&url)
             .set("User-Agent", "ceedee-ripper/0.1 (https://example.invalid)")
             .call()
-            .ok()?;
-        let json: Value = resp.into_json().ok()?;
-        let releases = json.get("releases")?.as_array()?;
-        let first = releases.first()?;
+            .map_err(|err| format!("MusicBrainz request failed: {err}"))?;
+        let json: Value = resp
+            .into_json()
+            .map_err(|err| format!("MusicBrainz response was not valid JSON: {err}"))?;
+        let releases = json
+            .get("releases")
+            .and_then(|releases| releases.as_array())
+            .ok_or_else(|| "MusicBrainz response did not include releases".to_string())?;
+        let first = releases
+            .first()
+            .ok_or_else(|| format!("MusicBrainz found no releases for disc ID {mbid}"))?;
 
         // Fetch cover art from Cover Art Archive
         let mut album_cover_url = None;
         let mut album_art_options = Vec::new();
         if let Some(release_mbid) = first.get("id").and_then(|id| id.as_str()) {
             let cover_art_url = format!("https://coverartarchive.org/release/{}", release_mbid);
-            if let Ok(cover_resp) = ureq::get(&cover_art_url).call() {
+            if let Ok(cover_resp) = agent.get(&cover_art_url).call() {
                 if let Ok(cover_json) = cover_resp.into_json::<Value>() {
                     if let Some(images) = cover_json.get("images").and_then(|i| i.as_array()) {
                         let front_image = images.iter().find(|img| {
@@ -274,17 +285,19 @@ impl CdReader {
                         }
 
                         let preferred_size = Config::load().album_art_size_preference;
-                        album_cover_url = Self::preferred_album_art_url(
-                            &album_art_options,
-                            &preferred_size,
-                        )
-                        .map(ToOwned::to_owned);
+                        album_cover_url =
+                            Self::preferred_album_art_url(&album_art_options, &preferred_size)
+                                .map(ToOwned::to_owned);
                     }
                 }
             }
         }
 
-        let album = first.get("title")?.as_str()?.to_string();
+        let album = first
+            .get("title")
+            .and_then(|title| title.as_str())
+            .ok_or_else(|| "MusicBrainz release did not include an album title".to_string())?
+            .to_string();
         let artist = first
             .get("artist-credit")
             .and_then(|ac| ac.as_array())
@@ -316,120 +329,16 @@ impl CdReader {
             let count = disc.last_track_num() as usize;
             tracks = (1..=count).map(|i| format!("Track {}", i)).collect();
         }
-        Some(CdInfo {
+        Ok(CdInfo {
             title: album,
             artist,
             tracks,
             disc_id: mbid.to_string(),
             album_cover_url,
             album_art_options,
+            metadata_error: None,
         })
     }
-
-    fn fetch_cddb_metadata(device: &str) -> Option<CdInfo> {
-        // Use cd-discid output to build a CDDB query
-        let out = Command::new("cd-discid").arg(device).output().ok()?;
-        if !out.status.success() {
-            return None;
-        }
-        let s = String::from_utf8_lossy(&out.stdout);
-        let mut toks = s.split_whitespace();
-        let disc_id = toks.next()?.to_string();
-        let ntracks: usize = toks.next()?.parse().ok()?;
-        let mut offsets: Vec<usize> = Vec::with_capacity(ntracks);
-        for _ in 0..ntracks {
-            if let Some(tok) = toks.next() {
-                if let Ok(v) = tok.parse::<usize>() {
-                    offsets.push(v);
-                }
-            }
-        }
-        let length_secs: usize = toks.next()?.parse().ok()?;
-        if offsets.len() != ntracks {
-            return None;
-        }
-
-        let mut url = format!(
-            "http://gnudb.gnudb.org/cddb/cddb.cgi?cmd=cddb+query+{}+{}",
-            disc_id, ntracks
-        );
-        for off in &offsets {
-            url.push_str(&format!("+{}", off));
-        }
-        url.push_str(&format!(
-            "+{}&hello=anon+localhost+ceedee-ripper+0.1&proto=6",
-            length_secs
-        ));
-
-        let resp = ureq::get(&url).call().ok()?;
-        let body = resp.into_string().ok()?;
-        // Expect lines like: 200 category title id
-        let first_line = body.lines().next()?;
-        let parts: Vec<&str> = first_line.split_whitespace().collect();
-        if parts.is_empty() {
-            return None;
-        }
-        let code = parts[0];
-        if code != "200" && code != "210" && code != "211" {
-            return None;
-        }
-        // 200 <category> <title with spaces> <id> — we need category and id
-        // Simplify: take category as second token and id as last token
-        if parts.len() < 4 {
-            return None;
-        }
-        let category = parts[1];
-        let cddb_id = parts.last().copied().unwrap_or("");
-
-        let read_url = format!(
-            "http://gnudb.gnudb.org/cddb/cddb.cgi?cmd=cddb+read+{}+{}&hello=anon+localhost+ceedee-ripper+0.1&proto=6",
-            category, cddb_id
-        );
-        let read_resp = ureq::get(&read_url).call().ok()?;
-        let data = read_resp.into_string().ok()?;
-        // Parse DTITLE and TTITLEi entries
-        let mut album = String::from("Unknown Album");
-        let mut artist = String::from("Unknown Artist");
-        let mut tracks: Vec<String> = Vec::new();
-        for line in data.lines() {
-            if let Some(rest) = line.strip_prefix("DTITLE=") {
-                // Format: Artist / Album
-                if let Some((a, t)) = rest.split_once(" / ") {
-                    artist = a.to_string();
-                    album = t.to_string();
-                } else {
-                    album = rest.to_string();
-                }
-            } else if let Some(rest) = line.strip_prefix("TTITLE") {
-                // TTITLE0=Track Name
-                if let Some(eqpos) = rest.find('=') {
-                    let title = &rest[eqpos + 1..];
-                    tracks.push(title.to_string());
-                }
-            } else if line.trim() == "." {
-                break;
-            }
-        }
-        if tracks.len() != ntracks {
-            // Pad missing tracks with placeholders
-            while tracks.len() < ntracks {
-                tracks.push(format!("Track {}", tracks.len() + 1));
-            }
-        }
-        Some(CdInfo {
-            title: album,
-            artist,
-            tracks,
-            disc_id: disc_id,
-            album_cover_url: None,
-            album_art_options: Vec::new(),
-        })
-    }
-    // Disc ID retrieval is handled directly within `detect()` using libdiscid.
-
-    // Metadata lookup (CDDB/MusicBrainz) not implemented in simplified mode.
-
-    // Default info with dynamic count is used when CDDB lookup is unavailable.
 
     fn create_default_info_with_count(disc_id: &str, track_count: usize) -> CdInfo {
         let tracks: Vec<String> = (1..=track_count).map(|i| format!("Track {}", i)).collect();
@@ -441,6 +350,7 @@ impl CdReader {
             disc_id: disc_id.to_string(),
             album_cover_url: None,
             album_art_options: Vec::new(),
+            metadata_error: None,
         }
     }
 

@@ -11,6 +11,7 @@
             <child type="end">
               <object class="GtkMenuButton" id="menu_button">
                 <property name="icon-name">open-menu-symbolic</property>
+                <property name="tooltip-text">View</property>
               </object>
             </child>
           </object>
@@ -107,23 +108,10 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkDropDown" id="metadata_selector">
-                    <property name="model">
-                      <object class="GtkStringList">
-                        <items>
-                          <item>None</item>
-                          <item>MusicBrainz</item>
-                          <item>CDDB (GnuDB)</item>
-                        </items>
-                      </object>
-                    </property>
-                    <property name="tooltip-text">Metadata source for album/track names</property>
-                  </object>
-                </child>
-                <child>
                   <object class="GtkButton" id="metadata_button">
-                    <property name="label">Lookup Metadata</property>
-                    <property name="sensitive">false</property>
+                    <property name="label">Lookup MusicBrainz</property>
+                    <property name="sensitive">true</property>
+                    <property name="tooltip-text">Look up album and track names with MusicBrainz</property>
                   </object>
                 </child>
                 <child>

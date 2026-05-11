@@ -1,0 +1,8 @@
+encoder = "flac"
+bitrate = "320"
+quality = "8"
+device = "/dev/sr0"
+ui_backend = "egui"
+metadata_source = "musicbrainz"
+album_art_size_preference = "original"
+album_art_download_behavior = "save-with-rip"

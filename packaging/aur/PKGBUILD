@@ -42,7 +42,7 @@ build() {
 check() {
   cd "${pkgname}"
   cargo test --locked
-  cargo test --locked --no-default-features --features gtk-ui
+  cargo test --locked --features gtk-ui
 }
 
 package() {

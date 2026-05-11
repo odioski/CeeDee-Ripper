@@ -6,11 +6,11 @@ export CARGO_HOME := $(CURDIR)/debian/cargo-home
 	dh $@
 
 override_dh_auto_build:
-	cargo build --release
+	cargo build --release --features "gtk-ui egui-ui"
 
 override_dh_auto_test:
 	cargo test --locked
-	cargo test --locked --no-default-features --features gtk-ui
+	cargo test --locked --features "gtk-ui egui-ui"
 	desktop-file-validate resources/ceedee-ripper.desktop
 	appstreamcli validate --pedantic resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml
 

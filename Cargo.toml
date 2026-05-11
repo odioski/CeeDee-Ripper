@@ -12,7 +12,7 @@ keywords = ["audio", "cd", "ripper", "music"]
 categories = ["multimedia::audio"]
 
 [features]
-default = ["egui-ui"]
+default = ["egui-ui", "gtk-ui"]
 gtk-ui = ["dep:gtk4", "dep:libadwaita", "dep:libadwaita-sys"]
 egui-ui = ["dep:eframe", "dep:egui", "dep:image"]
 

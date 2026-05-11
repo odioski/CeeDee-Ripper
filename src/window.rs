@@ -72,23 +72,77 @@ impl CeeDeeRipperWindow {
         });
     }
 
+    fn setup_ui_switcher(&self) {
+        let imp = self.imp();
+        let popover = gtk4::Popover::new();
+        let box_ = gtk4::Box::new(gtk4::Orientation::Vertical, 8);
+        box_.set_margin_top(10);
+        box_.set_margin_bottom(10);
+        box_.set_margin_start(10);
+        box_.set_margin_end(10);
+
+        let view_label = gtk4::Label::new(Some("View"));
+        view_label.set_halign(gtk4::Align::Start);
+        view_label.add_css_class("heading");
+        box_.append(&view_label);
+
+        let interface_label = gtk4::Label::new(Some("Interface"));
+        interface_label.set_halign(gtk4::Align::Start);
+        box_.append(&interface_label);
+
+        let current = Config::load().ui_backend;
+        let gtk_button = gtk4::Button::with_label(if current == "gtk" {
+            "GTK selected"
+        } else {
+            "Use GTK"
+        });
+        gtk_button.set_sensitive(current != "gtk");
+        gtk_button.connect_clicked(|_| {
+            let mut cfg = Config::load();
+            cfg.ui_backend = "gtk".to_string();
+            let _ = cfg.save();
+        });
+        box_.append(&gtk_button);
+
+        #[cfg(feature = "egui-ui")]
+        {
+            let egui_button = gtk4::Button::with_label(if current == "egui" {
+                "egui selected"
+            } else {
+                "Use egui"
+            });
+            egui_button.set_sensitive(current != "egui");
+            egui_button.connect_clicked(|_| {
+                let mut cfg = Config::load();
+                cfg.ui_backend = "egui".to_string();
+                let _ = cfg.save();
+            });
+            box_.append(&egui_button);
+        }
+
+        let restart_label = gtk4::Label::new(Some("Restart required"));
+        restart_label.set_halign(gtk4::Align::Start);
+        restart_label.add_css_class("dim-label");
+        box_.append(&restart_label);
+
+        popover.set_child(Some(&box_));
+        imp.menu_button.set_popover(Some(&popover));
+    }
+
     fn on_detect_clicked(&self) {
         let imp = self.imp();
 
-        // Apply current metadata source selection to config before detect
         let mut cfg = Config::load();
-        let meta_sel = imp.metadata_selector.selected();
-        cfg.metadata_source = match meta_sel {
-            1 => "musicbrainz".to_string(),
-            2 => "cddb".to_string(),
-            _ => "none".to_string(),
-        };
+        cfg.metadata_source = "musicbrainz".to_string();
         let _ = cfg.save();
 
         match CdReader::detect() {
             Ok(cd_info) => {
                 imp.state.borrow_mut().cd_info = Some(cd_info.clone());
                 self.display_cd_info(&cd_info);
+                if let Some(err) = &cd_info.metadata_error {
+                    self.show_error(&format!("Metadata lookup failed: {err}"));
+                }
                 imp.rip_button.set_sensitive(true);
             }
             Err(e) => {
@@ -99,20 +153,17 @@ impl CeeDeeRipperWindow {
 
     fn on_metadata_lookup_clicked(&self) {
         let imp = self.imp();
-        // Update config from selector
         let mut cfg = Config::load();
-        let meta_sel = imp.metadata_selector.selected();
-        cfg.metadata_source = match meta_sel {
-            1 => "musicbrainz".into(),
-            2 => "cddb".into(),
-            _ => "none".into(),
-        };
+        cfg.metadata_source = "musicbrainz".into();
         let _ = cfg.save();
 
         match CdReader::detect() {
             Ok(cd_info) => {
                 imp.state.borrow_mut().cd_info = Some(cd_info.clone());
                 self.display_cd_info(&cd_info);
+                if let Some(err) = &cd_info.metadata_error {
+                    self.show_error(&format!("Metadata lookup failed: {err}"));
+                }
                 imp.rip_button.set_sensitive(true);
             }
             Err(e) => {
@@ -203,12 +254,7 @@ impl CeeDeeRipperWindow {
                 _ => "flac",
             }
             .to_string();
-            let meta_sel = imp.metadata_selector.selected();
-            config.metadata_source = match meta_sel {
-                1 => "musicbrainz".to_string(),
-                2 => "cddb".to_string(),
-                _ => "none".to_string(),
-            };
+            config.metadata_source = "musicbrainz".to_string();
             let _ = config.save();
 
             let (sender, mut receiver) = tokio::sync::mpsc::unbounded_channel();
@@ -434,13 +480,13 @@ mod imp {
         #[template_child]
         pub detect_button: TemplateChild<gtk4::Button>,
         #[template_child]
+        pub menu_button: TemplateChild<gtk4::MenuButton>,
+        #[template_child]
         pub rip_button: TemplateChild<gtk4::Button>,
         #[template_child]
         pub eject_button: TemplateChild<gtk4::Button>,
         #[template_child]
         pub format_selector: TemplateChild<gtk4::DropDown>,
-        #[template_child]
-        pub metadata_selector: TemplateChild<gtk4::DropDown>,
         #[template_child]
         pub metadata_button: TemplateChild<gtk4::Button>,
         #[template_child]
@@ -485,6 +531,7 @@ mod imp {
             self.parent_constructed();
             let obj = self.obj();
             obj.setup_callbacks();
+            obj.setup_ui_switcher();
 
             // Add CSS class for background image
             obj.add_css_class("main-window-with-bg");
@@ -507,32 +554,12 @@ mod imp {
             self.format_selector.set_model(Some(&formats));
             self.format_selector.set_selected(0);
 
-            // Initialize metadata selector from saved config
             let cfg = Config::load();
-            let meta_index = match cfg.metadata_source.as_str() {
-                "musicbrainz" => 1,
-                "cddb" => 2,
-                _ => 0,
-            };
-            self.metadata_selector.set_selected(meta_index);
-            // Enable lookup button when a source is selected
-            self.metadata_button.set_sensitive(meta_index != 0);
-
-            // React to metadata selector changes to persist and enable button
-            let selector = self.metadata_selector.clone();
-            let btn = self.metadata_button.clone();
-            selector.connect_selected_notify(move |sel| {
-                let idx = sel.selected();
-                btn.set_sensitive(idx != 0);
-                let mut cfg = Config::load();
-                cfg.metadata_source = match idx {
-                    1 => "musicbrainz".to_string(),
-                    2 => "cddb".to_string(),
-                    _ => "none".to_string(),
-                };
+            if cfg.metadata_source != "musicbrainz" {
+                let mut cfg = cfg;
+                cfg.metadata_source = "musicbrainz".to_string();
                 let _ = cfg.save();
-            });
-            // Sensitivity already set above based on initial selection
+            }
 
             // Auto-detect CD on launch
             let obj_clone = obj.clone();

@@ -1,10 +1,13 @@
 mod cd_reader;
 mod config;
-#[cfg(all(not(feature = "gtk-ui"), feature = "egui-ui"))]
+#[cfg(feature = "egui-ui")]
 mod egui_app;
 mod ripper;
 #[cfg(feature = "gtk-ui")]
 mod window;
+
+use config::Config;
+use std::fmt;
 
 #[cfg(feature = "gtk-ui")]
 use std::{env, path::PathBuf};
@@ -19,8 +22,121 @@ use window::CeeDeeRipperWindow;
 #[cfg(not(any(feature = "gtk-ui", feature = "egui-ui")))]
 compile_error!("Enable at least one UI feature: gtk-ui or egui-ui.");
 
-#[cfg(all(feature = "gtk-ui", feature = "egui-ui"))]
-compile_error!("Enable only one UI feature at a time: gtk-ui or egui-ui.");
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum UiBackend {
+    Egui,
+    Gtk,
+}
+
+impl UiBackend {
+    fn parse(value: &str) -> Option<Self> {
+        match value {
+            "egui" | "egui-ui" => Some(Self::Egui),
+            "gtk" | "gtk4" | "gtk-ui" => Some(Self::Gtk),
+            _ => None,
+        }
+    }
+
+    fn is_compiled(self) -> bool {
+        match self {
+            Self::Egui => cfg!(feature = "egui-ui"),
+            Self::Gtk => cfg!(feature = "gtk-ui"),
+        }
+    }
+
+    fn as_config_value(self) -> &'static str {
+        match self {
+            Self::Egui => "egui",
+            Self::Gtk => "gtk",
+        }
+    }
+}
+
+impl fmt::Display for UiBackend {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str(self.as_config_value())
+    }
+}
+
+fn default_compiled_ui_backend() -> UiBackend {
+    #[cfg(feature = "egui-ui")]
+    {
+        UiBackend::Egui
+    }
+    #[cfg(all(not(feature = "egui-ui"), feature = "gtk-ui"))]
+    {
+        UiBackend::Gtk
+    }
+}
+
+fn print_compiled_ui_backend() {
+    let mut backends = Vec::new();
+    #[cfg(feature = "egui-ui")]
+    backends.push("egui-ui");
+    #[cfg(feature = "gtk-ui")]
+    backends.push("gtk-ui");
+
+    println!("Compiled UI backend(s): {}", backends.join(", "));
+}
+
+fn print_usage() {
+    println!(
+        "Usage: ceedee-ripper [--ui egui|gtk]\n       ceedee-ripper [--features egui-ui|gtk-ui]\n\nRuntime selectors choose the UI for this run and save it for future launches when available.\nWith cargo run, pass runtime selectors after --, for example:\n       cargo run -- --features gtk-ui"
+    );
+}
+
+fn selected_ui_backend() -> Result<Option<UiBackend>, String> {
+    let mut args = std::env::args().skip(1);
+    let mut selected = None;
+
+    while let Some(arg) = args.next() {
+        if arg == "--help" || arg == "-h" {
+            print_usage();
+            std::process::exit(0);
+        }
+
+        let value = if arg == "--ui" || arg == "--features" {
+            args.next()
+                .ok_or_else(|| format!("{arg} requires one of: egui, gtk, egui-ui, gtk-ui"))?
+        } else if let Some(value) = arg.strip_prefix("--ui=") {
+            value.to_string()
+        } else if let Some(value) = arg.strip_prefix("--features=") {
+            value.to_string()
+        } else {
+            return Err(format!("Unrecognized argument: {arg}"));
+        };
+
+        let backend = UiBackend::parse(&value).ok_or_else(|| {
+            format!("Unsupported UI backend '{value}'. Use egui, gtk, egui-ui, or gtk-ui.")
+        })?;
+        if !backend.is_compiled() {
+            return Err(format!(
+                "UI backend '{backend}' is not compiled into this binary. Rebuild with --features {}.",
+                match backend {
+                    UiBackend::Egui => "egui-ui",
+                    UiBackend::Gtk => "gtk-ui",
+                }
+            ));
+        }
+        selected = Some(backend);
+    }
+
+    Ok(selected)
+}
+
+fn resolve_ui_backend() -> Result<UiBackend, String> {
+    if let Some(backend) = selected_ui_backend()? {
+        let mut config = Config::load();
+        config.ui_backend = backend.as_config_value().to_string();
+        let _ = config.save();
+        return Ok(backend);
+    }
+
+    let config = Config::load();
+    Ok(UiBackend::parse(&config.ui_backend)
+        .filter(|backend| backend.is_compiled())
+        .unwrap_or_else(default_compiled_ui_backend))
+}
 
 #[cfg(feature = "gtk-ui")]
 fn has_graphical_display() -> bool {
@@ -49,7 +165,9 @@ fn has_graphical_display() -> bool {
 }
 
 #[cfg(feature = "gtk-ui")]
-fn main() -> glib::ExitCode {
+fn run_gtk_ui() -> glib::ExitCode {
+    print_compiled_ui_backend();
+
     if !has_graphical_display() {
         eprintln!(
             "CeeDee Ripper requires a graphical X11 or Wayland session. Start it from a desktop session with access to a display."
@@ -111,12 +229,59 @@ fn main() -> glib::ExitCode {
     app.run()
 }
 
-#[cfg(all(not(feature = "gtk-ui"), feature = "egui-ui"))]
-fn main() -> eframe::Result<()> {
+#[cfg(feature = "egui-ui")]
+fn run_egui_ui() -> eframe::Result<()> {
+    print_compiled_ui_backend();
+
     if let Err(e) = gstreamer::init() {
         eprintln!("Failed to initialize GStreamer: {}", e);
         std::process::exit(1);
     }
 
     egui_app::run()
+}
+
+#[cfg(all(feature = "gtk-ui", feature = "egui-ui"))]
+fn main() -> glib::ExitCode {
+    match resolve_ui_backend() {
+        Ok(UiBackend::Gtk) => run_gtk_ui(),
+        Ok(UiBackend::Egui) => match run_egui_ui() {
+            Ok(()) => glib::ExitCode::SUCCESS,
+            Err(err) => {
+                eprintln!("Failed to run egui UI: {err}");
+                glib::ExitCode::FAILURE
+            }
+        },
+        Err(err) => {
+            eprintln!("{err}");
+            print_usage();
+            glib::ExitCode::FAILURE
+        }
+    }
+}
+
+#[cfg(all(feature = "gtk-ui", not(feature = "egui-ui")))]
+fn main() -> glib::ExitCode {
+    match resolve_ui_backend() {
+        Ok(UiBackend::Gtk) => run_gtk_ui(),
+        Ok(UiBackend::Egui) => unreachable!("egui-ui is not compiled"),
+        Err(err) => {
+            eprintln!("{err}");
+            print_usage();
+            glib::ExitCode::FAILURE
+        }
+    }
+}
+
+#[cfg(all(feature = "egui-ui", not(feature = "gtk-ui")))]
+fn main() -> eframe::Result<()> {
+    match resolve_ui_backend() {
+        Ok(UiBackend::Egui) => run_egui_ui(),
+        Ok(UiBackend::Gtk) => unreachable!("gtk-ui is not compiled"),
+        Err(err) => {
+            eprintln!("{err}");
+            print_usage();
+            std::process::exit(1);
+        }
+    }
 }

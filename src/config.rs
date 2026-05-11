@@ -8,10 +8,10 @@ pub struct Config {
     pub encoder: String,
     pub bitrate: String,
     pub quality: String,
-    pub cddb_enabled: bool,
     pub device: String,
-    pub metadata_source: String, // none | musicbrainz | cddb
-    pub album_art_size_preference: String, // auto | small | large | original
+    pub ui_backend: String,                  // egui | gtk
+    pub metadata_source: String,             // musicbrainz
+    pub album_art_size_preference: String,   // auto | small | large | original
     pub album_art_download_behavior: String, // preview-only | save-with-rip
 }
 
@@ -21,8 +21,8 @@ impl Default for Config {
             encoder: "flac".to_string(),
             bitrate: "320".to_string(),
             quality: "8".to_string(),
-            cddb_enabled: true,
             device: "/dev/sr0".to_string(),
+            ui_backend: "egui".to_string(),
             // Default to MusicBrainz so metadata auto-engages on first run
             metadata_source: "musicbrainz".to_string(),
             album_art_size_preference: "auto".to_string(),
@@ -57,6 +57,17 @@ impl Config {
     }
 
     fn config_path() -> PathBuf {
+        if let Ok(path) = std::env::var("CEEDEE_RIPPER_CONFIG") {
+            return PathBuf::from(path);
+        }
+
+        if let Ok(cwd) = std::env::current_dir() {
+            let repo_config = cwd.join("config").join("config.toml");
+            if repo_config.exists() {
+                return repo_config;
+            }
+        }
+
         dirs::config_dir()
             .unwrap_or_else(|| PathBuf::from("."))
             .join("ceedee-ripper")

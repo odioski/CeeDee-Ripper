@@ -6,7 +6,7 @@ These notes are for local validation before any future repository or package upl
 
 ## Local Build Matrix
 
-Official package builds use the default egui UI. The default Cargo feature set is `egui-ui`, so packaging recipes that run plain `cargo build --release` produce egui artifacts. The GTK4/Libadwaita interface remains available for explicit builds with `--no-default-features --features gtk-ui`.
+Default builds compile both egui and GTK4/Libadwaita into one binary. The launched interface is selected at runtime with `--ui`, the app-level `--features` alias, or the saved `ui_backend` config key.
 
 Default egui UI:
 
@@ -15,19 +15,29 @@ cargo check
 cargo build
 ```
 
-GTK UI:
+Universal UI binary:
 
 ```bash
-cargo check --no-default-features --features gtk-ui
-cargo build --no-default-features --features gtk-ui
+cargo check
+cargo build --release
 ```
 
-The `gtk-ui` and `egui-ui` features are intentionally mutually exclusive.
+In universal builds, `ceedee-ripper --ui egui` and `ceedee-ripper --ui gtk`
+select the interface for that launch and save the choice. Installed binaries
+also accept `ceedee-ripper --features egui-ui` and
+`ceedee-ripper --features gtk-ui` as runtime aliases for the same selector.
+Without a selector, the app uses `ui_backend` from
+`~/.config/ceedee-ripper/config.toml`, falling back to egui when available. The
+Settings page and View menu write the same setting and require a restart.
 
-Package recipes may ship the default egui binary or produce a GTK variant by
-changing the build command to `cargo build --release --no-default-features
---features gtk-ui`. Keep runtime dependencies matched to the UI variant being
-shipped.
+When testing through Cargo, put runtime selectors after `--`, for example
+`cargo run -- --features gtk-ui`. A command like `cargo run --features gtk-ui`
+only changes Cargo's build features; it does not pass `--features gtk-ui` to the
+running app.
+
+For now, keep universal-build packaging work scoped to `.deb` and AppImage
+artifacts. Snap and Flatpak remain deferred until their runtime issues are
+handled separately.
 
 ## Debian/Ubuntu
 
@@ -59,13 +69,13 @@ The current desktop file remains `ceedee-ripper.desktop`, while the AppStream ID
 
 ## Recipe Targets
 
-Initial recipe files live under `packaging/`:
+Initial priority recipe files live under `packaging/`:
 
-- `packaging/flatpak/` for Flathub preparation
 - `packaging/ubuntu/debian/` for Ubuntu source package/PPA preparation
 - `packaging/appimage/` for direct GitHub release artifacts
-- `packaging/aur/` for Arch User Repository preparation
-- `packaging/fedora/` for Fedora/COPR RPM preparation
+
+Current priority is Debian `.deb` packages and AppImage artifacts. Snap and
+Flatpak are intentionally out of scope for this universal-UI packaging pass.
 
 These recipes assume the GitHub release tag `v1.1.0` as the upstream source anchor.
 

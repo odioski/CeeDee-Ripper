@@ -4,14 +4,14 @@
 
 CeeDee Ripper is a Linux desktop app for extracting audio CDs to FLAC, MP3, WAV, or Ogg Vorbis.
 
-The default build uses the egui interface. A GTK4/Libadwaita interface is also available as the `gtk-ui` Cargo feature.
+The default build compiles both the egui and GTK4/Libadwaita interfaces. The saved `ui_backend` config key chooses which one launches, and the repo default is egui.
 
 The display name is **CeeDee Ripper**. The package, binary, desktop ID, and Rust crate name use **ceedee-ripper**.
 
 ## Features
 
 - Detects inserted audio CDs.
-- Looks up album and track metadata from MusicBrainz or GnuDB/CDDB.
+- Looks up album and track metadata from MusicBrainz.
 - Lets you choose which tracks to rip.
 - Saves album art previews, with an option to save cover art alongside the rip.
 - Encodes to FLAC, MP3, WAV, or Ogg Vorbis using local system tools.
@@ -28,7 +28,7 @@ CeeDee Ripper needs access to an optical drive and these runtime tools:
 - `vorbis-tools`
 - GStreamer base/good plugins, including the cdparanoia source and `wavenc`
 
-Building from source also requires Rust, `pkg-config`, `libdiscid` development headers, and GStreamer development headers. GTK4 and Libadwaita development headers are only required when building with `--no-default-features --features gtk-ui`.
+Building from source also requires Rust, `pkg-config`, `libdiscid` development headers, GStreamer development headers, GTK4 development headers, and Libadwaita development headers. Use `--no-default-features --features egui-ui` for an egui-only build without GTK dependencies.
 
 On Debian or Ubuntu:
 
@@ -54,11 +54,28 @@ Default egui UI:
 cargo run
 ```
 
-GTK UI:
+Default build with both UIs enabled:
 
 ```bash
-cargo run --no-default-features --features gtk-ui
+cargo run
 ```
+
+Select a UI in a universal build:
+
+```bash
+cargo run -- --ui egui
+cargo run -- --ui gtk
+cargo run -- --features egui-ui
+cargo run -- --features gtk-ui
+ceedee-ripper --features egui-ui
+ceedee-ripper --features gtk-ui
+```
+
+Cargo consumes `--features` before `--` as build-time feature flags. The
+installed app only sees arguments after `--`, so `cargo run --features gtk-ui`
+changes Cargo's build feature set but does not select GTK at runtime. Use
+`cargo run -- --features gtk-ui` or `cargo run -- --ui gtk` when testing the
+runtime selector through Cargo.
 
 Release build:
 
@@ -92,11 +109,19 @@ Log out and back in before testing the group change.
 
 ## Configuration
 
-Settings are stored at:
+When run from this checkout, settings are stored at:
+
+```text
+config/config.toml
+```
+
+Installed builds use:
 
 ```text
 ~/.config/ceedee-ripper/config.toml
 ```
+
+Set `CEEDEE_RIPPER_CONFIG=/path/to/config.toml` to force a specific config file.
 
 Useful keys:
 
@@ -106,7 +131,10 @@ encoder = "flac"
 metadata_source = "musicbrainz"
 album_art_size_preference = "auto"
 album_art_download_behavior = "preview-only"
+ui_backend = "egui"
 ```
+
+In a universal build, `--ui egui` or `--ui gtk` selects the interface for the current launch and saves it as `ui_backend`. Installed binaries also accept `--features egui-ui` and `--features gtk-ui` as runtime aliases for the same selector. The Settings page and View menu also save this setting; restart the app to apply it.
 
 ## Packaging
 
