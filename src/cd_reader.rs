@@ -228,17 +228,21 @@ impl CdReader {
         let disc = DiscId::read(Some(device))
             .map_err(|err| format!("MusicBrainz Disc ID lookup failed: {err}"))?;
         let mbid = disc.id();
+        let toc = disc.toc_string().replace(' ', "+");
         // Query MusicBrainz WS2 for discid
         let url = format!(
-            "https://musicbrainz.org/ws/2/discid/{}?inc=artists+recordings+release-groups&fmt=json",
-            mbid
+            "https://musicbrainz.org/ws/2/discid/{}?toc={}&inc=artists+recordings+release-groups&fmt=json",
+            mbid, toc
         );
         let agent = ureq::AgentBuilder::new()
             .timeout(Duration::from_secs(10))
             .build();
         let resp = agent
             .get(&url)
-            .set("User-Agent", "ceedee-ripper/0.1 (https://example.invalid)")
+            .set(
+                "User-Agent",
+                "ceedee-ripper/1.1.0 (https://github.com/odioski/CeeDee-Ripper)",
+            )
             .call()
             .map_err(|err| format!("MusicBrainz request failed: {err}"))?;
         let json: Value = resp

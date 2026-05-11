@@ -48,25 +48,19 @@ sudo apt-get install -y libgtk-4-dev libadwaita-1-dev
 
 ## Build And Run
 
-Default egui UI:
-
-```bash
-cargo run
-```
-
 Default build with both UIs enabled:
 
 ```bash
-cargo run
+cargo run --features "gtk-ui egui-ui"
 ```
 
 Select a UI in a universal build:
 
 ```bash
-cargo run -- --ui egui
-cargo run -- --ui gtk
-cargo run -- --features egui-ui
-cargo run -- --features gtk-ui
+cargo run --features "gtk-ui egui-ui" -- --ui egui
+cargo run --features "gtk-ui egui-ui" -- --ui gtk
+cargo run --features "gtk-ui egui-ui" -- --features egui-ui
+cargo run --features "gtk-ui egui-ui" -- --features gtk-ui
 ceedee-ripper --features egui-ui
 ceedee-ripper --features gtk-ui
 ```
@@ -74,13 +68,14 @@ ceedee-ripper --features gtk-ui
 Cargo consumes `--features` before `--` as build-time feature flags. The
 installed app only sees arguments after `--`, so `cargo run --features gtk-ui`
 changes Cargo's build feature set but does not select GTK at runtime. Use
-`cargo run -- --features gtk-ui` or `cargo run -- --ui gtk` when testing the
-runtime selector through Cargo.
+`cargo run --features "gtk-ui egui-ui" -- --features gtk-ui` or
+`cargo run --features "gtk-ui egui-ui" -- --ui gtk` when testing the runtime
+selector through Cargo.
 
 Release build:
 
 ```bash
-cargo build --release
+cargo build --release --features "gtk-ui egui-ui"
 ```
 
 Install locally with Cargo:

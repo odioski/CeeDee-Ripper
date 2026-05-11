@@ -8,18 +8,11 @@ These notes are for local validation before any future repository or package upl
 
 Default builds compile both egui and GTK4/Libadwaita into one binary. The launched interface is selected at runtime with `--ui`, the app-level `--features` alias, or the saved `ui_backend` config key.
 
-Default egui UI:
-
-```bash
-cargo check
-cargo build
-```
-
 Universal UI binary:
 
 ```bash
-cargo check
-cargo build --release
+cargo check --features "gtk-ui egui-ui"
+cargo build --release --features "gtk-ui egui-ui"
 ```
 
 In universal builds, `ceedee-ripper --ui egui` and `ceedee-ripper --ui gtk`
@@ -31,9 +24,9 @@ Without a selector, the app uses `ui_backend` from
 Settings page and View menu write the same setting and require a restart.
 
 When testing through Cargo, put runtime selectors after `--`, for example
-`cargo run -- --features gtk-ui`. A command like `cargo run --features gtk-ui`
-only changes Cargo's build features; it does not pass `--features gtk-ui` to the
-running app.
+`cargo run --features "gtk-ui egui-ui" -- --features gtk-ui`. A command like
+`cargo run --features gtk-ui` only changes Cargo's build features; it does not
+pass `--features gtk-ui` to the running app.
 
 For now, keep universal-build packaging work scoped to `.deb` and AppImage
 artifacts. Snap and Flatpak remain deferred until their runtime issues are

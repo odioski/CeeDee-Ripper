@@ -34,7 +34,7 @@ modules:
         LIBCLANG_PATH: /usr/lib/sdk/llvm21/lib
         PKG_CONFIG_PATH: /app/lib/pkgconfig
     build-commands:
-      - cargo build --release
+      - cargo build --release --features "gtk-ui egui-ui"
       - install -Dm755 target/release/ceedee-ripper /app/bin/ceedee-ripper
       - install -Dm644 resources/ceedee-ripper.desktop /app/share/applications/io.github.odioski.ceedee_ripper.desktop
       - install -Dm644 packaging/flatpak/io.github.odioski.ceedee_ripper.png /app/share/icons/hicolor/512x512/apps/io.github.odioski.ceedee_ripper.png

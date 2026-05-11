@@ -38,11 +38,10 @@ tracks to FLAC, MP3, WAV, or Ogg Vorbis files.
 %autosetup -n CeeDee-Ripper-%{version}
 
 %build
-cargo build --release
+cargo build --release --features "gtk-ui egui-ui"
 
 %check
-cargo test --locked
-cargo test --locked --features gtk-ui
+cargo test --locked --features "gtk-ui egui-ui"
 desktop-file-validate resources/ceedee-ripper.desktop
 appstream-util validate-relax --nonet resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml
 

@@ -81,7 +81,7 @@ fn print_compiled_ui_backend() {
 
 fn print_usage() {
     println!(
-        "Usage: ceedee-ripper [--ui egui|gtk]\n       ceedee-ripper [--features egui-ui|gtk-ui]\n\nRuntime selectors choose the UI for this run and save it for future launches when available.\nWith cargo run, pass runtime selectors after --, for example:\n       cargo run -- --features gtk-ui"
+        "Usage: ceedee-ripper [--ui egui|gtk]\n       ceedee-ripper [--features egui-ui|gtk-ui]\n\nRuntime selectors choose the UI for this run and save it for future launches when available.\nWith cargo run, pass runtime selectors after --, for example:\n       cargo run --features \"gtk-ui egui-ui\" -- --features gtk-ui"
     );
 }
 
@@ -225,8 +225,10 @@ fn run_gtk_ui() -> glib::ExitCode {
         CeeDeeRipperWindow::new(app).present();
     });
 
-    // Run the application
-    app.run()
+    // Runtime UI selectors are parsed by CeeDee Ripper before GTK starts.
+    // Run GTK with a clean argv so GApplication does not reject app-level
+    // options such as `--features gtk-ui`.
+    app.run_with_args(&["ceedee-ripper"])
 }
 
 #[cfg(feature = "egui-ui")]
