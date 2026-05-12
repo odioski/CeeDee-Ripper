@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+export CARGO_HOME := $(CURDIR)/debian/cargo-home
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	cargo build --release --features "gtk-ui egui-ui"
+
+override_dh_auto_test:
+	cargo test --locked --features "gtk-ui egui-ui"
+	desktop-file-validate resources/ceedee-ripper.desktop
+	appstreamcli validate --pedantic resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml
+
+override_dh_auto_install:
+	install -Dm0755 target/release/ceedee-ripper debian/ceedee-ripper/usr/bin/ceedee-ripper
+	install -Dm0644 resources/ceedee-ripper.desktop debian/ceedee-ripper/usr/share/applications/ceedee-ripper.desktop
+	install -Dm0644 resources/images/ceedee-ripper.png debian/ceedee-ripper/usr/share/icons/hicolor/256x256/apps/io.github.odioski.ceedee_ripper.png
+	install -Dm0644 resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml debian/ceedee-ripper/usr/share/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml

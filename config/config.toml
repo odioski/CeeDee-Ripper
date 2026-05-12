@@ -1,4 +1,4 @@
-encoder = "flac"
+encoder = "mp3"
 bitrate = "320"
 quality = "8"
 device = "/dev/sr0"

@@ -11,6 +11,8 @@ contact: https://github.com/odioski/CeeDee-Ripper/issues
 issues: https://github.com/odioski/CeeDee-Ripper/issues
 source-code: https://github.com/odioski/CeeDee-Ripper
 website: https://github.com/odioski/CeeDee-Ripper
+donation: https://buymeacoffee.com/odioski
+
 
 grade: stable
 confinement: strict
@@ -36,11 +38,13 @@ parts:
     plugin: rust
     source: .
     build-packages:
+      - libadwaita-1-dev
       - libclang-dev
       - libdiscid-dev
       - libglib2.0-dev
       - libgstreamer-plugins-base1.0-dev
       - libgstreamer1.0-dev
+      - libgtk-4-dev
       - pkg-config
     stage-packages:
       - cd-discid
@@ -57,6 +61,7 @@ parts:
       - mesa-vulkan-drivers
       - vorbis-tools
     override-build: |
+      rustup default stable
       cargo build --release --features "gtk-ui egui-ui"
       install -Dm755 target/release/ceedee-ripper "$CRAFT_PART_INSTALL/usr/bin/ceedee-ripper"
       install -Dm644 resources/ceedee-ripper.desktop "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
