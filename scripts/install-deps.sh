@@ -21,9 +21,13 @@ if have apt-get; then
     libgstreamer1.0-dev \
     libadwaita-1-dev \
     libgstreamer-plugins-base1.0-dev \
+    gstreamer1.0-plugins-base \
+    gstreamer1.0-plugins-good \
+    gstreamer1.0-plugins-ugly \
     libdiscid-dev \
     cdparanoia \
     cd-discid \
+    eject \
     flac \
     lame \
     vorbis-tools
@@ -41,10 +45,13 @@ elif have pacman; then
     gtk4 \
     gstreamer \
     gst-plugins-base \
+    gst-plugins-good \
+    gst-plugins-ugly \
     libadwaita \
     libdiscid \
     cdparanoia \
     cd-discid \
+    eject \
     flac \
     lame \
     vorbis-tools
@@ -66,10 +73,13 @@ elif have zypper; then
     gtk4-devel \
     gstreamer-devel \
     gstreamer-plugins-base-devel \
+    gstreamer-plugins-good \
+    gstreamer-plugins-ugly \
     libadwaita-devel \
     libdiscid-devel \
     cdparanoia \
     cd-discid \
+    eject \
     flac \
     lame \
     vorbis-tools
@@ -90,10 +100,13 @@ elif have dnf; then
     gtk4-devel \
     gstreamer1-devel \
     gstreamer1-plugins-base-devel \
+    gstreamer1-plugins-good \
+    gstreamer1-plugins-ugly \
     libadwaita-devel \
     libdiscid-devel \
     cdparanoia \
     cd-discid \
+    eject \
     flac \
     lame \
     vorbis-tools
