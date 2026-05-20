@@ -14,6 +14,8 @@ if have apt-get; then
     libcairo2-dev \
     libpango1.0-dev \
     libgdk-pixbuf2.0-dev \
+    libglib2.0-0t64 \
+    libglib2.0-dev \
     libgraphene-1.0-dev \
     libgtk-4-bin \
     libgtk-4-common \
