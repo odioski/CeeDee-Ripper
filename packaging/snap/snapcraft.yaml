@@ -38,30 +38,62 @@ parts:
     plugin: rust
     source: .
     build-packages:
+      - libcairo2-dev
       - libadwaita-1-dev
+      - libatk-bridge2.0-dev
       - libclang-dev
       - libdiscid-dev
+      - libepoxy-dev
+      - libgdk-pixbuf-2.0-dev
       - libglib2.0-dev
+      - libgraphene-1.0-dev
       - libgstreamer-plugins-base1.0-dev
       - libgstreamer1.0-dev
+      - libgtk-4-bin
+      - libgtk-4-common
       - libgtk-4-dev
+      - libpango1.0-dev
+      - libvulkan-dev
+      - libwayland-dev
+      - libxkbcommon-dev
       - pkg-config
     stage-packages:
+      - adwaita-icon-theme
       - cd-discid
       - cdparanoia
       - eject
       - flac
+      - fontconfig
       - gstreamer1.0-plugins-base
       - gstreamer1.0-plugins-good
       - gstreamer1.0-plugins-ugly
+      - hicolor-icon-theme
       - lame
+      - libadwaita-1-0
+      - libatk-bridge2.0-0
+      - libcairo2
       - libdiscid0
+      - libepoxy0
+      - libgdk-pixbuf-2.0-0
+      - libglib2.0-0t64
+      - libglib2.0-0
+      - libgraphene-1.0-0
       - libgstreamer-plugins-base1.0-0
       - libgstreamer1.0-0
+      - libgtk-4-1
+      - libgtk-4-bin
+      - libgtk-4-common
+      - libpango-1.0-0
+      - libpangocairo-1.0-0
+      - libvulkan1
+      - libwayland-client0
+      - libwayland-cursor0
+      - libwayland-egl1
+      - libxkbcommon0
       - mesa-vulkan-drivers
+      - shared-mime-info
       - vorbis-tools
     override-build: |
-      rustup default stable
       cargo build --release --features "gtk-ui egui-ui"
       install -Dm755 target/release/ceedee-ripper "$CRAFT_PART_INSTALL/usr/bin/ceedee-ripper"
       install -Dm644 resources/ceedee-ripper.desktop "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
