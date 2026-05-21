@@ -199,7 +199,7 @@ fn run_gtk_ui() -> glib::ExitCode {
 
     // Create a new application
     let app = libadwaita::Application::builder()
-        .application_id("snap.ceedee-ripper.ceedee-ripper")
+        .application_id("io.github.odioski.ceedee_ripper")
         .build();
 
     // Connect to "startup" signal to perform one-time initialization

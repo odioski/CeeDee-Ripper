@@ -3,7 +3,7 @@ set -eu
 export cd_cmd=cd
 
 APP=ceedee-ripper
-ROOT="$(CDPATH="$(dirname -- "$0")/.." && pwd)"
+ROOT="$(CDPATH="$(dirname -- "$0")/../.." && pwd)"
 VERSION="$(awk -F'"' '/^version = / { print $2; exit }' "$ROOT/Cargo.toml")"
 OUTPUT="${APP}_${VERSION}_amd64.snap"
 OUTPUT_DIR="$ROOT/target/snap"
@@ -15,14 +15,19 @@ if ! command -v snapcraft >/dev/null 2>&1; then
   exit 1
 fi
 
-snapcraft pack --output "$OUTPUT_DIR/$OUTPUT"
+mkdir -p "$OUTPUT_DIR"
+rm -f "$OUTPUT_DIR/$OUTPUT"
+
+snapcraft clean
+snapcraft pack --output "$OUTPUT_DIR"
 
 if  [ -f "$OUTPUT_DIR/$OUTPUT" ]; then
 
   echo "Snap package written to" "$OUTPUT_DIR/$OUTPUT"
 
-  else
+else
 
-    echo "snapcraft did not write the expected Snap package to " "$OUTPUT_DIR/" >&2
+  echo "snapcraft did not write the expected Snap package to " "$OUTPUT_DIR/" >&2
+  exit 1
 
 fi

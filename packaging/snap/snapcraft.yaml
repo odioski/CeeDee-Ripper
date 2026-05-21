@@ -21,6 +21,9 @@ apps:
   ceedee-ripper:
     command: usr/bin/ceedee-ripper
     desktop: usr/share/applications/ceedee-ripper.desktop
+    environment:
+      GDK_BACKEND: x11
+      WAYLAND_DISPLAY: ""
     plugs:
       - desktop
       - desktop-legacy
@@ -32,6 +35,14 @@ apps:
       - removable-media
       - wayland
       - x11
+    slots:
+      - ceedee-ripper-dbus
+
+slots:
+  ceedee-ripper-dbus:
+    interface: dbus
+    bus: session
+    name: io.github.odioski.ceedee_ripper
 
 parts:
   ceedee-ripper:
@@ -91,6 +102,7 @@ parts:
       - libwayland-cursor0
       - libwayland-egl1
       - libxkbcommon0
+      - libxkbcommon-x11-0
       - mesa-vulkan-drivers
       - shared-mime-info
       - vorbis-tools
