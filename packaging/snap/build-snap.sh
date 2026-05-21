@@ -15,13 +15,11 @@ if ! command -v snapcraft >/dev/null 2>&1; then
   exit 1
 fi
 
-mkdir -p -- "$OUTPUT_DIR"
-
 snapcraft pack --output "$OUTPUT_DIR/$OUTPUT"
 
-if  [ -f "$OUTPUT_DIR"/"$OUTPUT" ]; then
+if  [ -f "$OUTPUT_DIR/$OUTPUT" ]; then
 
-  echo "Snap package written to" "$OUTPUT_DIR"/"$OUTPUT"
+  echo "Snap package written to" "$OUTPUT_DIR/$OUTPUT"
 
   else
 
