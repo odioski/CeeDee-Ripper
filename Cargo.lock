@@ -646,6 +646,7 @@ dependencies = [
  "discid",
  "eframe",
  "egui",
+ "gdk4-sys",
  "glib",
  "glib-2-0-sys",
  "glib-build-tools",

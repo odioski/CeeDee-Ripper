@@ -19,6 +19,8 @@ mkdir -p "$ROOT/target/flatpak"
 
 flatpak-builder \
   --force-clean \
+  --user \
+  --install-deps-from=flathub \
   --repo="$REPO_DIR" \
   "$BUILD_DIR" \
   "$MANIFEST"
