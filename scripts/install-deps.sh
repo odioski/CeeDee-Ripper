@@ -10,7 +10,6 @@ if have apt-get; then
     apt-file \
     build-essential \
     pkg-config \
-    libgio-2.0-dev \
     libcairo2-dev \
     libpango1.0-dev \
     libgdk-pixbuf2.0-dev \
@@ -32,7 +31,8 @@ if have apt-get; then
     eject \
     flac \
     lame \
-    vorbis-tools
+    vorbis-tools \
+    
   echo "Done."
 elif have pacman; then
   echo "Detected pacman (Arch). Installing packages..."
