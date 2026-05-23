@@ -29,8 +29,6 @@ disc utilities, metadata libraries, and audio encoders.
 On supported Linux systems, you'll need this to start modding. 
 The helper script installs the aforementioned neccesary libs and Rust.
 
-&mdash; *CONFINEMENT* &mdash;
-
 CeeDee-Ripper ver. 1.1.0 is final. Mostly miscellaneous updates going forth once I upload it.
 
 Have a look and please do fork it.
@@ -112,7 +110,7 @@ Debian package metadata is also present in `Cargo.toml`.
 Flatpak and Snap recipes are present, but they remain more complicated than the
 native packaging paths for this application.
 
-*CONFINEMENT*
+&mdash; *CONFINEMENT* &mdash;
 
 CeeDee Ripper is not merely a self-contained graphical program &mdash; has a GUI and not a CLI.  
 
