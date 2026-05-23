@@ -110,8 +110,10 @@ Debian package metadata is also present in `Cargo.toml`.
 Flatpak and Snap recipes are present, but they remain more complicated than the
 native packaging paths for this application.
 
-CeeDee Ripper is not merely a self-contained graphical program. It needs
-low-level access to an optical drive, reads disc table-of-contents data, calls
+*CONFINEMENT*
+
+CeeDee Ripper is not merely a self-contained graphical pr
+ogram. It needs low-level access to an optical drive, reads disc table-of-contents data, calls
 CD helper tools, uses GStreamer encoders, contacts MusicBrainz, retrieves cover
 art, and writes music files to user-visible locations. Sandboxed package formats
 make each of those requirements more explicit:
@@ -131,7 +133,7 @@ That is useful during development. A Flathub-ready version, however, still
 needs careful permission review, stable source generation, and validation on
 clean systems.
 
-The Snap recipe uses strict *confinement* and plugs such as `optical-drive`,
+The Snap recipe uses strict confinement and plugs such as `optical-drive`,
 `removable-media`, `mount-observe`, `network`, `wayland`, and `x11`. That is the
 right general shape. Even so, optical-drive access and desktop/media integration
 may require manual connections or target-system testing before the package
