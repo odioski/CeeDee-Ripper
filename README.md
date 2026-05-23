@@ -112,7 +112,7 @@ native packaging paths for this application.
 
 &mdash; *CONFINEMENT* &mdash;
 
-CeeDee Ripper is not merely a self-contained graphical program &mdash; has a GUI and not a CLI.  
+CeeDee Ripper is not merely a self-contained graphical program &mdash; has a GUI and not only a CLI.  
 
 It needs low-level access to an optical drive, reads disc table-of-contents data, calls CD helper tools, uses GStreamer encoders, contacts MusicBrainz, retrieves cover
 art, and writes music files to user-visible locations. Sandboxed package formats make each of those requirements more explicit:
