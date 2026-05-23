@@ -29,6 +29,8 @@ disc utilities, metadata libraries, and audio encoders.
 On supported Linux systems, you'll need this to start modding. 
 The helper script installs the aforementioned neccesary libs and Rust.
 
+*CONFINEMENT*
+
 CeeDee-Ripper ver. 1.1.0 is indeed final. Mostly miscellaneous updates going forth once I upload it.
 
 Have a look and please do fork it.
