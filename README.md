@@ -21,7 +21,7 @@ runtime and saved for later launches.
 
 ![CeeDee Ripper ripping view](Screenshot_20260522_235511.png)
 
-## Requirements
+## Final mentions
 
 CeeDee Ripper requires the Rust toolchain, native desktop libraries, optical
 disc utilities, metadata libraries, and audio encoders.
