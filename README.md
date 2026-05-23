@@ -81,7 +81,7 @@ The CD device defaults to `/dev/sr0`. It can be changed in the configuration
 file or overridden at launch:
 
 ```bash
-CD_DEVICE=/dev/sr1 ceedee-ripper
+CD_DEVICE=/dev/sr0 ceedee-ripper
 ```
 
 ## Packaging
