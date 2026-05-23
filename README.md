@@ -112,11 +112,8 @@ native packaging paths for this application.
 
 *CONFINEMENT*
 
-CeeDee Ripper is not merely a self-contained graphical pr
-ogram. It needs low-level access to an optical drive, reads disc table-of-contents data, calls
-CD helper tools, uses GStreamer encoders, contacts MusicBrainz, retrieves cover
-art, and writes music files to user-visible locations. Sandboxed package formats
-make each of those requirements more explicit:
+CeeDee Ripper is not merely a self-contained graphical program. It needs low-level access to an optical drive, reads disc table-of-contents data, calls CD helper tools, uses GStreamer encoders, contacts MusicBrainz, retrieves cover
+art, and writes music files to user-visible locations. Sandboxed package formats make each of those requirements more explicit:
 
 - device access to `/dev/cdrom`, `/dev/sr0`, or `/dev/sr1` must be granted;
 - udev, removable-media, and drive permissions may differ by distribution;
