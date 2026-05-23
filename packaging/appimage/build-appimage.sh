@@ -25,3 +25,9 @@ else
   echo "AppDir prepared at $APPDIR"
   echo "Install appimagetool to produce target/appimage/${APP}-${VERSION}-x86_64.AppImage"
 fi
+
+echo ""
+echo "Upload/contrib:"
+echo "  Test the AppImage on a clean Linux desktop before publishing."
+echo "  Upload the final AppImage to the GitHub release only after release approval."
+echo "  See Distribution Instructions.md for release and checksum steps."
