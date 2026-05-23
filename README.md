@@ -134,17 +134,6 @@ For now, Flatpak and Snap should be treated as experimental packaging paths.
 Native packages and AppImage are the simpler release artifacts to validate
 first.
 
-### Editorial Note
-
-In my judgment, CeeDee Ripper is complete enough to pause here until Flatpak and
-Snapcraft become more transparent for hardware-facing desktop applications. The
-application depends on optical-drive access, helper binaries, codecs, GStreamer
-plugins, metadata networking, and visible music-folder writes. Native packages
-and AppImage make those requirements easier to understand, test, and support.
-Flatpak and Snap may become good targets later, but they should be revisited
-only after their sandbox behavior, store expectations, and required permissions
-are clear enough to support with confidence.
-
 ## License
 
 CeeDee Ripper is released under the MIT License. See `LICENSE`.
