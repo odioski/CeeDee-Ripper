@@ -2,18 +2,18 @@
 
 ![CeeDee Ripper](resources/CeeDee-Ripper.png)
 
-CeeDee Ripper is a Linux desktop app for extracting audio CDs to common music
-formats. It detects an inserted disc, looks up album metadata through
+CeeDee Ripper is a Linux desktop application for extracting audio CDs to common
+music formats. It detects an inserted disc, looks up album metadata through
 MusicBrainz, previews album art, and rips selected tracks to FLAC, MP3, WAV, or
 Ogg Vorbis.
 
-The app is written in Rust and currently supports two desktop front ends:
+The application is written in Rust and supports two desktop front ends:
 
 - `egui-ui`
-- `gtk-ui` with GTK4 and Libadwaita
+- `gtk-ui`, using GTK4 and Libadwaita
 
-Default builds include both front ends, and the active interface can be selected
-at runtime.
+Default builds include both front ends. The active interface can be selected at
+runtime and saved for later launches.
 
 ## Screenshots
 
@@ -23,10 +23,10 @@ at runtime.
 
 ## Requirements
 
-CeeDee Ripper needs normal Rust build tools plus the native libraries and
-command-line tools used for CD access, metadata, and encoding.
+CeeDee Ripper requires the Rust toolchain, native desktop libraries, optical
+disc utilities, metadata libraries, and audio encoders.
 
-On supported Linux systems, the helper script can install the common packages:
+On supported Linux systems, the helper script installs the usual packages:
 
 ```bash
 scripts/install-deps.sh
@@ -44,14 +44,15 @@ Important runtime tools and libraries include:
 - GStreamer base, good, and ugly plugins
 - GTK4 and Libadwaita for the GTK interface
 
-Your user may also need permission to read the optical drive. On many Linux
-systems that means being in the `cdrom` group and logging in again:
+The user running the application may need permission to read the optical drive.
+On many Linux systems, that means membership in the `cdrom` group, followed by a
+new login session:
 
 ```bash
 sudo usermod -aG cdrom "$USER"
 ```
 
-## Build And Run
+## Build and Run
 
 Build the normal release binary:
 
@@ -59,25 +60,25 @@ Build the normal release binary:
 cargo build --release --features "gtk-ui egui-ui"
 ```
 
-Run with the default saved interface:
+Run with the saved default interface:
 
 ```bash
 cargo run --features "gtk-ui egui-ui"
 ```
 
-Select an interface for a launch:
+Select an interface for a single launch:
 
 ```bash
 cargo run --features "gtk-ui egui-ui" -- --ui egui
 cargo run --features "gtk-ui egui-ui" -- --ui gtk
 ```
 
-The selected UI is saved in the app config. By default the app uses
-`~/.config/ceedee-ripper/config.toml`, unless a repo-local config file or
-`CEEDEE_RIPPER_CONFIG` is used.
+The selected UI is saved in the application configuration. By default, CeeDee
+Ripper uses `~/.config/ceedee-ripper/config.toml`, unless a repository-local
+configuration file or `CEEDEE_RIPPER_CONFIG` is used.
 
-The CD device defaults to `/dev/sr0`. You can override it with the config file
-or with:
+The CD device defaults to `/dev/sr0`. It can be changed in the configuration
+file or overridden at launch:
 
 ```bash
 CD_DEVICE=/dev/sr1 ceedee-ripper
@@ -85,8 +86,8 @@ CD_DEVICE=/dev/sr1 ceedee-ripper
 
 ## Packaging
 
-Packaging work lives under `packaging/`, with notes in `docs/PACKAGING.md` and
-`Distribution Instructions.md`.
+Packaging files live under `packaging/`. Additional notes are kept in
+`docs/PACKAGING.md` and `Distribution Instructions.md`.
 
 The most straightforward local targets are:
 
@@ -95,40 +96,54 @@ The most straightforward local targets are:
 - Arch/AUR recipe
 - Fedora/RPM recipe
 
-The Debian package metadata is also present in `Cargo.toml`.
+Debian package metadata is also present in `Cargo.toml`.
 
-## Notes On Flatpak And Snap
+## Notes on Flatpak and Snap
 
-Flatpak and Snap builds are present, but they are more complicated than the
-native packages for this app.
+Flatpak and Snap recipes are present, but they remain more complicated than the
+native packaging paths for this application.
 
-CeeDee Ripper is not just a self-contained GUI. It needs low-level access to an
-optical drive, reads disc table-of-contents data, calls CD helper tools, uses
-GStreamer encoders, talks to MusicBrainz, and writes music files to user-visible
-locations. Sandboxed package formats make each of those pieces stricter:
+CeeDee Ripper is not merely a self-contained graphical program. It needs
+low-level access to an optical drive, reads disc table-of-contents data, calls
+CD helper tools, uses GStreamer encoders, contacts MusicBrainz, retrieves cover
+art, and writes music files to user-visible locations. Sandboxed package formats
+make each of those requirements more explicit:
 
-- device access to `/dev/cdrom`, `/dev/sr0`, or `/dev/sr1` has to be granted;
-- udev, removable media, and drive permissions may differ by distribution;
+- device access to `/dev/cdrom`, `/dev/sr0`, or `/dev/sr1` must be granted;
+- udev, removable-media, and drive permissions may differ by distribution;
 - command-line helpers and codecs must be staged inside the sandbox;
-- GStreamer plugin availability has to match what the app expects;
-- network access is needed for metadata and cover art;
+- GStreamer plugin availability must match the application's expectations;
+- network access is required for metadata and cover art;
 - output folders must be exposed deliberately;
-- reproducible Rust/Cargo dependency vendoring is required for Flathub-style
-  builds.
+- reproducible Rust and Cargo dependency vendoring is required for
+  Flathub-style builds.
 
 The Flatpak manifest currently grants broad device and filesystem permissions
 for local testing and vendors Cargo sources through `generated-sources.json`.
-That is useful for development, but a Flathub-ready version still needs careful
-permission review, stable source generation, and validation on clean systems.
+That is useful during development. A Flathub-ready version, however, still
+needs careful permission review, stable source generation, and validation on
+clean systems.
 
 The Snap recipe uses strict confinement and plugs such as `optical-drive`,
 `removable-media`, `mount-observe`, `network`, `wayland`, and `x11`. That is the
-right general shape, but optical-drive access and desktop/media integration can
-still require manual connections or target-system testing before it behaves like
-a native package.
+right general shape. Even so, optical-drive access and desktop/media integration
+may require manual connections or target-system testing before the package
+behaves like a native install.
 
-For now, treat Flatpak and Snap as experimental packaging paths. Native packages
-and AppImage are the simpler release artifacts to validate first.
+For now, Flatpak and Snap should be treated as experimental packaging paths.
+Native packages and AppImage are the simpler release artifacts to validate
+first.
+
+### Editorial Note
+
+In my judgment, CeeDee Ripper is complete enough to pause here until Flatpak and
+Snapcraft become more transparent for hardware-facing desktop applications. The
+application depends on optical-drive access, helper binaries, codecs, GStreamer
+plugins, metadata networking, and visible music-folder writes. Native packages
+and AppImage make those requirements easier to understand, test, and support.
+Flatpak and Snap may become good targets later, but they should be revisited
+only after their sandbox behavior, store expectations, and required permissions
+are clear enough to support with confidence.
 
 ## License
 
