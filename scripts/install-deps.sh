@@ -10,6 +10,10 @@ if have apt-get; then
     apt-file \
     build-essential \
     pkg-config \
+    cargo \
+    rustc \
+    debhelper \
+    libclang-dev \
     libcairo2-dev \
     libpango1.0-dev \
     libgdk-pixbuf2.0-dev \

@@ -1,5 +1,0 @@
-[env]
-PKG_CONFIG = { value = "build-aux/pkg-config-cross", relative = true }
-
-[target.x86_64-unknown-linux-musl]
-linker = "musl-gcc"
