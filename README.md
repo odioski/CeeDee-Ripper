@@ -26,7 +26,14 @@ runtime and saved for later launches.
 CeeDee Ripper requires the Rust toolchain, native desktop libraries, optical
 disc utilities, metadata libraries, and audio encoders.
 
-On supported Linux systems, the helper script installs the usual packages:
+On supported Linux systems, you'll need this to start modding. 
+The helper script installs the aforementioned neccesary libs and Rust.
+
+CeeDee-Ripper ver. 1.1.0 is indeed final. Mostly miscellaneous updates going forth once I upload it.
+
+Have a look and please do fork it.
+
+It's beautiful.
 
 ```bash
 scripts/install-deps.sh
