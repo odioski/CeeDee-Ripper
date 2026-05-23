@@ -131,7 +131,7 @@ That is useful during development. A Flathub-ready version, however, still
 needs careful permission review, stable source generation, and validation on
 clean systems.
 
-The Snap recipe uses strict confinement and plugs such as `optical-drive`,
+The Snap recipe uses strict *confinement* and plugs such as `optical-drive`,
 `removable-media`, `mount-observe`, `network`, `wayland`, and `x11`. That is the
 right general shape. Even so, optical-drive access and desktop/media integration
 may require manual connections or target-system testing before the package
