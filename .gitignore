@@ -3,25 +3,15 @@
 **/*.rs.bk
 
 # Local package build scratch and caches
-/.flatpak-builder/
-/debian/
-/parts/
-/prime/
-/stage/
-/overlay/
-/snap/.snapcraft/
-/.snapcraft/
+./.flatpak-builder/
+./debian/
+./parts/
+./prime/
+./stage/
+./overlay/
+./snap/.snapcraft/
+./.snapcraft/
 
-# Local package artifacts and intermediates
-*.AppImage
-*.deb
-*.ddeb
-*.buildinfo
-*.changes
-*.flatpak
-*.pkg.tar*
-*.rpm
-*.snap
 Cargo.lock
 
 # Build cache markers and debug/intermediate files

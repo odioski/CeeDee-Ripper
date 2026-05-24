@@ -54,6 +54,33 @@ elif have pacman; then
     gst-plugins-good \
     gst-plugins-ugly \
     libadwaita \
+    build-essential \
+    pkg-config \
+    cargo \
+    rustc \
+    debhelper \
+    libclang-dev \
+    libcairo2-dev \
+    libpango1.0-dev \
+    libgdk-pixbuf2.0-dev \
+    libglib2.0-0t64 \
+    libglib2.0-dev \
+    libgraphene-1.0-dev \
+    libgtk-4-bin \
+    libgtk-4-common \
+    libgtk-4-dev \
+    libgstreamer1.0-dev \
+    libadwaita-1-dev \
+    libgstreamer-plugins-base1.0-dev \
+    gstreamer1.0-plugins-base \
+    gstreamer1.0-plugins-good \
+    libdiscid-dev \
+    cdparanoia \
+    cd-discid \
+    eject \
+    flac \
+    lame \
+    vorbis-tools \
     libdiscid \
     cdparanoia \
     cd-discid \
@@ -82,6 +109,34 @@ elif have zypper; then
     gstreamer-plugins-good \
     gstreamer-plugins-ugly \
     libadwaita-devel \
+    build-essential \
+    pkg-config \
+    cargo \
+    rustc \
+    debhelper \
+    libclang-dev \
+    libcairo2-dev \
+    libpango1.0-dev \
+    libgdk-pixbuf2.0-dev \
+    libglib2.0-0t64 \
+    libglib2.0-dev \
+    libgraphene-1.0-dev \
+    libgtk-4-bin \
+    libgtk-4-common \
+    libgtk-4-dev \
+    libgstreamer1.0-dev \
+    libadwaita-1-dev \
+    libgstreamer-plugins-base1.0-dev \
+    gstreamer1.0-plugins-base \
+    gstreamer1.0-plugins-good \
+    libappstream-glib \
+    libdiscid-dev \
+    cdparanoia \
+    cd-discid \
+    eject \
+    flac \
+    lame \
+    vorbis-tools \
     libdiscid-devel \
     cdparanoia \
     cd-discid \
@@ -107,8 +162,9 @@ elif have dnf; then
     gstreamer1-devel \
     gstreamer1-plugins-base-devel \
     gstreamer1-plugins-good \
-    gstreamer1-plugins-ugly \
     libadwaita-devel \
+    libappstream-glib \
+    clang-devel \
     libdiscid-devel \
     cdparanoia \
     cd-discid \
@@ -116,6 +172,9 @@ elif have dnf; then
     flac \
     lame \
     vorbis-tools
+  curl -LO https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
+  chmod +x appimagetool-x86_64.AppImage
+  ./appimagetool-x86_64.AppImage --appimage-version
   echo "Done."
 else
   echo "Unsupported package manager. Please install dependencies manually." >&2
