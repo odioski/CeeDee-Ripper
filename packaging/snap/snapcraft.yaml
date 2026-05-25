@@ -107,7 +107,7 @@ parts:
       - shared-mime-info
       - vorbis-tools
     override-build: |
-      cargo build --release --features "gtk-ui egui-ui"
+      cargo build --release --feature "gtk-ui egui-ui"
       install -Dm755 target/release/ceedee-ripper "$CRAFT_PART_INSTALL/usr/bin/ceedee-ripper"
       install -Dm644 resources/ceedee-ripper.desktop "$CRAFT_PART_INSTALL/usr/share/applications/ceedee-ripper.desktop"
       install -Dm644 resources/images/ceedee-ripper.png "$CRAFT_PART_INSTALL/usr/share/icons/hicolor/256x256/apps/io.github.odioski.ceedee_ripper.png"

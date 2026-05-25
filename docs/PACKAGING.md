@@ -6,27 +6,27 @@ These notes are for local validation before any future repository or package upl
 
 ## Local Build Matrix
 
-Default builds compile both egui and GTK4/Libadwaita into one binary. The launched interface is selected at runtime with `--ui`, the app-level `--features` alias, or the saved `ui_backend` config key.
+Default builds compile both egui and GTK4/Libadwaita into one binary. The launched interface is selected at runtime with `--ui`, the app-level `--feature` alias, or the saved `ui_backend` config key.
 
 Universal UI binary:
 
 ```bash
-cargo check --features "gtk-ui egui-ui"
-cargo build --release --features "gtk-ui egui-ui"
+cargo check --feature "gtk-ui egui-ui"
+cargo build --release --feature "gtk-ui egui-ui"
 ```
 
 In universal builds, `ceedee-ripper --ui egui` and `ceedee-ripper --ui gtk`
 select the interface for that launch and save the choice. Installed binaries
-also accept `ceedee-ripper --features egui-ui` and
-`ceedee-ripper --features gtk-ui` as runtime aliases for the same selector.
+also accept `ceedee-ripper --feature egui-ui` and
+`ceedee-ripper --feature gtk-ui` as runtime aliases for the same selector.
 Without a selector, the app uses `ui_backend` from
 `~/.config/ceedee-ripper/config.toml`, falling back to egui when available. The
 Settings page and View menu write the same setting and require a restart.
 
 When testing through Cargo, put runtime selectors after `--`, for example
-`cargo run --features "gtk-ui egui-ui" -- --features gtk-ui`. A command like
-`cargo run --features gtk-ui` only changes Cargo's build features; it does not
-pass `--features gtk-ui` to the running app.
+`cargo run --feature "gtk-ui egui-ui" -- --feature gtk-ui`. A command like
+`cargo run --feature gtk-ui` only changes Cargo's build feature; it does not
+pass `--feature gtk-ui` to the running app.
 
 For now, keep universal-build packaging work scoped to `.deb` and AppImage
 artifacts. Snap and Flatpak remain deferred until their runtime issues are

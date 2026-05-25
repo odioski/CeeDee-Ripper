@@ -617,9 +617,9 @@
   },
   {
     "type": "archive",
-    "url": "https://static.crates.io/crates/document-features/document-features-0.2.12.crate",
+    "url": "https://static.crates.io/crates/document-feature/document-feature-0.2.12.crate",
     "sha256": "d4b8a88685455ed29a21542a33abd9cb6510b6b129abadabdcef0f4c55bc8f61",
-    "dest": "cargo/vendor/document-features-0.2.12",
+    "dest": "cargo/vendor/document-feature-0.2.12",
     "archive-type": "tar-gzip"
   },
   {

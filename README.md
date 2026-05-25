@@ -64,20 +64,20 @@ sudo usermod -aG cdrom "$USER"
 Build the normal release binary:
 
 ```bash
-cargo build --release --features "gtk-ui egui-ui"
+cargo build --release --feature "gtk-ui egui-ui"
 ```
 
 Run with the saved default interface:
 
 ```bash
-cargo run --features "gtk-ui egui-ui"
+cargo run --feature "gtk-ui egui-ui"
 ```
 
 Select an interface for a single launch:
 
 ```bash
-cargo run --features "gtk-ui egui-ui" -- --ui egui
-cargo run --features "gtk-ui egui-ui" -- --ui gtk
+cargo run --feature "gtk-ui egui-ui" -- --ui egui
+cargo run --feature "gtk-ui egui-ui" -- --ui gtk
 ```
 
 The selected UI is saved in the application configuration. By default, CeeDee

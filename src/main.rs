@@ -81,7 +81,7 @@ fn print_compiled_ui_backend() {
 
 fn print_usage() {
     println!(
-        "Usage: ceedee-ripper [--ui egui|gtk]\n       ceedee-ripper [--features egui-ui|gtk-ui]\n\nRuntime selectors choose the UI for this run and save it for future launches when available.\nWith cargo run, pass runtime selectors after --, for example:\n       cargo run --features \"gtk-ui egui-ui\" -- --features gtk-ui"
+        "Usage: ceedee-ripper [--ui egui|gtk]\n       ceedee-ripper [--feature egui-ui|gtk-ui]\n\nRuntime selectors choose the UI for this run and save it for future launches when available.\nWith cargo run, pass runtime selectors after --, for example:\n       cargo run --feature \"gtk-ui egui-ui\" -- --feature gtk-ui"
     );
 }
 
@@ -95,12 +95,12 @@ fn selected_ui_backend() -> Result<Option<UiBackend>, String> {
             std::process::exit(0);
         }
 
-        let value = if arg == "--ui" || arg == "--features" {
+        let value = if arg == "--ui" || arg == "--feature" {
             args.next()
                 .ok_or_else(|| format!("{arg} requires one of: egui, gtk, egui-ui, gtk-ui"))?
         } else if let Some(value) = arg.strip_prefix("--ui=") {
             value.to_string()
-        } else if let Some(value) = arg.strip_prefix("--features=") {
+        } else if let Some(value) = arg.strip_prefix("--feature=") {
             value.to_string()
         } else {
             return Err(format!("Unrecognized argument: {arg}"));
@@ -111,7 +111,7 @@ fn selected_ui_backend() -> Result<Option<UiBackend>, String> {
         })?;
         if !backend.is_compiled() {
             return Err(format!(
-                "UI backend '{backend}' is not compiled into this binary. Rebuild with --features {}.",
+                "UI backend '{backend}' is not compiled into this binary. Rebuild with --feature {}.",
                 match backend {
                     UiBackend::Egui => "egui-ui",
                     UiBackend::Gtk => "gtk-ui",
@@ -227,7 +227,7 @@ fn run_gtk_ui() -> glib::ExitCode {
 
     // Runtime UI selectors are parsed by CeeDee Ripper before GTK starts.
     // Run GTK with a clean argv so GApplication does not reject app-level
-    // options such as `--features gtk-ui`.
+    // options such as `--feature gtk-ui`.
     app.run_with_args(&["ceedee-ripper"])
 }
 

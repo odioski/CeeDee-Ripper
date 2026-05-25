@@ -36,12 +36,12 @@ prepare() {
 
 build() {
   cd "${pkgname}"
-  cargo build --release --features "gtk-ui egui-ui"
+  cargo build --release --feature "gtk-ui egui-ui"
 }
 
 check() {
   cd "${pkgname}"
-  cargo test --locked --features "gtk-ui egui-ui"
+  cargo test --locked --feature "gtk-ui egui-ui"
 }
 
 package() {

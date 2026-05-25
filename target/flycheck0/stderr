@@ -1,1 +1,3009 @@
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.69s
+warning: unused manifest key: dependencies.image.default-feature
+warning: unused manifest key: dependencies.image.feature
+warning: unused manifest key: dependencies.serde.feature
+warning: unused manifest key: dependencies.tokio.feature
+warning: unused manifest key: dependencies.ureq.feature
+warning: unused manifest key: feature
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+     Locking 47 packages to latest compatible versions
+      Adding aligned v0.4.3
+      Adding aligned-vec v0.6.4
+      Adding arbitrary v1.4.2
+      Adding arg_enum_proc_macro v0.3.4
+      Adding as-slice v0.2.1
+      Adding av-scenechange v0.14.1
+      Adding av1-grain v0.2.5
+      Adding avif-serialize v0.8.9
+      Adding bit_field v0.10.3
+      Adding bitstream-io v4.10.0
+      Adding built v0.8.1
+      Adding color_quant v1.1.0
+      Adding crossbeam-deque v0.8.6
+      Adding crossbeam-epoch v0.9.18
+      Adding equator v0.4.2
+      Adding equator-macro v0.4.2
+      Adding exr v1.74.0
+      Adding gif v0.14.2
+      Adding imgref v1.12.1
+      Adding interpolate_name v0.2.4
+      Adding lebe v0.5.3
+      Adding libfuzzer-sys v0.4.12
+      Adding loop9 v0.1.5
+      Adding maybe-rayon v0.1.1
+      Adding new_debug_unreachable v1.0.6
+      Adding no_std_io2 v0.9.4
+      Adding nom v8.0.0
+      Adding noop_proc_macro v0.3.0
+      Adding num-bigint v0.4.6
+      Adding num-derive v0.4.2
+      Adding paste v1.0.15
+      Adding pastey v0.1.1
+      Adding ppv-lite86 v0.2.21
+      Adding profiling-procmacros v1.0.18
+      Adding qoi v0.4.1
+      Adding rand v0.9.4
+      Adding rand_chacha v0.9.0
+      Adding rand_core v0.9.5
+      Adding rav1e v0.8.1
+      Adding ravif v0.13.0
+      Adding rayon v1.12.0
+      Adding rayon-core v1.13.0
+      Adding rgb v0.8.53
+      Adding simd_helpers v0.1.0
+      Adding v_frame v0.3.9
+      Adding y4m v0.8.0
+      Adding zune-inflate v0.2.54
+    Blocking waiting for file lock on package cache
+   1.512869342s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: fingerprint error for ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper)/Check { test: false }/TargetInner { name: "ceedee-ripper", doc: true, ..: with_path("/home/mrod/CODE/CeeDee-Ripper/src/main.rs", Edition2021) }
+   1.512987380s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/ceedee-ripper-388fb91bff05dda9/bin-ceedee-ripper`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  17: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  18: <unknown>
+   1.634526999s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper)/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/CODE/CeeDee-Ripper/build.rs", Edition2021) }
+   1.634569700s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/ceedee-ripper-3c3b587806760ca7/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   1.634778818s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper)/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/CODE/CeeDee-Ripper/build.rs", Edition2021) }
+   1.634796795s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/ceedee-ripper-47d8e98d2ace00f1/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.639039328s  INFO prepare_target{force=false package_id=discid v0.5.0 target="discid"}: cargo::core::compiler::fingerprint: fingerprint error for discid v0.5.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("discid", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/discid-0.5.0/src/lib.rs", Edition2018) }
+   1.639934187s  INFO prepare_target{force=false package_id=discid v0.5.0 target="discid"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/discid-2f37c55a68f872b6/lib-discid`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   1.640967973s  INFO prepare_target{force=false package_id=discid-sys v0.5.0 target="discid_sys"}: cargo::core::compiler::fingerprint: fingerprint error for discid-sys v0.5.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("discid_sys", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/discid-sys-0.5.0/src/lib.rs", Edition2018) }
+   1.642769956s  INFO prepare_target{force=false package_id=discid-sys v0.5.0 target="discid_sys"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/discid-sys-e2e17c7f4ae97bca/lib-discid_sys`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.643432008s  INFO prepare_target{force=false package_id=discid-sys v0.5.0 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for discid-sys v0.5.0/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/discid-sys-0.5.0/build.rs", Edition2018) }
+   1.643447740s  INFO prepare_target{force=false package_id=discid-sys v0.5.0 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/discid-sys-b6fc56a65155f37f/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   1.643605319s  INFO prepare_target{force=false package_id=discid-sys v0.5.0 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for discid-sys v0.5.0/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/discid-sys-0.5.0/build.rs", Edition2018) }
+   1.643614410s  INFO prepare_target{force=false package_id=discid-sys v0.5.0 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/discid-sys-8f12e1697690315c/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   1.644518912s  INFO prepare_target{force=false package_id=bindgen v0.64.0 target="bindgen"}: cargo::core::compiler::fingerprint: fingerprint error for bindgen v0.64.0/Build/TargetInner { ..: lib_target("bindgen", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bindgen-0.64.0/lib.rs", Edition2018) }
+   1.644539257s  INFO prepare_target{force=false package_id=bindgen v0.64.0 target="bindgen"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/bindgen-5912f932881eb812/lib-bindgen`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   1.648566572s  INFO prepare_target{force=false package_id=cexpr v0.6.0 target="cexpr"}: cargo::core::compiler::fingerprint: fingerprint error for cexpr v0.6.0/Build/TargetInner { name_inferred: true, ..: lib_target("cexpr", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cexpr-0.6.0/src/lib.rs", Edition2018) }
+   1.648600923s  INFO prepare_target{force=false package_id=cexpr v0.6.0 target="cexpr"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/cexpr-66e6c3845ee5ea08/lib-cexpr`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   1.648910812s  INFO prepare_target{force=false package_id=nom v7.1.3 target="nom"}: cargo::core::compiler::fingerprint: fingerprint error for nom v7.1.3/Build/TargetInner { name_inferred: true, ..: lib_target("nom", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/nom-7.1.3/src/lib.rs", Edition2018) }
+   1.648924606s  INFO prepare_target{force=false package_id=nom v7.1.3 target="nom"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/nom-c9d8a477010571d9/lib-nom`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  24: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  25: <unknown>
+   1.649207279s  INFO prepare_target{force=false package_id=memchr v2.8.0 target="memchr"}: cargo::core::compiler::fingerprint: fingerprint error for memchr v2.8.0/Build/TargetInner { benched: false, ..: lib_target("memchr", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/memchr-2.8.0/src/lib.rs", Edition2021) }
+   1.649220885s  INFO prepare_target{force=false package_id=memchr v2.8.0 target="memchr"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/memchr-f71e48d85b5f7979/lib-memchr`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  25: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  26: <unknown>
+   1.655725226s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.106 target="proc_macro2"}: cargo::core::compiler::fingerprint: fingerprint error for proc-macro2 v1.0.106/Build/TargetInner { ..: lib_target("proc_macro2", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro2-1.0.106/src/lib.rs", Edition2021) }
+   1.655756152s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.106 target="proc_macro2"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/proc-macro2-876de53141ad9133/lib-proc_macro2`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   1.656192892s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.106 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for proc-macro2 v1.0.106/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro2-1.0.106/build.rs", Edition2021) }
+   1.656205727s  INFO prepare_target{force=false package_id=proc-macro2 v1.0.106 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/proc-macro2-ccb1cb77b20199d8/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: <unknown>
+  25: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  26: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  27: <unknown>
+   1.657077857s  INFO prepare_target{force=false package_id=quote v1.0.45 target="quote"}: cargo::core::compiler::fingerprint: fingerprint error for quote v1.0.45/Build/TargetInner { ..: lib_target("quote", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/quote-1.0.45/src/lib.rs", Edition2021) }
+   1.657097642s  INFO prepare_target{force=false package_id=quote v1.0.45 target="quote"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/quote-97963c18b0d84039/lib-quote`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   1.657541254s  INFO prepare_target{force=false package_id=quote v1.0.45 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for quote v1.0.45/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/quote-1.0.45/build.rs", Edition2021) }
+   1.657553690s  INFO prepare_target{force=false package_id=quote v1.0.45 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/quote-bd4ba681e501b799/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: <unknown>
+  25: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  26: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  27: <unknown>
+   1.662888231s  INFO prepare_target{force=false package_id=syn v1.0.109 target="syn"}: cargo::core::compiler::fingerprint: fingerprint error for syn v1.0.109/Build/TargetInner { name_inferred: true, doc_scrape_examples: Disabled, ..: lib_target("syn", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/syn-1.0.109/src/lib.rs", Edition2018) }
+   1.662921281s  INFO prepare_target{force=false package_id=syn v1.0.109 target="syn"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/syn-66b517575619c9b0/lib-syn`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   1.666143685s  INFO prepare_target{force=false package_id=glib v0.22.7 target="glib"}: cargo::core::compiler::fingerprint: fingerprint error for glib v0.22.7/Check { test: false }/TargetInner { ..: lib_target("glib", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glib-0.22.7/src/lib.rs", Edition2024) }
+   1.666231965s  INFO prepare_target{force=false package_id=glib v0.22.7 target="glib"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/glib-36b9028a414b5b36/lib-glib`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   1.667023636s  INFO prepare_target{force=false package_id=bitflags v2.11.1 target="bitflags"}: cargo::core::compiler::fingerprint: fingerprint error for bitflags v2.11.1/Check { test: false }/TargetInner { ..: lib_target("bitflags", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bitflags-2.11.1/src/lib.rs", Edition2021) }
+   1.667046702s  INFO prepare_target{force=false package_id=bitflags v2.11.1 target="bitflags"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/bitflags-17b69d7061ac7524/lib-bitflags`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.669254135s  INFO prepare_target{force=false package_id=futures-executor v0.3.32 target="futures_executor"}: cargo::core::compiler::fingerprint: fingerprint error for futures-executor v0.3.32/Check { test: false }/TargetInner { ..: lib_target("futures_executor", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-executor-0.3.32/src/lib.rs", Edition2018) }
+   1.669331761s  INFO prepare_target{force=false package_id=futures-executor v0.3.32 target="futures_executor"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/futures-executor-e13b03c60e26cb75/lib-futures_executor`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.670458846s  INFO prepare_target{force=false package_id=futures-util v0.3.32 target="futures_util"}: cargo::core::compiler::fingerprint: fingerprint error for futures-util v0.3.32/Check { test: false }/TargetInner { ..: lib_target("futures_util", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-util-0.3.32/src/lib.rs", Edition2018) }
+   1.670510986s  INFO prepare_target{force=false package_id=futures-util v0.3.32 target="futures_util"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/futures-util-bb5f9ccda5f2cc0a/lib-futures_util`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   1.672384598s  INFO prepare_target{force=false package_id=futures-macro v0.3.32 target="futures_macro"}: cargo::core::compiler::fingerprint: fingerprint error for futures-macro v0.3.32/Build/TargetInner { for_host: true, proc_macro: true, ..: lib_target("futures_macro", ["proc-macro"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/futures-macro-0.3.32/src/lib.rs", Edition2018) }
+   1.672412890s  INFO prepare_target{force=false package_id=futures-macro v0.3.32 target="futures_macro"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/futures-macro-66b15d8d7c6ef46e/lib-futures_macro`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   1.672730230s  INFO prepare_target{force=false package_id=syn v2.0.117 target="syn"}: cargo::core::compiler::fingerprint: fingerprint error for syn v2.0.117/Build/TargetInner { ..: lib_target("syn", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/syn-2.0.117/src/lib.rs", Edition2021) }
+   1.672744114s  INFO prepare_target{force=false package_id=syn v2.0.117 target="syn"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/syn-28672bc3e65cead4/lib-syn`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   1.674060657s  INFO prepare_target{force=false package_id=slab v0.4.12 target="slab"}: cargo::core::compiler::fingerprint: fingerprint error for slab v0.4.12/Check { test: false }/TargetInner { ..: lib_target("slab", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/slab-0.4.12/src/lib.rs", Edition2018) }
+   1.674268346s  INFO prepare_target{force=false package_id=slab v0.4.12 target="slab"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/slab-0f1a94fb686a34ba/lib-slab`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   1.674796497s  INFO prepare_target{force=false package_id=gio-sys v0.22.0 target="gio_sys"}: cargo::core::compiler::fingerprint: fingerprint error for gio-sys v0.22.0/Check { test: false }/TargetInner { ..: lib_target("gio_sys", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gio-sys-0.22.0/src/lib.rs", Edition2024) }
+   1.674834587s  INFO prepare_target{force=false package_id=gio-sys v0.22.0 target="gio_sys"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gio-sys-849fddbe5bf2196d/lib-gio_sys`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.675657219s  INFO prepare_target{force=false package_id=gio-sys v0.22.0 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for gio-sys v0.22.0/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gio-sys-0.22.0/build.rs", Edition2024) }
+   1.675690637s  INFO prepare_target{force=false package_id=gio-sys v0.22.0 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gio-sys-b9c1a6cbf2bc2f15/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   1.675991980s  INFO prepare_target{force=false package_id=gio-sys v0.22.0 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for gio-sys v0.22.0/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gio-sys-0.22.0/build.rs", Edition2024) }
+   1.676093000s  INFO prepare_target{force=false package_id=gio-sys v0.22.0 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gio-sys-a9bb2158a301c7c6/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   1.676515943s  INFO prepare_target{force=false package_id=system-deps v7.0.8 target="system_deps"}: cargo::core::compiler::fingerprint: fingerprint error for system-deps v7.0.8/Build/TargetInner { ..: lib_target("system_deps", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/system-deps-7.0.8/src/lib.rs", Edition2018) }
+   1.676562195s  INFO prepare_target{force=false package_id=system-deps v7.0.8 target="system_deps"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/system-deps-3f7be46728967c3f/lib-system_deps`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   1.679676312s  INFO prepare_target{force=false package_id=toml v1.1.2+spec-1.1.0 target="toml"}: cargo::core::compiler::fingerprint: fingerprint error for toml v1.1.2+spec-1.1.0/Build/TargetInner { ..: lib_target("toml", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/toml-1.1.2+spec-1.1.0/src/lib.rs", Edition2024) }
+   1.679702609s  INFO prepare_target{force=false package_id=toml v1.1.2+spec-1.1.0 target="toml"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/toml-9b316656df0cd1a0/lib-toml`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   1.682864829s  INFO prepare_target{force=false package_id=toml_datetime v1.1.1+spec-1.1.0 target="toml_datetime"}: cargo::core::compiler::fingerprint: fingerprint error for toml_datetime v1.1.1+spec-1.1.0/Build/TargetInner { ..: lib_target("toml_datetime", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/toml_datetime-1.1.1+spec-1.1.0/src/lib.rs", Edition2024) }
+   1.682902578s  INFO prepare_target{force=false package_id=toml_datetime v1.1.1+spec-1.1.0 target="toml_datetime"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/toml_datetime-5074879959d3d0c3/lib-toml_datetime`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  24: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  25: <unknown>
+   1.683292877s  INFO prepare_target{force=false package_id=toml_parser v1.1.2+spec-1.1.0 target="toml_parser"}: cargo::core::compiler::fingerprint: fingerprint error for toml_parser v1.1.2+spec-1.1.0/Build/TargetInner { ..: lib_target("toml_parser", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/toml_parser-1.1.2+spec-1.1.0/src/lib.rs", Edition2024) }
+   1.683309091s  INFO prepare_target{force=false package_id=toml_parser v1.1.2+spec-1.1.0 target="toml_parser"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/toml_parser-00616bbf13db3fe1/lib-toml_parser`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  24: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  25: <unknown>
+   1.683685540s  INFO prepare_target{force=false package_id=winnow v1.0.3 target="winnow"}: cargo::core::compiler::fingerprint: fingerprint error for winnow v1.0.3/Build/TargetInner { ..: lib_target("winnow", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/winnow-1.0.3/src/lib.rs", Edition2021) }
+   1.683700522s  INFO prepare_target{force=false package_id=winnow v1.0.3 target="winnow"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/winnow-8a5c9644d3f55fea/lib-winnow`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  25: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  26: <unknown>
+   1.684627551s  INFO prepare_target{force=false package_id=glib-sys v0.22.6 target="glib_sys"}: cargo::core::compiler::fingerprint: fingerprint error for glib-sys v0.22.6/Check { test: false }/TargetInner { ..: lib_target("glib_sys", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glib-sys-0.22.6/src/lib.rs", Edition2024) }
+   1.684669139s  INFO prepare_target{force=false package_id=glib-sys v0.22.6 target="glib_sys"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/glib-sys-0d47812ee41e5233/lib-glib_sys`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   1.687984349s  INFO prepare_target{force=false package_id=glib-sys v0.22.6 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for glib-sys v0.22.6/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glib-sys-0.22.6/build.rs", Edition2024) }
+   1.688011335s  INFO prepare_target{force=false package_id=glib-sys v0.22.6 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/glib-sys-6d817deb301f7f55/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   1.688192743s  INFO prepare_target{force=false package_id=glib-sys v0.22.6 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for glib-sys v0.22.6/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glib-sys-0.22.6/build.rs", Edition2024) }
+   1.688203738s  INFO prepare_target{force=false package_id=glib-sys v0.22.6 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/glib-sys-b76e2dc6bff582e2/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   1.688683033s  INFO prepare_target{force=false package_id=gobject-sys v0.22.6 target="gobject_sys"}: cargo::core::compiler::fingerprint: fingerprint error for gobject-sys v0.22.6/Check { test: false }/TargetInner { ..: lib_target("gobject_sys", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gobject-sys-0.22.6/src/lib.rs", Edition2024) }
+   1.688703560s  INFO prepare_target{force=false package_id=gobject-sys v0.22.6 target="gobject_sys"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gobject-sys-ed7e585e7484c4ea/lib-gobject_sys`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   1.689182544s  INFO prepare_target{force=false package_id=gobject-sys v0.22.6 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for gobject-sys v0.22.6/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gobject-sys-0.22.6/build.rs", Edition2024) }
+   1.689194969s  INFO prepare_target{force=false package_id=gobject-sys v0.22.6 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gobject-sys-9eb50a8dd733de30/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   1.689304812s  INFO prepare_target{force=false package_id=gobject-sys v0.22.6 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for gobject-sys v0.22.6/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gobject-sys-0.22.6/build.rs", Edition2024) }
+   1.689313563s  INFO prepare_target{force=false package_id=gobject-sys v0.22.6 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gobject-sys-84db8d1fd81d32bb/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   1.689557372s  INFO prepare_target{force=false package_id=glib-macros v0.22.6 target="glib_macros"}: cargo::core::compiler::fingerprint: fingerprint error for glib-macros v0.22.6/Build/TargetInner { for_host: true, proc_macro: true, ..: lib_target("glib_macros", ["proc-macro"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glib-macros-0.22.6/src/lib.rs", Edition2024) }
+   1.689570944s  INFO prepare_target{force=false package_id=glib-macros v0.22.6 target="glib_macros"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/glib-macros-79eb5dbd25b7fb0a/lib-glib_macros`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.693847441s  INFO prepare_target{force=false package_id=gstreamer v0.25.2 target="gstreamer"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer v0.25.2/Check { test: false }/TargetInner { ..: lib_target("gstreamer", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-0.25.2/src/lib.rs", Edition2024) }
+   1.693878664s  INFO prepare_target{force=false package_id=gstreamer v0.25.2 target="gstreamer"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-d5c073e1df2f9ebd/lib-gstreamer`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   1.694991612s  INFO prepare_target{force=false package_id=gstreamer-sys v0.25.2 target="gstreamer_sys"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer-sys v0.25.2/Check { test: false }/TargetInner { ..: lib_target("gstreamer_sys", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-sys-0.25.2/src/lib.rs", Edition2024) }
+   1.695017764s  INFO prepare_target{force=false package_id=gstreamer-sys v0.25.2 target="gstreamer_sys"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-sys-00764a382d1cdac0/lib-gstreamer_sys`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.695556441s  INFO prepare_target{force=false package_id=gstreamer-sys v0.25.2 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer-sys v0.25.2/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-sys-0.25.2/build.rs", Edition2024) }
+   1.695569908s  INFO prepare_target{force=false package_id=gstreamer-sys v0.25.2 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-sys-3f6babd7ebc0bd94/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   1.695709597s  INFO prepare_target{force=false package_id=gstreamer-sys v0.25.2 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer-sys v0.25.2/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-sys-0.25.2/build.rs", Edition2024) }
+   1.695723067s  INFO prepare_target{force=false package_id=gstreamer-sys v0.25.2 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-sys-dec03515146d155b/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   1.697715673s  INFO prepare_target{force=false package_id=num-integer v0.1.46 target="num_integer"}: cargo::core::compiler::fingerprint: fingerprint error for num-integer v0.1.46/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("num_integer", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-integer-0.1.46/src/lib.rs", Edition2018) }
+   1.697819178s  INFO prepare_target{force=false package_id=num-integer v0.1.46 target="num_integer"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/num-integer-8f45d99af1949ef2/lib-num_integer`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.698516166s  INFO prepare_target{force=false package_id=num-traits v0.2.19 target="num_traits"}: cargo::core::compiler::fingerprint: fingerprint error for num-traits v0.2.19/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("num_traits", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-traits-0.2.19/src/lib.rs", Edition2021) }
+   1.698562129s  INFO prepare_target{force=false package_id=num-traits v0.2.19 target="num_traits"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/num-traits-fab29bc7d58fa215/lib-num_traits`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   1.699129941s  INFO prepare_target{force=false package_id=num-traits v0.2.19 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for num-traits v0.2.19/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-traits-0.2.19/build.rs", Edition2021) }
+   1.699179349s  INFO prepare_target{force=false package_id=num-traits v0.2.19 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/num-traits-6c8439a33b88034d/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   1.699510029s  INFO prepare_target{force=false package_id=num-traits v0.2.19 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for num-traits v0.2.19/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-traits-0.2.19/build.rs", Edition2021) }
+   1.699545760s  INFO prepare_target{force=false package_id=num-traits v0.2.19 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/num-traits-eadf3fd2f529282e/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   1.702114613s  INFO prepare_target{force=false package_id=num-rational v0.4.2 target="num_rational"}: cargo::core::compiler::fingerprint: fingerprint error for num-rational v0.4.2/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("num_rational", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-rational-0.4.2/src/lib.rs", Edition2021) }
+   1.702183240s  INFO prepare_target{force=false package_id=num-rational v0.4.2 target="num_rational"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/num-rational-2b76201bbd968d4b/lib-num_rational`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.703140358s  INFO prepare_target{force=false package_id=thiserror v2.0.18 target="thiserror"}: cargo::core::compiler::fingerprint: fingerprint error for thiserror v2.0.18/Check { test: false }/TargetInner { ..: lib_target("thiserror", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/lib.rs", Edition2021) }
+   1.703185208s  INFO prepare_target{force=false package_id=thiserror v2.0.18 target="thiserror"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/thiserror-35005d86c9063bee/lib-thiserror`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.705219227s  INFO prepare_target{force=false package_id=thiserror-impl v2.0.18 target="thiserror_impl"}: cargo::core::compiler::fingerprint: fingerprint error for thiserror-impl v2.0.18/Build/TargetInner { for_host: true, proc_macro: true, ..: lib_target("thiserror_impl", ["proc-macro"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-impl-2.0.18/src/lib.rs", Edition2021) }
+   1.705295409s  INFO prepare_target{force=false package_id=thiserror-impl v2.0.18 target="thiserror_impl"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/thiserror-impl-0afcfd4b1cb34696/lib-thiserror_impl`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   1.705849375s  INFO prepare_target{force=false package_id=gstreamer-audio v0.25.2 target="gstreamer_audio"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer-audio v0.25.2/Check { test: false }/TargetInner { ..: lib_target("gstreamer_audio", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-audio-0.25.2/src/lib.rs", Edition2024) }
+   1.705891724s  INFO prepare_target{force=false package_id=gstreamer-audio v0.25.2 target="gstreamer_audio"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-audio-56e8c2057b72c07b/lib-gstreamer_audio`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   1.706741746s  INFO prepare_target{force=false package_id=gstreamer-audio-sys v0.25.2 target="gstreamer_audio_sys"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer-audio-sys v0.25.2/Check { test: false }/TargetInner { ..: lib_target("gstreamer_audio_sys", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-audio-sys-0.25.2/src/lib.rs", Edition2024) }
+   1.706796675s  INFO prepare_target{force=false package_id=gstreamer-audio-sys v0.25.2 target="gstreamer_audio_sys"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-audio-sys-cdae69b27dd4388d/lib-gstreamer_audio_sys`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.707421695s  INFO prepare_target{force=false package_id=gstreamer-audio-sys v0.25.2 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer-audio-sys v0.25.2/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-audio-sys-0.25.2/build.rs", Edition2024) }
+   1.707479384s  INFO prepare_target{force=false package_id=gstreamer-audio-sys v0.25.2 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-audio-sys-c8c8e182081e8b13/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   1.707728036s  INFO prepare_target{force=false package_id=gstreamer-audio-sys v0.25.2 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer-audio-sys v0.25.2/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-audio-sys-0.25.2/build.rs", Edition2024) }
+   1.707899843s  INFO prepare_target{force=false package_id=gstreamer-audio-sys v0.25.2 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-audio-sys-48d056b8d9c0766e/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   1.708271725s  INFO prepare_target{force=false package_id=gstreamer-base-sys v0.25.0 target="gstreamer_base_sys"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer-base-sys v0.25.0/Check { test: false }/TargetInner { ..: lib_target("gstreamer_base_sys", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-base-sys-0.25.0/src/lib.rs", Edition2024) }
+   1.708307471s  INFO prepare_target{force=false package_id=gstreamer-base-sys v0.25.0 target="gstreamer_base_sys"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-base-sys-420c545a5c2aa40a/lib-gstreamer_base_sys`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   1.708887730s  INFO prepare_target{force=false package_id=gstreamer-base-sys v0.25.0 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer-base-sys v0.25.0/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-base-sys-0.25.0/build.rs", Edition2024) }
+   1.708935430s  INFO prepare_target{force=false package_id=gstreamer-base-sys v0.25.0 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-base-sys-286869b0a44bb19e/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   1.709123942s  INFO prepare_target{force=false package_id=gstreamer-base-sys v0.25.0 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer-base-sys v0.25.0/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-base-sys-0.25.0/build.rs", Edition2024) }
+   1.709154445s  INFO prepare_target{force=false package_id=gstreamer-base-sys v0.25.0 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-base-sys-1ac600041eb8aaf2/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   1.709487092s  INFO prepare_target{force=false package_id=gstreamer-base v0.25.2 target="gstreamer_base"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer-base v0.25.2/Check { test: false }/TargetInner { ..: lib_target("gstreamer_base", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-base-0.25.2/src/lib.rs", Edition2024) }
+   1.709521678s  INFO prepare_target{force=false package_id=gstreamer-base v0.25.2 target="gstreamer_base"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-base-9bd371524af1ef94/lib-gstreamer_base`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.710292291s  INFO prepare_target{force=false package_id=serde v1.0.228 target="serde"}: cargo::core::compiler::fingerprint: fingerprint error for serde v1.0.228/Check { test: false }/TargetInner { ..: lib_target("serde", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs", Edition2021) }
+   1.710315901s  INFO prepare_target{force=false package_id=serde v1.0.228 target="serde"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/serde-ebf7745918d34ca8/lib-serde`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   1.710721475s  INFO prepare_target{force=false package_id=serde v1.0.228 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for serde v1.0.228/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/build.rs", Edition2021) }
+   1.710734292s  INFO prepare_target{force=false package_id=serde v1.0.228 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/serde-3e93a2ff15e9b024/run-build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   1.710866268s  INFO prepare_target{force=false package_id=serde v1.0.228 target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for serde v1.0.228/Build/TargetInner { ..: custom_build_target("build-script-build", "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/build.rs", Edition2021) }
+   1.710876313s  INFO prepare_target{force=false package_id=serde v1.0.228 target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/serde-410be585c254eebf/build-script-build-script-build`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   1.713573129s  INFO prepare_target{force=false package_id=tokio v1.52.3 target="tokio"}: cargo::core::compiler::fingerprint: fingerprint error for tokio v1.52.3/Check { test: false }/TargetInner { ..: lib_target("tokio", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/lib.rs", Edition2021) }
+   1.713645113s  INFO prepare_target{force=false package_id=tokio v1.52.3 target="tokio"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/tokio-1151f1d86f3683f4/lib-tokio`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   1.714303561s  INFO prepare_target{force=false package_id=toml v0.8.23 target="toml"}: cargo::core::compiler::fingerprint: fingerprint error for toml v0.8.23/Check { test: false }/TargetInner { ..: lib_target("toml", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/toml-0.8.23/src/lib.rs", Edition2021) }
+   1.714344277s  INFO prepare_target{force=false package_id=toml v0.8.23 target="toml"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/toml-7fff5682409f19d5/lib-toml`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   1.715066880s  INFO prepare_target{force=false package_id=serde_spanned v0.6.9 target="serde_spanned"}: cargo::core::compiler::fingerprint: fingerprint error for serde_spanned v0.6.9/Check { test: false }/TargetInner { ..: lib_target("serde_spanned", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_spanned-0.6.9/src/lib.rs", Edition2021) }
+   1.715107258s  INFO prepare_target{force=false package_id=serde_spanned v0.6.9 target="serde_spanned"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/serde_spanned-94cfabd9e49226dc/lib-serde_spanned`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.715426989s  INFO prepare_target{force=false package_id=toml_datetime v0.6.11 target="toml_datetime"}: cargo::core::compiler::fingerprint: fingerprint error for toml_datetime v0.6.11/Check { test: false }/TargetInner { ..: lib_target("toml_datetime", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/toml_datetime-0.6.11/src/lib.rs", Edition2021) }
+   1.715459665s  INFO prepare_target{force=false package_id=toml_datetime v0.6.11 target="toml_datetime"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/toml_datetime-8152c345e1b3354d/lib-toml_datetime`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.715792370s  INFO prepare_target{force=false package_id=toml_edit v0.22.27 target="toml_edit"}: cargo::core::compiler::fingerprint: fingerprint error for toml_edit v0.22.27/Check { test: false }/TargetInner { ..: lib_target("toml_edit", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/toml_edit-0.22.27/src/lib.rs", Edition2021) }
+   1.715826416s  INFO prepare_target{force=false package_id=toml_edit v0.22.27 target="toml_edit"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/toml_edit-2b4f1bf229092744/lib-toml_edit`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.717585883s  INFO prepare_target{force=false package_id=ureq v2.12.1 target="ureq"}: cargo::core::compiler::fingerprint: fingerprint error for ureq v2.12.1/Check { test: false }/TargetInner { ..: lib_target("ureq", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ureq-2.12.1/src/lib.rs", Edition2018) }
+   1.717916460s  INFO prepare_target{force=false package_id=ureq v2.12.1 target="ureq"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/ureq-92229f7bb4e46aa3/lib-ureq`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   1.719023304s  INFO prepare_target{force=false package_id=flate2 v1.1.9 target="flate2"}: cargo::core::compiler::fingerprint: fingerprint error for flate2 v1.1.9/Check { test: false }/TargetInner { ..: lib_target("flate2", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/flate2-1.1.9/src/lib.rs", Edition2018) }
+   1.719050149s  INFO prepare_target{force=false package_id=flate2 v1.1.9 target="flate2"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/flate2-b4d49ba7998755bd/lib-flate2`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.722706254s  INFO prepare_target{force=false package_id=miniz_oxide v0.8.9 target="miniz_oxide"}: cargo::core::compiler::fingerprint: fingerprint error for miniz_oxide v0.8.9/Check { test: false }/TargetInner { ..: lib_target("miniz_oxide", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/miniz_oxide-0.8.9/src/lib.rs", Edition2021) }
+   1.722771204s  INFO prepare_target{force=false package_id=miniz_oxide v0.8.9 target="miniz_oxide"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/miniz_oxide-dbd57fb47b72b215/lib-miniz_oxide`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   1.723784600s  INFO prepare_target{force=false package_id=simd-adler32 v0.3.9 target="simd_adler32"}: cargo::core::compiler::fingerprint: fingerprint error for simd-adler32 v0.3.9/Check { test: false }/TargetInner { ..: lib_target("simd_adler32", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/simd-adler32-0.3.9/src/lib.rs", Edition2018) }
+   1.723844253s  INFO prepare_target{force=false package_id=simd-adler32 v0.3.9 target="simd_adler32"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/simd-adler32-501c8f6fbe50571d/lib-simd_adler32`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   1.724167833s  INFO prepare_target{force=false package_id=log v0.4.29 target="log"}: cargo::core::compiler::fingerprint: fingerprint error for log v0.4.29/Check { test: false }/TargetInner { ..: lib_target("log", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/log-0.4.29/src/lib.rs", Edition2021) }
+   1.724206796s  INFO prepare_target{force=false package_id=log v0.4.29 target="log"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/log-2237eecf15799eb2/lib-log`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.727076074s  INFO prepare_target{force=false package_id=rustls v0.23.40 target="rustls"}: cargo::core::compiler::fingerprint: fingerprint error for rustls v0.23.40/Check { test: false }/TargetInner { ..: lib_target("rustls", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rustls-0.23.40/src/lib.rs", Edition2021) }
+   1.727108770s  INFO prepare_target{force=false package_id=rustls v0.23.40 target="rustls"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/rustls-f7e41b7f8b8864de/lib-rustls`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.732481588s  INFO prepare_target{force=false package_id=url v2.5.8 target="url"}: cargo::core::compiler::fingerprint: fingerprint error for url v2.5.8/Check { test: false }/TargetInner { ..: lib_target("url", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/url-2.5.8/src/lib.rs", Edition2018) }
+   1.732574043s  INFO prepare_target{force=false package_id=url v2.5.8 target="url"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/url-45dd6ec82c21fe46/lib-url`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   1.733224291s  INFO prepare_target{force=false package_id=form_urlencoded v1.2.2 target="form_urlencoded"}: cargo::core::compiler::fingerprint: fingerprint error for form_urlencoded v1.2.2/Check { test: false }/TargetInner { tested: false, ..: lib_target("form_urlencoded", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/form_urlencoded-1.2.2/src/lib.rs", Edition2018) }
+   1.733270207s  INFO prepare_target{force=false package_id=form_urlencoded v1.2.2 target="form_urlencoded"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/form_urlencoded-96c3e471b6fbcecd/lib-form_urlencoded`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   1.733641050s  INFO prepare_target{force=false package_id=percent-encoding v2.3.2 target="percent_encoding"}: cargo::core::compiler::fingerprint: fingerprint error for percent-encoding v2.3.2/Check { test: false }/TargetInner { ..: lib_target("percent_encoding", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/percent-encoding-2.3.2/src/lib.rs", Edition2018) }
+   1.733684667s  INFO prepare_target{force=false package_id=percent-encoding v2.3.2 target="percent_encoding"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/percent-encoding-78f60f751f0fd480/lib-percent_encoding`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   1.734014080s  INFO prepare_target{force=false package_id=idna v1.1.0 target="idna"}: cargo::core::compiler::fingerprint: fingerprint error for idna v1.1.0/Check { test: false }/TargetInner { doctest: false, ..: lib_target("idna", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/idna-1.1.0/src/lib.rs", Edition2018) }
+   1.734051130s  INFO prepare_target{force=false package_id=idna v1.1.0 target="idna"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/idna-61c02c0f01129b4c/lib-idna`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   1.734535639s  INFO prepare_target{force=false package_id=idna_adapter v1.2.2 target="idna_adapter"}: cargo::core::compiler::fingerprint: fingerprint error for idna_adapter v1.2.2/Check { test: false }/TargetInner { ..: lib_target("idna_adapter", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/idna_adapter-1.2.2/src/lib.rs", Edition2024) }
+   1.734578059s  INFO prepare_target{force=false package_id=idna_adapter v1.2.2 target="idna_adapter"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/idna_adapter-1d7298599db458b0/lib-idna_adapter`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   1.734997946s  INFO prepare_target{force=false package_id=icu_normalizer v2.2.0 target="icu_normalizer"}: cargo::core::compiler::fingerprint: fingerprint error for icu_normalizer v2.2.0/Check { test: false }/TargetInner { ..: lib_target("icu_normalizer", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/icu_normalizer-2.2.0/src/lib.rs", Edition2021) }
+   1.735043655s  INFO prepare_target{force=false package_id=icu_normalizer v2.2.0 target="icu_normalizer"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/icu_normalizer-8ff9aeb5ecbe38ab/lib-icu_normalizer`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   1.735562866s  INFO prepare_target{force=false package_id=icu_collections v2.2.0 target="icu_collections"}: cargo::core::compiler::fingerprint: fingerprint error for icu_collections v2.2.0/Check { test: false }/TargetInner { benched: false, ..: lib_target("icu_collections", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/icu_collections-2.2.0/src/lib.rs", Edition2021) }
+   1.735601667s  INFO prepare_target{force=false package_id=icu_collections v2.2.0 target="icu_collections"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/icu_collections-962302802eb36daf/lib-icu_collections`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   1.736149074s  INFO prepare_target{force=false package_id=displaydoc v0.2.5 target="displaydoc"}: cargo::core::compiler::fingerprint: fingerprint error for displaydoc v0.2.5/Build/TargetInner { name_inferred: true, for_host: true, proc_macro: true, ..: lib_target("displaydoc", ["proc-macro"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/displaydoc-0.2.5/src/lib.rs", Edition2021) }
+   1.736188574s  INFO prepare_target{force=false package_id=displaydoc v0.2.5 target="displaydoc"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/displaydoc-8c147dfc6f5eff3e/lib-displaydoc`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  24: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  25: <unknown>
+   1.736706570s  INFO prepare_target{force=false package_id=potential_utf v0.1.5 target="potential_utf"}: cargo::core::compiler::fingerprint: fingerprint error for potential_utf v0.1.5/Check { test: false }/TargetInner { ..: lib_target("potential_utf", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/potential_utf-0.1.5/src/lib.rs", Edition2021) }
+   1.736743694s  INFO prepare_target{force=false package_id=potential_utf v0.1.5 target="potential_utf"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/potential_utf-b8a35dd93f66d9f6/lib-potential_utf`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  24: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  25: <unknown>
+   1.737172337s  INFO prepare_target{force=false package_id=zerovec v0.11.6 target="zerovec"}: cargo::core::compiler::fingerprint: fingerprint error for zerovec v0.11.6/Check { test: false }/TargetInner { benched: false, ..: lib_target("zerovec", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/zerovec-0.11.6/src/lib.rs", Edition2021) }
+   1.737214653s  INFO prepare_target{force=false package_id=zerovec v0.11.6 target="zerovec"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/zerovec-55005eccf73226a5/lib-zerovec`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  25: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  26: <unknown>
+   1.737864223s  INFO prepare_target{force=false package_id=yoke v0.8.2 target="yoke"}: cargo::core::compiler::fingerprint: fingerprint error for yoke v0.8.2/Check { test: false }/TargetInner { ..: lib_target("yoke", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/yoke-0.8.2/src/lib.rs", Edition2021) }
+   1.737916598s  INFO prepare_target{force=false package_id=yoke v0.8.2 target="yoke"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/yoke-3f70634cdfdedd33/lib-yoke`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: <unknown>
+  25: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  26: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  27: <unknown>
+   1.738761498s  INFO prepare_target{force=false package_id=yoke-derive v0.8.2 target="yoke_derive"}: cargo::core::compiler::fingerprint: fingerprint error for yoke-derive v0.8.2/Build/TargetInner { for_host: true, proc_macro: true, ..: lib_target("yoke_derive", ["proc-macro"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/yoke-derive-0.8.2/src/lib.rs", Edition2021) }
+   1.738792596s  INFO prepare_target{force=false package_id=yoke-derive v0.8.2 target="yoke_derive"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/yoke-derive-c8b86e8fc54efdbf/lib-yoke_derive`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: <unknown>
+  25: <unknown>
+  26: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  27: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  28: <unknown>
+   1.739198129s  INFO prepare_target{force=false package_id=synstructure v0.13.2 target="synstructure"}: cargo::core::compiler::fingerprint: fingerprint error for synstructure v0.13.2/Build/TargetInner { ..: lib_target("synstructure", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/synstructure-0.13.2/src/lib.rs", Edition2018) }
+   1.739213155s  INFO prepare_target{force=false package_id=synstructure v0.13.2 target="synstructure"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/synstructure-91a50a8a262e17bb/lib-synstructure`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: <unknown>
+  25: <unknown>
+  26: <unknown>
+  27: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  28: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  29: <unknown>
+   1.739530932s  INFO prepare_target{force=false package_id=zerofrom v0.1.8 target="zerofrom"}: cargo::core::compiler::fingerprint: fingerprint error for zerofrom v0.1.8/Check { test: false }/TargetInner { ..: lib_target("zerofrom", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/zerofrom-0.1.8/src/lib.rs", Edition2021) }
+   1.739546465s  INFO prepare_target{force=false package_id=zerofrom v0.1.8 target="zerofrom"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/zerofrom-582e699fe4a3349c/lib-zerofrom`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: <unknown>
+  25: <unknown>
+  26: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  27: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  28: <unknown>
+   1.739879511s  INFO prepare_target{force=false package_id=zerofrom-derive v0.1.7 target="zerofrom_derive"}: cargo::core::compiler::fingerprint: fingerprint error for zerofrom-derive v0.1.7/Build/TargetInner { for_host: true, proc_macro: true, ..: lib_target("zerofrom_derive", ["proc-macro"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/zerofrom-derive-0.1.7/src/lib.rs", Edition2021) }
+   1.739902314s  INFO prepare_target{force=false package_id=zerofrom-derive v0.1.7 target="zerofrom_derive"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/zerofrom-derive-491004df6970d699/lib-zerofrom_derive`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: <unknown>
+  25: <unknown>
+  26: <unknown>
+  27: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  28: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  29: <unknown>
+   1.740191115s  INFO prepare_target{force=false package_id=zerovec-derive v0.11.3 target="zerovec_derive"}: cargo::core::compiler::fingerprint: fingerprint error for zerovec-derive v0.11.3/Build/TargetInner { for_host: true, proc_macro: true, ..: lib_target("zerovec_derive", ["proc-macro"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/zerovec-derive-0.11.3/src/lib.rs", Edition2021) }
+   1.740203823s  INFO prepare_target{force=false package_id=zerovec-derive v0.11.3 target="zerovec_derive"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/zerovec-derive-14909a71c3199efd/lib-zerovec_derive`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: <unknown>
+  25: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  26: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  27: <unknown>
+   1.742418192s  INFO prepare_target{force=false package_id=icu_provider v2.2.0 target="icu_provider"}: cargo::core::compiler::fingerprint: fingerprint error for icu_provider v2.2.0/Check { test: false }/TargetInner { benched: false, ..: lib_target("icu_provider", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/icu_provider-2.2.0/src/lib.rs", Edition2021) }
+   1.742501485s  INFO prepare_target{force=false package_id=icu_provider v2.2.0 target="icu_provider"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/icu_provider-6e794c920da5f195/lib-icu_provider`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   1.743235581s  INFO prepare_target{force=false package_id=icu_locale_core v2.2.0 target="icu_locale_core"}: cargo::core::compiler::fingerprint: fingerprint error for icu_locale_core v2.2.0/Check { test: false }/TargetInner { benched: false, ..: lib_target("icu_locale_core", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/icu_locale_core-2.2.0/src/lib.rs", Edition2021) }
+   1.743285546s  INFO prepare_target{force=false package_id=icu_locale_core v2.2.0 target="icu_locale_core"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/icu_locale_core-b9a947bdc8a4134f/lib-icu_locale_core`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  24: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  25: <unknown>
+   1.744164088s  INFO prepare_target{force=false package_id=tinystr v0.8.3 target="tinystr"}: cargo::core::compiler::fingerprint: fingerprint error for tinystr v0.8.3/Check { test: false }/TargetInner { benched: false, ..: lib_target("tinystr", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tinystr-0.8.3/src/lib.rs", Edition2021) }
+   1.744221858s  INFO prepare_target{force=false package_id=tinystr v0.8.3 target="tinystr"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/tinystr-33a3323ff640ca8a/lib-tinystr`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  25: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  26: <unknown>
+   1.745089119s  INFO prepare_target{force=false package_id=zerotrie v0.2.4 target="zerotrie"}: cargo::core::compiler::fingerprint: fingerprint error for zerotrie v0.2.4/Check { test: false }/TargetInner { benched: false, ..: lib_target("zerotrie", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/zerotrie-0.2.4/src/lib.rs", Edition2021) }
+   1.745153976s  INFO prepare_target{force=false package_id=zerotrie v0.2.4 target="zerotrie"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/zerotrie-1a91ea952e97803b/lib-zerotrie`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  24: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  25: <unknown>
