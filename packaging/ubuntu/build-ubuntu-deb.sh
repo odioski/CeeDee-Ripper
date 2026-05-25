@@ -17,7 +17,6 @@ mkdir -p "$BUILD_ROOT"
 tar \
   --exclude='.git' \
   --exclude='target' \
-  --exclude='packaging/ubuntu/debian' \
   -cf - \
   . | tar -xf - -C "$BUILD_ROOT"
 

@@ -1,0 +1,1515 @@
+   0.466165804s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: dependency on `build_script_build` is newer than we are 1779714941.608852348s > 1779492860.622261794s "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ahash-0.8.12"
+   0.466847343s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: stale: missing "/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/accesskit-c6de645760c55d13/dep-lib-accesskit"
+   0.471904404s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: stale: missing "/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/allocator-api2-30634172f089d1b4/dep-lib-allocator_api2"
+   0.473986540s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: stale: missing "/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/arrayvec-41ddafe8031d6229/dep-lib-arrayvec"
+   0.482066486s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: dependency on `build_script_build` is newer than we are 1779714941.599852390s > 1779714077.846980963s "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ash-0.38.0+1.3.281"
+   0.489330040s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: stale: missing "/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/ab_glyph_rasterizer-6cbc4a26bc278972/dep-lib-ab_glyph_rasterizer"
+   0.495360100s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: stale: missing "/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/arrayref-cf8291e9d37d2ad3/dep-lib-arrayref"
+   0.497653699s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: stale: missing "/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/as-raw-xcb-connection-bd49681884b13f6e/dep-lib-as_raw_xcb_connection"
+   0.513956777s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: stale: missing "/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/adler2-3230a68603578bcb/dep-lib-adler2"
+   0.526511952s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: dependency on `gobject_sys` is newer than we are 1779714885.796110202s > 1779492809.001030313s "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glib-0.22.7"
+   0.526789960s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: dependency on `build_script_build` is newer than we are 1779714835.793055972s > 1779714368.393499406s "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glib-2-0-sys-0.46.4"
+   0.528400883s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: dependency on `gobject_sys` is newer than we are 1779714885.796110202s > 1779714209.214631092s "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-base-sys-0.25.0"
+   0.528453588s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: dependency on `gobject_sys` is newer than we are 1779714885.796110202s > 1779714233.664751716s "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-audio-sys-0.25.2"
+   0.530468698s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: dependency on `cairo_sys` is newer than we are 1779714887.960102597s > 1779714190.328537627s "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cairo-rs-0.22.0"
+   0.534696517s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: dependency on `gobject_sys` is newer than we are 1779714885.796110202s > 1779714209.621633107s "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gtk4-sys-0.11.3"
+   0.534904283s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: dependency on `gobject_sys` is newer than we are 1779714885.796110202s > 1779714234.248754516s "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libadwaita-sys-0.9.1"
+   0.540524377s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: fingerprint error for ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper)/Check { test: false }/TargetInner { name: "ceedee-ripper", doc: true, ..: with_path("/home/mrod/CODE/CeeDee-Ripper/src/main.rs", Edition2021) }
+   0.540605907s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/ceedee-ripper-c23cc33585a847a9/bin-ceedee-ripper`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  17: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  18: <unknown>
+   0.645327045s  INFO prepare_target{force=false package_id=eframe v0.34.2 target="eframe"}: cargo::core::compiler::fingerprint: fingerprint error for eframe v0.34.2/Check { test: false }/TargetInner { ..: lib_target("eframe", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/eframe-0.34.2/src/lib.rs", Edition2024) }
+   0.645390241s  INFO prepare_target{force=false package_id=eframe v0.34.2 target="eframe"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/eframe-c2432eec2634a2ca/lib-eframe`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.646883678s  INFO prepare_target{force=false package_id=ahash v0.8.12 target="ahash"}: cargo::core::compiler::fingerprint: fingerprint error for ahash v0.8.12/Check { test: false }/TargetInner { ..: lib_target("ahash", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ahash-0.8.12/src/lib.rs", Edition2018) }
+   0.646928916s  INFO prepare_target{force=false package_id=ahash v0.8.12 target="ahash"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/ahash-390bb9f726405219/lib-ahash`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.650384544s  INFO prepare_target{force=false package_id=egui v0.34.2 target="egui"}: cargo::core::compiler::fingerprint: fingerprint dirty for egui v0.34.2/Check { test: false }/TargetInner { ..: lib_target("egui", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/egui-0.34.2/src/lib.rs", Edition2024) }
+   0.650444307s  INFO prepare_target{force=false package_id=egui v0.34.2 target="egui"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "ahash" })
+   0.651124961s  INFO prepare_target{force=false package_id=accesskit v0.24.0 target="accesskit"}: cargo::core::compiler::fingerprint: fingerprint error for accesskit v0.24.0/Check { test: false }/TargetInner { ..: lib_target("accesskit", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/accesskit-0.24.0/src/lib.rs", Edition2021) }
+   0.651166007s  INFO prepare_target{force=false package_id=accesskit v0.24.0 target="accesskit"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/accesskit-c6de645760c55d13/lib-accesskit`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   0.658946336s  INFO prepare_target{force=false package_id=epaint v0.34.2 target="epaint"}: cargo::core::compiler::fingerprint: fingerprint dirty for epaint v0.34.2/Check { test: false }/TargetInner { ..: lib_target("epaint", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/epaint-0.34.2/src/lib.rs", Edition2024) }
+   0.658997996s  INFO prepare_target{force=false package_id=epaint v0.34.2 target="epaint"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "ahash" })
+   0.667062623s  INFO prepare_target{force=false package_id=vello_cpu v0.0.6 target="vello_cpu"}: cargo::core::compiler::fingerprint: fingerprint dirty for vello_cpu v0.0.6/Check { test: false }/TargetInner { ..: lib_target("vello_cpu", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/vello_cpu-0.0.6/src/lib.rs", Edition2024) }
+   0.667091490s  INFO prepare_target{force=false package_id=vello_cpu v0.0.6 target="vello_cpu"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "vello_common" })
+   0.667756813s  INFO prepare_target{force=false package_id=hashbrown v0.16.1 target="hashbrown"}: cargo::core::compiler::fingerprint: fingerprint dirty for hashbrown v0.16.1/Check { test: false }/TargetInner { ..: lib_target("hashbrown", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/hashbrown-0.16.1/src/lib.rs", Edition2021) }
+   0.667777984s  INFO prepare_target{force=false package_id=hashbrown v0.16.1 target="hashbrown"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "allocator_api2" })
+   0.672282259s  INFO prepare_target{force=false package_id=allocator-api2 v0.2.21 target="allocator_api2"}: cargo::core::compiler::fingerprint: fingerprint error for allocator-api2 v0.2.21/Check { test: false }/TargetInner { ..: lib_target("allocator_api2", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/allocator-api2-0.2.21/src/lib.rs", Edition2018) }
+   0.672312296s  INFO prepare_target{force=false package_id=allocator-api2 v0.2.21 target="allocator_api2"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/allocator-api2-30634172f089d1b4/lib-allocator_api2`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   0.673312123s  INFO prepare_target{force=false package_id=vello_common v0.0.6 target="vello_common"}: cargo::core::compiler::fingerprint: fingerprint dirty for vello_common v0.0.6/Check { test: false }/TargetInner { ..: lib_target("vello_common", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/vello_common-0.0.6/src/lib.rs", Edition2024) }
+   0.673338036s  INFO prepare_target{force=false package_id=vello_common v0.0.6 target="vello_common"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "peniko" })
+   0.676622017s  INFO prepare_target{force=false package_id=peniko v0.6.1 target="peniko"}: cargo::core::compiler::fingerprint: fingerprint dirty for peniko v0.6.1/Check { test: false }/TargetInner { ..: lib_target("peniko", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/peniko-0.6.1/src/lib.rs", Edition2024) }
+   0.676683281s  INFO prepare_target{force=false package_id=peniko v0.6.1 target="peniko"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "kurbo" })
+   0.679374132s  INFO prepare_target{force=false package_id=kurbo v0.13.1 target="kurbo"}: cargo::core::compiler::fingerprint: fingerprint dirty for kurbo v0.13.1/Check { test: false }/TargetInner { ..: lib_target("kurbo", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/kurbo-0.13.1/src/lib.rs", Edition2024) }
+   0.679435599s  INFO prepare_target{force=false package_id=kurbo v0.13.1 target="kurbo"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "polycool" })
+   0.679796049s  INFO prepare_target{force=false package_id=arrayvec v0.7.6 target="arrayvec"}: cargo::core::compiler::fingerprint: fingerprint error for arrayvec v0.7.6/Check { test: false }/TargetInner { ..: lib_target("arrayvec", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/arrayvec-0.7.6/src/lib.rs", Edition2018) }
+   0.679914107s  INFO prepare_target{force=false package_id=arrayvec v0.7.6 target="arrayvec"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/arrayvec-41ddafe8031d6229/lib-arrayvec`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  25: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  26: <unknown>
+   0.683092793s  INFO prepare_target{force=false package_id=polycool v0.4.0 target="polycool"}: cargo::core::compiler::fingerprint: fingerprint dirty for polycool v0.4.0/Check { test: false }/TargetInner { ..: lib_target("polycool", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/polycool-0.4.0/src/lib.rs", Edition2024) }
+   0.683130213s  INFO prepare_target{force=false package_id=polycool v0.4.0 target="polycool"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "arrayvec" })
+   0.683923660s  INFO prepare_target{force=false package_id=egui-wgpu v0.34.2 target="egui_wgpu"}: cargo::core::compiler::fingerprint: fingerprint error for egui-wgpu v0.34.2/Check { test: false }/TargetInner { ..: lib_target("egui_wgpu", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/egui-wgpu-0.34.2/src/lib.rs", Edition2024) }
+   0.683966974s  INFO prepare_target{force=false package_id=egui-wgpu v0.34.2 target="egui_wgpu"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/egui-wgpu-3f3f9c985be24a23/lib-egui_wgpu`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.690363679s  INFO prepare_target{force=false package_id=wgpu v29.0.3 target="wgpu"}: cargo::core::compiler::fingerprint: fingerprint error for wgpu v29.0.3/Check { test: false }/TargetInner { ..: lib_target("wgpu", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.3/src/lib.rs", Edition2021) }
+   0.690394500s  INFO prepare_target{force=false package_id=wgpu v29.0.3 target="wgpu"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/wgpu-97d99446d8bf9fa3/lib-wgpu`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   0.692492605s  INFO prepare_target{force=false package_id=wgpu-core v29.0.3 target="wgpu_core"}: cargo::core::compiler::fingerprint: fingerprint error for wgpu-core v29.0.3/Check { test: false }/TargetInner { ..: lib_target("wgpu_core", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.3/src/lib.rs", Edition2021) }
+   0.693390781s  INFO prepare_target{force=false package_id=wgpu-core v29.0.3 target="wgpu_core"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/wgpu-core-a8ba525be16b9fba/lib-wgpu_core`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   0.703553317s  INFO prepare_target{force=false package_id=naga v29.0.3 target="naga"}: cargo::core::compiler::fingerprint: fingerprint error for naga v29.0.3/Check { test: false }/TargetInner { ..: lib_target("naga", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/naga-29.0.3/src/lib.rs", Edition2021) }
+   0.703734867s  INFO prepare_target{force=false package_id=naga v29.0.3 target="naga"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/naga-37c8d7fdfe322472/lib-naga`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   0.711825804s  INFO prepare_target{force=false package_id=wgpu-core-deps-windows-linux-android v29.0.3 target="wgpu_core_deps_windows_linux_android"}: cargo::core::compiler::fingerprint: fingerprint error for wgpu-core-deps-windows-linux-android v29.0.3/Check { test: false }/TargetInner { ..: lib_target("wgpu_core_deps_windows_linux_android", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-deps-windows-linux-android-29.0.3/src/lib.rs", Edition2021) }
+   0.711907628s  INFO prepare_target{force=false package_id=wgpu-core-deps-windows-linux-android v29.0.3 target="wgpu_core_deps_windows_linux_android"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/wgpu-core-deps-windows-linux-android-7127635c609a7b01/lib-wgpu_core_deps_windows_linux_android`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   0.712499646s  INFO prepare_target{force=false package_id=wgpu-hal v29.0.3 target="wgpu_hal"}: cargo::core::compiler::fingerprint: fingerprint error for wgpu-hal v29.0.3/Check { test: false }/TargetInner { ..: lib_target("wgpu_hal", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-hal-29.0.3/src/lib.rs", Edition2021) }
+   0.712550789s  INFO prepare_target{force=false package_id=wgpu-hal v29.0.3 target="wgpu_hal"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/wgpu-hal-28c35ce1c555d5fe/lib-wgpu_hal`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   0.714813015s  INFO prepare_target{force=false package_id=ash v0.38.0+1.3.281 target="ash"}: cargo::core::compiler::fingerprint: fingerprint error for ash v0.38.0+1.3.281/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("ash", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ash-0.38.0+1.3.281/src/lib.rs", Edition2021) }
+   0.717879565s  INFO prepare_target{force=false package_id=ash v0.38.0+1.3.281 target="ash"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/ash-8b6f41c9b1e6066a/lib-ash`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  24: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  25: <unknown>
+   0.719273395s  INFO prepare_target{force=false package_id=gpu-allocator v0.28.0 target="gpu_allocator"}: cargo::core::compiler::fingerprint: fingerprint dirty for gpu-allocator v0.28.0/Check { test: false }/TargetInner { ..: lib_target("gpu_allocator", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gpu-allocator-0.28.0/src/lib.rs", Edition2021) }
+   0.719328843s  INFO prepare_target{force=false package_id=gpu-allocator v0.28.0 target="gpu_allocator"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "hashbrown" })
+   0.726412146s  INFO prepare_target{force=false package_id=wgpu-naga-bridge v29.0.3 target="wgpu_naga_bridge"}: cargo::core::compiler::fingerprint: fingerprint error for wgpu-naga-bridge v29.0.3/Check { test: false }/TargetInner { ..: lib_target("wgpu_naga_bridge", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-naga-bridge-29.0.3/src/lib.rs", Edition2021) }
+   0.726477892s  INFO prepare_target{force=false package_id=wgpu-naga-bridge v29.0.3 target="wgpu_naga_bridge"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/wgpu-naga-bridge-6130ae312037575a/lib-wgpu_naga_bridge`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  24: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  25: <unknown>
+   0.728337563s  INFO prepare_target{force=false package_id=winit v0.30.13 target="winit"}: cargo::core::compiler::fingerprint: fingerprint dirty for winit v0.30.13/Check { test: false }/TargetInner { ..: lib_target("winit", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/winit-0.30.13/src/lib.rs", Edition2021) }
+   0.728405076s  INFO prepare_target{force=false package_id=winit v0.30.13 target="winit"}: cargo::core::compiler::fingerprint:     dirty: UnitDependencyInfoChanged { old_name: "x11_dl", old_fingerprint: 8579177794167054036, new_name: "x11_dl", new_fingerprint: 964406696948846588 }
+   0.739679607s  INFO prepare_target{force=false package_id=sctk-adwaita v0.10.1 target="sctk_adwaita"}: cargo::core::compiler::fingerprint: fingerprint dirty for sctk-adwaita v0.10.1/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("sctk_adwaita", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sctk-adwaita-0.10.1/src/lib.rs", Edition2021) }
+   0.739720430s  INFO prepare_target{force=false package_id=sctk-adwaita v0.10.1 target="sctk_adwaita"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "tiny_skia" })
+   0.740333889s  INFO prepare_target{force=false package_id=ab_glyph v0.2.32 target="ab_glyph"}: cargo::core::compiler::fingerprint: fingerprint error for ab_glyph v0.2.32/Check { test: false }/TargetInner { ..: lib_target("ab_glyph", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ab_glyph-0.2.32/src/lib.rs", Edition2021) }
+   0.740351436s  INFO prepare_target{force=false package_id=ab_glyph v0.2.32 target="ab_glyph"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/ab_glyph-4096c5841c31f34f/lib-ab_glyph`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   0.740584462s  INFO prepare_target{force=false package_id=ab_glyph_rasterizer v0.1.10 target="ab_glyph_rasterizer"}: cargo::core::compiler::fingerprint: fingerprint error for ab_glyph_rasterizer v0.1.10/Check { test: false }/TargetInner { ..: lib_target("ab_glyph_rasterizer", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ab_glyph_rasterizer-0.1.10/src/lib.rs", Edition2021) }
+   0.740598010s  INFO prepare_target{force=false package_id=ab_glyph_rasterizer v0.1.10 target="ab_glyph_rasterizer"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/ab_glyph_rasterizer-6cbc4a26bc278972/lib-ab_glyph_rasterizer`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   0.764591946s  INFO prepare_target{force=false package_id=tiny-skia v0.11.4 target="tiny_skia"}: cargo::core::compiler::fingerprint: fingerprint dirty for tiny-skia v0.11.4/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("tiny_skia", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tiny-skia-0.11.4/src/lib.rs", Edition2018) }
+   0.764660553s  INFO prepare_target{force=false package_id=tiny-skia v0.11.4 target="tiny_skia"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "tiny_skia_path" })
+   0.765100532s  INFO prepare_target{force=false package_id=arrayref v0.3.9 target="arrayref"}: cargo::core::compiler::fingerprint: fingerprint error for arrayref v0.3.9/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("arrayref", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/arrayref-0.3.9/src/lib.rs", Edition2015) }
+   0.765211671s  INFO prepare_target{force=false package_id=arrayref v0.3.9 target="arrayref"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/arrayref-cf8291e9d37d2ad3/lib-arrayref`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   0.769482397s  INFO prepare_target{force=false package_id=tiny-skia-path v0.11.4 target="tiny_skia_path"}: cargo::core::compiler::fingerprint: fingerprint dirty for tiny-skia-path v0.11.4/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("tiny_skia_path", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tiny-skia-path-0.11.4/src/lib.rs", Edition2018) }
+   0.769528051s  INFO prepare_target{force=false package_id=tiny-skia-path v0.11.4 target="tiny_skia_path"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "arrayref" })
+   0.778217128s  INFO prepare_target{force=false package_id=x11rb v0.13.2 target="x11rb"}: cargo::core::compiler::fingerprint: fingerprint dirty for x11rb v0.13.2/Check { test: false }/TargetInner { ..: lib_target("x11rb", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/x11rb-0.13.2/src/lib.rs", Edition2021) }
+   0.778246544s  INFO prepare_target{force=false package_id=x11rb v0.13.2 target="x11rb"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "as_raw_xcb_connection" })
+   0.778698253s  INFO prepare_target{force=false package_id=as-raw-xcb-connection v1.0.1 target="as_raw_xcb_connection"}: cargo::core::compiler::fingerprint: fingerprint error for as-raw-xcb-connection v1.0.1/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("as_raw_xcb_connection", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/as-raw-xcb-connection-1.0.1/src/lib.rs", Edition2021) }
+   0.778715456s  INFO prepare_target{force=false package_id=as-raw-xcb-connection v1.0.1 target="as_raw_xcb_connection"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/as-raw-xcb-connection-bd49681884b13f6e/lib-as_raw_xcb_connection`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   0.787372647s  INFO prepare_target{force=false package_id=egui-winit v0.34.2 target="egui_winit"}: cargo::core::compiler::fingerprint: fingerprint error for egui-winit v0.34.2/Check { test: false }/TargetInner { ..: lib_target("egui_winit", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/egui-winit-0.34.2/src/lib.rs", Edition2024) }
+   0.787404168s  INFO prepare_target{force=false package_id=egui-winit v0.34.2 target="egui_winit"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/egui-winit-2ff84256cf98cc0d/lib-egui_winit`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.788696973s  INFO prepare_target{force=false package_id=accesskit_winit v0.32.2 target="accesskit_winit"}: cargo::core::compiler::fingerprint: fingerprint error for accesskit_winit v0.32.2/Check { test: false }/TargetInner { ..: lib_target("accesskit_winit", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/accesskit_winit-0.32.2/src/lib.rs", Edition2021) }
+   0.788717719s  INFO prepare_target{force=false package_id=accesskit_winit v0.32.2 target="accesskit_winit"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/accesskit_winit-71737877caa63c8a/lib-accesskit_winit`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   0.789379715s  INFO prepare_target{force=false package_id=accesskit_unix v0.21.1 target="accesskit_unix"}: cargo::core::compiler::fingerprint: fingerprint error for accesskit_unix v0.21.1/Check { test: false }/TargetInner { ..: lib_target("accesskit_unix", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/accesskit_unix-0.21.1/src/lib.rs", Edition2024) }
+   0.789394171s  INFO prepare_target{force=false package_id=accesskit_unix v0.21.1 target="accesskit_unix"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/accesskit_unix-4d3943ccfd8acc6d/lib-accesskit_unix`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   0.790260506s  INFO prepare_target{force=false package_id=accesskit_atspi_common v0.18.1 target="accesskit_atspi_common"}: cargo::core::compiler::fingerprint: fingerprint error for accesskit_atspi_common v0.18.1/Check { test: false }/TargetInner { ..: lib_target("accesskit_atspi_common", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/accesskit_atspi_common-0.18.1/src/lib.rs", Edition2024) }
+   0.790309959s  INFO prepare_target{force=false package_id=accesskit_atspi_common v0.18.1 target="accesskit_atspi_common"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/accesskit_atspi_common-3b2d6f04d7876db6/lib-accesskit_atspi_common`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   0.790912109s  INFO prepare_target{force=false package_id=accesskit_consumer v0.36.0 target="accesskit_consumer"}: cargo::core::compiler::fingerprint: fingerprint error for accesskit_consumer v0.36.0/Check { test: false }/TargetInner { ..: lib_target("accesskit_consumer", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/accesskit_consumer-0.36.0/src/lib.rs", Edition2024) }
+   0.790933420s  INFO prepare_target{force=false package_id=accesskit_consumer v0.36.0 target="accesskit_consumer"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/accesskit_consumer-b601e7a85b10e748/lib-accesskit_consumer`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   0.791141083s  INFO prepare_target{force=false package_id=atspi-common v0.13.0 target="atspi_common"}: cargo::core::compiler::fingerprint: fingerprint error for atspi-common v0.13.0/Check { test: false }/TargetInner { ..: lib_target("atspi_common", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/atspi-common-0.13.0/src/lib.rs", Edition2021) }
+   0.791156530s  INFO prepare_target{force=false package_id=atspi-common v0.13.0 target="atspi_common"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/atspi-common-5c08b8d4eb7b9581/lib-atspi_common`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   0.792276753s  INFO prepare_target{force=false package_id=zbus v5.15.0 target="zbus"}: cargo::core::compiler::fingerprint: fingerprint error for zbus v5.15.0/Check { test: false }/TargetInner { benched: false, ..: lib_target("zbus", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/zbus-5.15.0/src/lib.rs", Edition2024) }
+   0.792322040s  INFO prepare_target{force=false package_id=zbus v5.15.0 target="zbus"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/zbus-02ce9fe6907d3aa6/lib-zbus`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  24: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  25: <unknown>
+   0.819979532s  INFO prepare_target{force=false package_id=atspi v0.29.0 target="atspi"}: cargo::core::compiler::fingerprint: fingerprint error for atspi v0.29.0/Check { test: false }/TargetInner { ..: lib_target("atspi", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/atspi-0.29.0/src/lib.rs", Edition2021) }
+   0.820043793s  INFO prepare_target{force=false package_id=atspi v0.29.0 target="atspi"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/atspi-55d3fc6e49360a30/lib-atspi`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   0.820658646s  INFO prepare_target{force=false package_id=atspi-proxies v0.13.0 target="atspi_proxies"}: cargo::core::compiler::fingerprint: fingerprint error for atspi-proxies v0.13.0/Check { test: false }/TargetInner { ..: lib_target("atspi_proxies", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/atspi-proxies-0.13.0/src/lib.rs", Edition2021) }
+   0.822874569s  INFO prepare_target{force=false package_id=atspi-proxies v0.13.0 target="atspi_proxies"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/atspi-proxies-d852a35250fac7c5/lib-atspi_proxies`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  23: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  24: <unknown>
+   0.826385799s  INFO prepare_target{force=false package_id=arboard v3.6.1 target="arboard"}: cargo::core::compiler::fingerprint: fingerprint error for arboard v3.6.1/Check { test: false }/TargetInner { ..: lib_target("arboard", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/arboard-3.6.1/src/lib.rs", Edition2021) }
+   0.826416349s  INFO prepare_target{force=false package_id=arboard v3.6.1 target="arboard"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/arboard-cd620fcb646b9e59/lib-arboard`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   0.826896155s  INFO prepare_target{force=false package_id=image v0.25.10 target="image"}: cargo::core::compiler::fingerprint: fingerprint error for image v0.25.10/Check { test: false }/TargetInner { ..: lib_target("image", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/image-0.25.10/src/lib.rs", Edition2021) }
+   0.826911492s  INFO prepare_target{force=false package_id=image v0.25.10 target="image"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/image-8ab3db4bd34eee68/lib-image`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  21: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  22: <unknown>
+   0.832358460s  INFO prepare_target{force=false package_id=moxcms v0.8.1 target="moxcms"}: cargo::core::compiler::fingerprint: fingerprint error for moxcms v0.8.1/Check { test: false }/TargetInner { ..: lib_target("moxcms", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/moxcms-0.8.1/src/lib.rs", Edition2024) }
+   0.832390840s  INFO prepare_target{force=false package_id=moxcms v0.8.1 target="moxcms"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/moxcms-660107ff374da203/lib-moxcms`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  22: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  23: <unknown>
+   0.833138272s  INFO prepare_target{force=false package_id=png v0.18.1 target="png"}: cargo::core::compiler::fingerprint: fingerprint dirty for png v0.18.1/Check { test: false }/TargetInner { ..: lib_target("png", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/png-0.18.1/src/lib.rs", Edition2021) }
+   0.833166316s  INFO prepare_target{force=false package_id=png v0.18.1 target="png"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "miniz_oxide" })
+   0.839389406s  INFO prepare_target{force=false package_id=flate2 v1.1.9 target="flate2"}: cargo::core::compiler::fingerprint: fingerprint dirty for flate2 v1.1.9/Check { test: false }/TargetInner { ..: lib_target("flate2", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/flate2-1.1.9/src/lib.rs", Edition2018) }
+   0.839422105s  INFO prepare_target{force=false package_id=flate2 v1.1.9 target="flate2"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "miniz_oxide" })
+   0.840095892s  INFO prepare_target{force=false package_id=miniz_oxide v0.8.9 target="miniz_oxide"}: cargo::core::compiler::fingerprint: fingerprint dirty for miniz_oxide v0.8.9/Check { test: false }/TargetInner { ..: lib_target("miniz_oxide", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/miniz_oxide-0.8.9/src/lib.rs", Edition2021) }
+   0.840121420s  INFO prepare_target{force=false package_id=miniz_oxide v0.8.9 target="miniz_oxide"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDepFingerprint { name: "adler2" })
+   0.840383417s  INFO prepare_target{force=false package_id=adler2 v2.0.1 target="adler2"}: cargo::core::compiler::fingerprint: fingerprint error for adler2 v2.0.1/Check { test: false }/TargetInner { ..: lib_target("adler2", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/adler2-2.0.1/src/lib.rs", Edition2021) }
+   0.840398778s  INFO prepare_target{force=false package_id=adler2 v2.0.1 target="adler2"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/adler2-3230a68603578bcb/lib-adler2`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: <unknown>
+  22: <unknown>
+  23: <unknown>
+  24: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  25: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  26: <unknown>
+   0.867034497s  INFO prepare_target{force=false package_id=glib v0.22.7 target="glib"}: cargo::core::compiler::fingerprint: fingerprint dirty for glib v0.22.7/Check { test: false }/TargetInner { ..: lib_target("glib", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glib-0.22.7/src/lib.rs", Edition2024) }
+   0.867064873s  INFO prepare_target{force=false package_id=glib v0.22.7 target="glib"}: cargo::core::compiler::fingerprint:     dirty: UnitDependencyInfoChanged { old_name: "gobject_sys", old_fingerprint: 9187396013571074374, new_name: "gobject_sys", new_fingerprint: 9640569361882157602 }
+   0.877007179s  INFO prepare_target{force=false package_id=glib-2-0-sys v0.46.4 target="glib_2_0_sys"}: cargo::core::compiler::fingerprint: fingerprint dirty for glib-2-0-sys v0.46.4/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("glib_2_0_sys", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glib-2-0-sys-0.46.4/lib.rs", Edition2015) }
+   0.877066634s  INFO prepare_target{force=false package_id=glib-2-0-sys v0.46.4 target="glib_2_0_sys"}: cargo::core::compiler::fingerprint:     dirty: UnitDependencyInfoChanged { old_name: "build_script_build", old_fingerprint: 2516809013271692435, new_name: "build_script_build", new_fingerprint: 15522936148785582602 }
+   0.882005467s  INFO prepare_target{force=false package_id=gstreamer v0.25.2 target="gstreamer"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer v0.25.2/Check { test: false }/TargetInner { ..: lib_target("gstreamer", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-0.25.2/src/lib.rs", Edition2024) }
+   0.882034950s  INFO prepare_target{force=false package_id=gstreamer v0.25.2 target="gstreamer"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-109f8b862c0b248e/lib-gstreamer`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.891512375s  INFO prepare_target{force=false package_id=num-integer v0.1.46 target="num_integer"}: cargo::core::compiler::fingerprint: fingerprint error for num-integer v0.1.46/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("num_integer", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-integer-0.1.46/src/lib.rs", Edition2018) }
+   0.891540747s  INFO prepare_target{force=false package_id=num-integer v0.1.46 target="num_integer"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/num-integer-0353bba58fd97999/lib-num_integer`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.891781148s  INFO prepare_target{force=false package_id=num-rational v0.4.2 target="num_rational"}: cargo::core::compiler::fingerprint: fingerprint error for num-rational v0.4.2/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("num_rational", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-rational-0.4.2/src/lib.rs", Edition2021) }
+   0.891793681s  INFO prepare_target{force=false package_id=num-rational v0.4.2 target="num_rational"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/num-rational-c9b4ad54de80f372/lib-num_rational`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.894330447s  INFO prepare_target{force=false package_id=gstreamer-audio v0.25.2 target="gstreamer_audio"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer-audio v0.25.2/Check { test: false }/TargetInner { ..: lib_target("gstreamer_audio", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-audio-0.25.2/src/lib.rs", Edition2024) }
+   0.894364777s  INFO prepare_target{force=false package_id=gstreamer-audio v0.25.2 target="gstreamer_audio"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-audio-5464e65eede83302/lib-gstreamer_audio`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.895340567s  INFO prepare_target{force=false package_id=gstreamer-audio-sys v0.25.2 target="gstreamer_audio_sys"}: cargo::core::compiler::fingerprint: fingerprint dirty for gstreamer-audio-sys v0.25.2/Check { test: false }/TargetInner { ..: lib_target("gstreamer_audio_sys", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-audio-sys-0.25.2/src/lib.rs", Edition2024) }
+   0.898979906s  INFO prepare_target{force=false package_id=gstreamer-audio-sys v0.25.2 target="gstreamer_audio_sys"}: cargo::core::compiler::fingerprint:     dirty: UnitDependencyInfoChanged { old_name: "gobject_sys", old_fingerprint: 9187396013571074374, new_name: "gobject_sys", new_fingerprint: 9640569361882157602 }
+   0.901257795s  INFO prepare_target{force=false package_id=gstreamer-base-sys v0.25.0 target="gstreamer_base_sys"}: cargo::core::compiler::fingerprint: fingerprint dirty for gstreamer-base-sys v0.25.0/Check { test: false }/TargetInner { ..: lib_target("gstreamer_base_sys", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-base-sys-0.25.0/src/lib.rs", Edition2024) }
+   0.901298228s  INFO prepare_target{force=false package_id=gstreamer-base-sys v0.25.0 target="gstreamer_base_sys"}: cargo::core::compiler::fingerprint:     dirty: UnitDependencyInfoChanged { old_name: "gobject_sys", old_fingerprint: 9187396013571074374, new_name: "gobject_sys", new_fingerprint: 9640569361882157602 }
+   0.902515090s  INFO prepare_target{force=false package_id=gstreamer-base v0.25.2 target="gstreamer_base"}: cargo::core::compiler::fingerprint: fingerprint error for gstreamer-base v0.25.2/Check { test: false }/TargetInner { ..: lib_target("gstreamer_base", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-base-0.25.2/src/lib.rs", Edition2024) }
+   0.904069533s  INFO prepare_target{force=false package_id=gstreamer-base v0.25.2 target="gstreamer_base"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gstreamer-base-326fa53a480a1860/lib-gstreamer_base`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.908450971s  INFO prepare_target{force=false package_id=gtk4 v0.11.3 target="gtk4"}: cargo::core::compiler::fingerprint: fingerprint error for gtk4 v0.11.3/Check { test: false }/TargetInner { ..: lib_target("gtk4", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gtk4-0.11.3/src/lib.rs", Edition2024) }
+   0.909694834s  INFO prepare_target{force=false package_id=gtk4 v0.11.3 target="gtk4"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/gtk4-476d24319a500cd5/lib-gtk4`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.912155196s  INFO prepare_target{force=false package_id=cairo-rs v0.22.0 target="cairo"}: cargo::core::compiler::fingerprint: fingerprint dirty for cairo-rs v0.22.0/Check { test: false }/TargetInner { ..: lib_target("cairo", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cairo-rs-0.22.0/src/lib.rs", Edition2024) }
+   0.913137601s  INFO prepare_target{force=false package_id=cairo-rs v0.22.0 target="cairo"}: cargo::core::compiler::fingerprint:     dirty: UnitDependencyInfoChanged { old_name: "cairo_sys", old_fingerprint: 3529353816598574148, new_name: "cairo_sys", new_fingerprint: 3979544248590132709 }
+   0.914276544s  INFO prepare_target{force=false package_id=field-offset v0.3.6 target="field_offset"}: cargo::core::compiler::fingerprint: fingerprint error for field-offset v0.3.6/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("field_offset", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/field-offset-0.3.6/src/lib.rs", Edition2015) }
+   0.915878317s  INFO prepare_target{force=false package_id=field-offset v0.3.6 target="field_offset"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/field-offset-f28d1398ccd243f9/lib-field_offset`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  19: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  20: <unknown>
+   0.916325578s  INFO prepare_target{force=false package_id=memoffset v0.9.1 target="memoffset"}: cargo::core::compiler::fingerprint: fingerprint error for memoffset v0.9.1/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("memoffset", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/memoffset-0.9.1/src/lib.rs", Edition2015) }
+   0.916341066s  INFO prepare_target{force=false package_id=memoffset v0.9.1 target="memoffset"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/memoffset-b9a419d9f096c221/lib-memoffset`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  20: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  21: <unknown>
+   0.916884567s  INFO prepare_target{force=false package_id=gdk-pixbuf v0.22.0 target="gdk_pixbuf"}: cargo::core::compiler::fingerprint: fingerprint dirty for gdk-pixbuf v0.22.0/Check { test: false }/TargetInner { ..: lib_target("gdk_pixbuf", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gdk-pixbuf-0.22.0/src/lib.rs", Edition2024) }
+   0.916914574s  INFO prepare_target{force=false package_id=gdk-pixbuf v0.22.0 target="gdk_pixbuf"}: cargo::core::compiler::fingerprint:     dirty: UnitDependencyInfoChanged { old_name: "glib", old_fingerprint: 10401934698589748329, new_name: "glib", new_fingerprint: 13699356567875977105 }
+   0.920373200s  INFO prepare_target{force=false package_id=gio v0.22.6 target="gio"}: cargo::core::compiler::fingerprint: fingerprint dirty for gio v0.22.6/Check { test: false }/TargetInner { ..: lib_target("gio", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gio-0.22.6/src/lib.rs", Edition2024) }
+   0.920393462s  INFO prepare_target{force=false package_id=gio v0.22.6 target="gio"}: cargo::core::compiler::fingerprint:     dirty: UnitDependencyInfoChanged { old_name: "glib", old_fingerprint: 10401934698589748329, new_name: "glib", new_fingerprint: 13699356567875977105 }
+   0.921000441s  INFO prepare_target{force=false package_id=gdk4 v0.11.2 target="gdk4"}: cargo::core::compiler::fingerprint: fingerprint dirty for gdk4 v0.11.2/Check { test: false }/TargetInner { ..: lib_target("gdk4", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gdk4-0.11.2/src/lib.rs", Edition2024) }
+   0.921034722s  INFO prepare_target{force=false package_id=gdk4 v0.11.2 target="gdk4"}: cargo::core::compiler::fingerprint:     dirty: UnitDependencyInfoChanged { old_name: "pango", old_fingerprint: 17833878757529450522, new_name: "pango", new_fingerprint: 15414824057877920115 }
+   0.923965658s  INFO prepare_target{force=false package_id=pango v0.22.6 target="pango"}: cargo::core::compiler::fingerprint: fingerprint dirty for pango v0.22.6/Check { test: false }/TargetInner { ..: lib_target("pango", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/pango-0.22.6/src/lib.rs", Edition2024) }
+   0.924015400s  INFO prepare_target{force=false package_id=pango v0.22.6 target="pango"}: cargo::core::compiler::fingerprint:     dirty: UnitDependencyInfoChanged { old_name: "glib", old_fingerprint: 10401934698589748329, new_name: "glib", new_fingerprint: 13699356567875977105 }
+   0.925888228s  INFO prepare_target{force=false package_id=graphene-rs v0.22.0 target="graphene"}: cargo::core::compiler::fingerprint: fingerprint dirty for graphene-rs v0.22.0/Check { test: false }/TargetInner { ..: lib_target("graphene", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/graphene-rs-0.22.0/src/lib.rs", Edition2024) }
+   0.925912357s  INFO prepare_target{force=false package_id=graphene-rs v0.22.0 target="graphene"}: cargo::core::compiler::fingerprint:     dirty: UnitDependencyInfoChanged { old_name: "glib", old_fingerprint: 10401934698589748329, new_name: "glib", new_fingerprint: 13699356567875977105 }
+   0.929406747s  INFO prepare_target{force=false package_id=gsk4 v0.11.1 target="gsk4"}: cargo::core::compiler::fingerprint: fingerprint dirty for gsk4 v0.11.1/Check { test: false }/TargetInner { ..: lib_target("gsk4", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gsk4-0.11.1/src/lib.rs", Edition2024) }
+   0.929431378s  INFO prepare_target{force=false package_id=gsk4 v0.11.1 target="gsk4"}: cargo::core::compiler::fingerprint:     dirty: UnitDependencyInfoChanged { old_name: "pango", old_fingerprint: 17833878757529450522, new_name: "pango", new_fingerprint: 15414824057877920115 }
+   0.932928685s  INFO prepare_target{force=false package_id=gtk4-sys v0.11.3 target="gtk4_sys"}: cargo::core::compiler::fingerprint: fingerprint dirty for gtk4-sys v0.11.3/Check { test: false }/TargetInner { ..: lib_target("gtk4_sys", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gtk4-sys-0.11.3/src/lib.rs", Edition2024) }
+   0.932967350s  INFO prepare_target{force=false package_id=gtk4-sys v0.11.3 target="gtk4_sys"}: cargo::core::compiler::fingerprint:     dirty: UnitDependencyInfoChanged { old_name: "gobject_sys", old_fingerprint: 9187396013571074374, new_name: "gobject_sys", new_fingerprint: 9640569361882157602 }
+   0.933713992s  INFO prepare_target{force=false package_id=libadwaita v0.9.1 target="libadwaita"}: cargo::core::compiler::fingerprint: fingerprint error for libadwaita v0.9.1/Check { test: false }/TargetInner { ..: lib_target("libadwaita", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libadwaita-0.9.1/src/lib.rs", Edition2024) }
+   0.933728575s  INFO prepare_target{force=false package_id=libadwaita v0.9.1 target="libadwaita"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/libadwaita-2a30bc2652848c0c/lib-libadwaita`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.936272590s  INFO prepare_target{force=false package_id=libadwaita-sys v0.9.1 target="libadwaita_sys"}: cargo::core::compiler::fingerprint: fingerprint dirty for libadwaita-sys v0.9.1/Check { test: false }/TargetInner { ..: lib_target("libadwaita_sys", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/libadwaita-sys-0.9.1/src/lib.rs", Edition2024) }
+   0.936340670s  INFO prepare_target{force=false package_id=libadwaita-sys v0.9.1 target="libadwaita_sys"}: cargo::core::compiler::fingerprint:     dirty: UnitDependencyInfoChanged { old_name: "gobject_sys", old_fingerprint: 9187396013571074374, new_name: "gobject_sys", new_fingerprint: 9640569361882157602 }
+   0.939570845s  INFO prepare_target{force=false package_id=serde_json v1.0.150 target="serde_json"}: cargo::core::compiler::fingerprint: fingerprint error for serde_json v1.0.150/Check { test: false }/TargetInner { ..: lib_target("serde_json", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.150/src/lib.rs", Edition2021) }
+   0.939635699s  INFO prepare_target{force=false package_id=serde_json v1.0.150 target="serde_json"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/serde_json-725071f66372397f/lib-serde_json`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.954111062s  INFO prepare_target{force=false package_id=ureq v2.12.1 target="ureq"}: cargo::core::compiler::fingerprint: fingerprint error for ureq v2.12.1/Check { test: false }/TargetInner { ..: lib_target("ureq", ["lib"], "/home/mrod/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ureq-2.12.1/src/lib.rs", Edition2018) }
+   0.954145421s  INFO prepare_target{force=false package_id=ureq v2.12.1 target="ureq"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/ureq-3b7549caaf9ad78c/lib-ureq`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  18: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  19: <unknown>
+   0.962478956s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint: fingerprint error for ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper)/Check { test: true }/TargetInner { name: "ceedee-ripper", doc: true, ..: with_path("/home/mrod/CODE/CeeDee-Ripper/src/main.rs", Edition2021) }
+   0.962547772s  INFO prepare_target{force=false package_id=ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper) target="ceedee-ripper"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/mrod/CODE/CeeDee-Ripper/target/debug/.fingerprint/ceedee-ripper-409ab0874d4e6fed/test-bin-ceedee-ripper`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <unknown>
+   1: <unknown>
+   2: <unknown>
+   3: <unknown>
+   4: <unknown>
+   5: <unknown>
+   6: <unknown>
+   7: <unknown>
+   8: <unknown>
+   9: <unknown>
+  10: <unknown>
+  11: <unknown>
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: __libc_start_call_main
+             at ./csu/../sysdeps/nptl/libc_start_call_main.h:59:16
+  17: __libc_start_main_impl
+             at ./csu/../csu/libc-start.c:360:3
+  18: <unknown>
+    Checking arrayvec v0.7.6
+    Checking allocator-api2 v0.2.21
+    Checking glib v0.22.7
+    Checking zbus v5.15.0
+    Checking polycool v0.4.0
+    Checking hashbrown v0.16.1
+    Checking kurbo v0.13.1
+    Checking accesskit v0.24.0
+    Checking adler2 v2.0.1
+    Checking arrayref v0.3.9
+    Checking naga v29.0.3
+    Checking peniko v0.6.1
+    Checking tiny-skia-path v0.11.4
+    Checking miniz_oxide v0.8.9
+    Checking ahash v0.8.12
+    Checking ash v0.38.0+1.3.281
+    Checking atspi-common v0.13.0
+    Checking ab_glyph_rasterizer v0.1.10
+    Checking as-raw-xcb-connection v1.0.1
+    Checking x11rb v0.13.2
+    Checking ab_glyph v0.2.32
+    Checking vello_common v0.0.6
+    Checking wgpu-naga-bridge v29.0.3
+    Checking gio v0.22.6
+    Checking flate2 v1.1.9
+    Checking tiny-skia v0.11.4
+    Checking atspi-proxies v0.13.0
+    Checking sctk-adwaita v0.10.1
+    Checking vello_cpu v0.0.6
+    Checking accesskit_consumer v0.36.0
+    Checking moxcms v0.8.1
+    Checking accesskit_atspi_common v0.18.1
+    Checking epaint v0.34.2
+    Checking winit v0.30.13
+    Checking gpu-allocator v0.28.0
+    Checking wgpu-hal v29.0.3
+    Checking png v0.18.1
+    Checking atspi v0.29.0
+    Checking cairo-rs v0.22.0
+    Checking num-integer v0.1.46
+    Checking egui v0.34.2
+    Checking num-rational v0.4.2
+    Checking accesskit_unix v0.21.1
+    Checking wgpu-core-deps-windows-linux-android v29.0.3
+    Checking wgpu-core v29.0.3
+    Checking image v0.25.10
+    Checking memoffset v0.9.1
+    Checking gstreamer-base-sys v0.25.0
+    Checking gtk4-sys v0.11.3
+    Checking graphene-rs v0.22.0
+    Checking gstreamer v0.25.2
+    Checking arboard v3.6.1
+    Checking field-offset v0.3.6
+    Checking accesskit_winit v0.32.2
+    Checking serde_json v1.0.150
+    Checking gdk-pixbuf v0.22.0
+    Checking pango v0.22.6
+    Checking wgpu v29.0.3
+    Checking egui-winit v0.34.2
+    Checking libadwaita-sys v0.9.1
+    Checking gstreamer-audio-sys v0.25.2
+    Checking ureq v2.12.1
+    Checking gdk4 v0.11.2
+    Checking glib-2-0-sys v0.46.4
+    Checking egui-wgpu v0.34.2
+    Checking eframe v0.34.2
+    Checking gsk4 v0.11.1
+    Checking gtk4 v0.11.3
+    Checking gstreamer-base v0.25.2
+    Checking gstreamer-audio v0.25.2
+    Checking libadwaita v0.9.1
+    Checking ceedee-ripper v1.1.0 (/home/mrod/CODE/CeeDee-Ripper)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1m 51s

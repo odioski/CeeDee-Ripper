@@ -4,6 +4,9 @@ target/release/debug/
 target/release/deps/
 target/release/.fingerprint/
 **/*.rs.bk
+target/debug/
+target/flatpak/
+target/ubuntu/source/
 
 # Local package build scratch and caches
 ./.flatpak-builder/
