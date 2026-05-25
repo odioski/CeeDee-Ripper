@@ -10,16 +10,13 @@ if have apt-get; then
     apt-file \
     build-essential \
     pkg-config \
-<<<<<<< HEAD
     cargo \
     rustc \
     debhelper \
     libclang-dev \
-=======
     libclang-dev \
     flatpak-builder \
     libgio-2.0-dev \
->>>>>>> b9997d8 (...)
     libcairo2-dev \
     libpango1.0-dev \
     libgdk-pixbuf2.0-dev \
