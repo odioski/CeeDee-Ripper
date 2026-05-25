@@ -27,7 +27,7 @@ else
 fi
 
 echo ""
-echo "Upload/contrib:"
+echo "Upload/contrib: AppImage"
 echo "  Test the AppImage on a clean Linux desktop before publishing."
 echo "  Upload the final AppImage to the GitHub release only after release approval."
 echo "  See Distribution Instructions.md for release and checksum steps."
