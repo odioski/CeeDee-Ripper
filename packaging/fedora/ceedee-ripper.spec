@@ -9,6 +9,7 @@ Source0:        %{url}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cargo
 BuildRequires:  rust
+BuildRequires:  clang-devel
 BuildRequires:  pkgconfig
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -38,10 +39,10 @@ tracks to FLAC, MP3, WAV, or Ogg Vorbis files.
 %autosetup -n CeeDee-Ripper-%{version}
 
 %build
-cargo build --release --feature "gtk-ui egui-ui"
+cargo build --release --locked --features "gtk-ui egui-ui"
 
 %check
-cargo test --locked --feature "gtk-ui egui-ui"
+cargo test --locked --features "gtk-ui egui-ui"
 desktop-file-validate resources/ceedee-ripper.desktop
 appstream-util validate-relax --nonet resources/metainfo/io.github.odioski.ceedee_ripper.metainfo.xml
 

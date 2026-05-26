@@ -23,15 +23,14 @@ runtime and saved for later launches.
 
 ## Final mentions
 
-CeeDee Ripper requires the Rust toolchain, native desktop libraries, optical
-disc utilities, metadata libraries, and audio encoders.
+Building CeeDee Ripper requires the Rust toolchain, native desktop libraries, optical disc utilities, metadata libraries, and audio encoders.
 
-On supported Linux systems, you'll need this to start modding. 
+On supported Linux systems, you'll need that to start modding. 
 The helper script installs the aforementioned neccesary libs and Rust.
 
 CeeDee-Ripper ver. 1.1.0 is final. Mostly miscellaneous updates going forth once I upload it.
 
-Have a look and please do fork it.
+Have a look and go ahead, grab a fork.
 
 It's beautiful.
 
@@ -64,20 +63,20 @@ sudo usermod -aG cdrom "$USER"
 Build the normal release binary:
 
 ```bash
-cargo build --release --feature "gtk-ui egui-ui"
+cargo build --release --features "gtk-ui egui-ui"
 ```
 
 Run with the saved default interface:
 
 ```bash
-cargo run --feature "gtk-ui egui-ui"
+cargo run --features "gtk-ui egui-ui"
 ```
 
 Select an interface for a single launch:
 
 ```bash
-cargo run --feature "gtk-ui egui-ui" -- --ui egui
-cargo run --feature "gtk-ui egui-ui" -- --ui gtk
+cargo run --features "gtk-ui egui-ui" -- --ui egui
+cargo run --features "gtk-ui egui-ui" -- --ui gtk
 ```
 
 The selected UI is saved in the application configuration. By default, CeeDee
@@ -93,7 +92,7 @@ CD_DEVICE=/dev/sr0 ceedee-ripper
 
 ## Packaging
 
-Packaging files live under `packaging/`. Additional notes are kept in
+Packaging files live under `packaging/` Additional notes are kept in
 `docs/PACKAGING.md` and `Distribution Instructions.md`.
 
 The most straightforward local targets are:
@@ -114,8 +113,7 @@ native packaging paths for this application.
 
 CeeDee Ripper is not merely a self-contained graphical program &mdash; has a GUI and not only a CLI.  
 
-It needs low-level access to an optical drive, reads disc table-of-contents data, calls CD helper tools, uses GStreamer encoders, contacts MusicBrainz, retrieves cover
-art, and writes music files to user-visible locations. Sandboxed package formats make each of those requirements more explicit:
+It needs low-level access to an optical drive, reads disc table-of-contents data, calls CD helper tools, uses GStreamer encoders, contacts MusicBrainz, retrieves cover art, and writes music files to user-visible locations. Sandboxed package formats make each of those requirements more explicit:
 
 - device access to `/dev/cdrom`, `/dev/sr0`, `/dev/sr1`, and possibly `/dev/sg*` must be granted;
 - udev, removable-media, and drive permissions may differ by distribution;

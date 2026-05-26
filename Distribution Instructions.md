@@ -93,7 +93,7 @@ Use COPR for Fedora/RPM publishing before considering an official Fedora package
 4. Monitor builds for the selected Fedora targets.
 5. Test the resulting RPM on clean Fedora systems.
 
-Local binary RPMs built under `target/rpmbuild/RPMS/` are for local testing only.
+Local binary RPMs built under `target/fedora/rpmbuild/RPMS/` are for local testing only.
 
 ## Flatpak / Flathub
 
@@ -122,7 +122,7 @@ Flatpak should be handled after the other artifacts. For a local test bundle, a 
 Generate checksums for all final release artifacts:
 
 ```bash
-sha256sum target/appimage/*.AppImage target/debian/*.deb target/aur-build/*.pkg.tar* target/rpmbuild/RPMS/**/*.rpm target/*.flatpak
+sha256sum target/appimage/*.AppImage target/debian/*.deb target/aur-build/*.pkg.tar* target/fedora/rpmbuild/RPMS/**/*.rpm target/*.flatpak
 ```
 
 If a glob does not match because that artifact was not built, omit it from the checksum command.

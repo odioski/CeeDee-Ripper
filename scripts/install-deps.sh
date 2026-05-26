@@ -7,45 +7,49 @@ if have apt-get; then
   echo "Detected apt (Debian/Ubuntu). Installing packages..."
   sudo apt-get update
   sudo apt-get install -y \
-    apt-file \
     build-essential \
-    pkg-config \
     cargo \
     rustc \
+    rust-src \
+    pkg-config \
     debhelper \
-    libclang-dev \
-    libclang-dev \
+    desktop-file-utils \
+    appstream \
     flatpak-builder \
+    libclang-dev \
     libgio-2.0-dev \
     libcairo2-dev \
     libpango1.0-dev \
     libgdk-pixbuf2.0-dev \
-    libglib2.0-0t64 \
     libglib2.0-dev \
     libgraphene-1.0-dev \
-    libgtk-4-bin \
-    libgtk-4-common \
     libgtk-4-dev \
     libgstreamer1.0-dev \
-    libadwaita-1-dev \
     libgstreamer-plugins-base1.0-dev \
+    libadwaita-1-dev \
+    libdiscid-dev \
     gstreamer1.0-plugins-base \
     gstreamer1.0-plugins-good \
     gstreamer1.0-plugins-ugly \
-    libdiscid-dev \
     cdparanoia \
     cd-discid \
     eject \
     flac \
     lame \
-    vorbis-tools \
-    
+    vorbis-tools
   echo "Done."
 elif have pacman; then
   echo "Detected pacman (Arch). Installing packages..."
   sudo pacman -S --needed \
     base-devel \
+    cargo \
+    rust \
+    rust-src \
     pkgconf \
+    clang \
+    desktop-file-utils \
+    appstream \
+    flatpak-builder \
     glib2 \
     cairo \
     pango \
@@ -57,33 +61,6 @@ elif have pacman; then
     gst-plugins-good \
     gst-plugins-ugly \
     libadwaita \
-    build-essential \
-    pkg-config \
-    cargo \
-    rustc \
-    debhelper \
-    libclang-dev \
-    libcairo2-dev \
-    libpango1.0-dev \
-    libgdk-pixbuf2.0-dev \
-    libglib2.0-0t64 \
-    libglib2.0-dev \
-    libgraphene-1.0-dev \
-    libgtk-4-bin \
-    libgtk-4-common \
-    libgtk-4-dev \
-    libgstreamer1.0-dev \
-    libadwaita-1-dev \
-    libgstreamer-plugins-base1.0-dev \
-    gstreamer1.0-plugins-base \
-    gstreamer1.0-plugins-good \
-    libdiscid-dev \
-    cdparanoia \
-    cd-discid \
-    eject \
-    flac \
-    lame \
-    vorbis-tools \
     libdiscid \
     cdparanoia \
     cd-discid \
@@ -100,7 +77,13 @@ elif have zypper; then
   sudo zypper install -y \
     gcc \
     make \
+    cargo \
+    rust \
     pkg-config \
+    clang-devel \
+    desktop-file-utils \
+    AppStream \
+    flatpak-builder \
     glib2-devel \
     cairo-devel \
     pango-devel \
@@ -112,34 +95,6 @@ elif have zypper; then
     gstreamer-plugins-good \
     gstreamer-plugins-ugly \
     libadwaita-devel \
-    build-essential \
-    pkg-config \
-    cargo \
-    rustc \
-    debhelper \
-    libclang-dev \
-    libcairo2-dev \
-    libpango1.0-dev \
-    libgdk-pixbuf2.0-dev \
-    libglib2.0-0t64 \
-    libglib2.0-dev \
-    libgraphene-1.0-dev \
-    libgtk-4-bin \
-    libgtk-4-common \
-    libgtk-4-dev \
-    libgstreamer1.0-dev \
-    libadwaita-1-dev \
-    libgstreamer-plugins-base1.0-dev \
-    gstreamer1.0-plugins-base \
-    gstreamer1.0-plugins-good \
-    libappstream-glib \
-    libdiscid-dev \
-    cdparanoia \
-    cd-discid \
-    eject \
-    flac \
-    lame \
-    vorbis-tools \
     libdiscid-devel \
     cdparanoia \
     cd-discid \
@@ -147,15 +102,26 @@ elif have zypper; then
     flac \
     lame \
     vorbis-tools
+  sudo zypper install -y rust-src || \
+    echo "rust-src was not available from configured openSUSE repositories; continuing."
   echo "Done."
 elif have dnf; then
   echo "Detected dnf (Fedora/RHEL). Installing packages..."
-  # Note: 'lame' may require RPM Fusion (free) on Fedora:
+  # Note: 'lame' and gstreamer1-plugins-ugly-free may require RPM Fusion on Fedora:
   #   sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+  # Fedora provides appstream-util in the libappstream-glib package.
   sudo dnf install -y \
     gcc \
     make \
+    cargo \
+    rust \
+    rust-src \
+    rpm-build \
     pkgconf-pkg-config \
+    clang-devel \
+    desktop-file-utils \
+    libappstream-glib \
+    flatpak-builder \
     glib2-devel \
     cairo-devel \
     pango-devel \
@@ -164,10 +130,10 @@ elif have dnf; then
     gtk4-devel \
     gstreamer1-devel \
     gstreamer1-plugins-base-devel \
+    gstreamer1-plugins-base \
     gstreamer1-plugins-good \
+    gstreamer1-plugins-ugly-free \
     libadwaita-devel \
-    libappstream-glib \
-    clang-devel \
     libdiscid-devel \
     cdparanoia \
     cd-discid \
@@ -175,12 +141,8 @@ elif have dnf; then
     flac \
     lame \
     vorbis-tools
-  curl -LO https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
-  chmod +x appimagetool-x86_64.AppImage
-  ./appimagetool-x86_64.AppImage --appimage-version
   echo "Done."
 else
   echo "Unsupported package manager. Please install dependencies manually." >&2
-  echo "See the 'list' file in the project root for the required apt packages." >&2
   exit 1
 fi

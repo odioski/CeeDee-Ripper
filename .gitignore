@@ -1,12 +1,6 @@
 # Rust build output
-target/release/build/
-target/release/debug/
-target/release/deps/
-target/release/.fingerprint/
+target/
 **/*.rs.bk
-target/debug/
-target/flatpak/
-target/ubuntu/source/
 
 # Local package build scratch and caches
 ./.flatpak-builder/
@@ -18,14 +12,12 @@ target/ubuntu/source/
 ./snap/.snapcraft/
 ./.snapcraft/
 
-Cargo.lock
-
 # Build cache markers and debug/intermediate files
-CACHEDIR.TAG
-*.d
-*.debug
-*.profraw
-*.profdata
+# CACHEDIR.TAG
+# *.d
+# *.debug
+# *.profraw
+# *.profdata
 
 # Logs
 *.log
