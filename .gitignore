@@ -18,6 +18,7 @@ target/
 # *.debug
 # *.profraw
 # *.profdata
+appimagetool/.git/
 
 # Logs
 *.log
