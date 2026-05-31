@@ -1,5 +1,11 @@
 # Rust build output
-target/
+target/release/.fingerprint
+target/release/build
+target/release/deps
+target/debug/build
+target/release/incremental
+target/release/examples
+
 **/*.rs.bk
 
 # Local package build scratch and caches
@@ -27,7 +33,7 @@ cmake-build-*/
 # *.profraw
 # *.profdata
 # Logs
-*.log
+# *.log
 
 # Local developer/editor state
 /.cache/
