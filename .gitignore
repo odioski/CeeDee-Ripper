@@ -11,6 +11,14 @@ target/
 ./overlay/
 ./snap/.snapcraft/
 ./.snapcraft/
+*build*/
+cmake-build-*/
+*.*swp*
+*.bak
+*.AppImage*
+*parent-build*/
+*CMakeFiles*/
+
 
 # Build cache markers and debug/intermediate files
 # CACHEDIR.TAG
