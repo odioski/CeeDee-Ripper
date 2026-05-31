@@ -29,6 +29,8 @@ if have apt-get; then
     libadwaita-1-dev \
     libdiscid-dev \
     libgpgme-dev \
+    libgcrypt20-dev \
+    libcurl4-openssl-dev \
     gstreamer1.0-plugins-base \
     gstreamer1.0-plugins-good \
     gstreamer1.0-plugins-ugly \
