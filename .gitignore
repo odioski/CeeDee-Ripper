@@ -18,7 +18,6 @@ target/
 # *.debug
 # *.profraw
 # *.profdata
-
 # Logs
 *.log
 
