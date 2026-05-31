@@ -31,6 +31,7 @@ if have apt-get; then
     libgpgme-dev \
     libgcrypt20-dev \
     libcurl4-openssl-dev \
+    zsync \
     gstreamer1.0-plugins-base \
     gstreamer1.0-plugins-good \
     gstreamer1.0-plugins-ugly \
