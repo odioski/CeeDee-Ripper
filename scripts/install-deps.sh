@@ -143,6 +143,7 @@ elif have dnf; then
     libgcrypt-devel \
     libcurl-devel \
     libgio-devel \
+    zsync \
     curl \
     libcurl \
     libgpgme \
