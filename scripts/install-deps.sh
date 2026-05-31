@@ -119,6 +119,7 @@ elif have dnf; then
     rpm-build \
     pkgconf-pkg-config \
     clang-devel \
+    mksquashfs \
     desktop-file-utils \
     libappstream-glib \
     flatpak-builder \
@@ -135,6 +136,14 @@ elif have dnf; then
     gstreamer1-plugins-ugly-free \
     libadwaita-devel \
     libdiscid-devel \
+    libgcrypt-devel \
+    libcurl-devel \
+    libgio-devel \
+    curl \
+    libcurl \
+    libgpgme \
+    libgio \
+    libglib \
     cdparanoia \
     cd-discid \
     eject \
