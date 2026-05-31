@@ -28,6 +28,7 @@ if have apt-get; then
     libgstreamer-plugins-base1.0-dev \
     libadwaita-1-dev \
     libdiscid-dev \
+    libgpgme-dev \
     gstreamer1.0-plugins-base \
     gstreamer1.0-plugins-good \
     gstreamer1.0-plugins-ugly \
