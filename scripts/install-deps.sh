@@ -20,7 +20,7 @@ if have apt-get; then
     libgio-2.0-dev \
     libcairo2-dev \
     libpango1.0-dev \
-    libgdk-pixbuf2.0-dev \
+    libgdk-pixbuf-xlib-2.0-dev \
     libglib2.0-dev \
     libgraphene-1.0-dev \
     libgtk-4-dev \
