@@ -25,7 +25,6 @@ cmake-build-*/
 *parent-build*/
 *CMakeFiles*/
 
-
 # Build cache markers and debug/intermediate files
 # CACHEDIR.TAG
 # *.d
