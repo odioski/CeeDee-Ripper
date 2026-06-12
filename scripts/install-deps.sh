@@ -3,6 +3,14 @@ set -euo pipefail
 
 have() { command -v "$1" >/dev/null 2>&1; }
 
+dnf_command() {
+  if have dnf; then
+    printf 'dnf\n'
+  elif have dnf5; then
+    printf 'dnf5\n'
+  fi
+}
+
 missing_debian_packages() {
   local package
 
@@ -27,13 +35,13 @@ missing_dnf_packages() {
   local package
 
   for package in "$@"; do
-    if ! rpm -q "$package" >/dev/null 2>&1; then
+    if ! rpm -q "$package" >/dev/null 2>&1 && ! rpm -q --whatprovides "$package" >/dev/null 2>&1; then
       printf '%s\n' "$package"
     fi
   done
 }
 
-if have apt-get; then
+if have apt-get && [[ -z "$(dnf_command)" ]]; then
   echo "Detected apt (Debian/Ubuntu). Checking packages..."
   debian_packages=(
     build-essential \
@@ -97,7 +105,7 @@ if have apt-get; then
     sudo apt-get install -y "${missing_packages[@]}"
   fi
   echo "Done."
-elif have pacman; then
+elif have pacman && [[ -z "$(dnf_command)" ]]; then
   echo "Detected pacman (Arch). Checking packages..."
   pacman_packages=(
     base-devel
@@ -138,6 +146,87 @@ elif have pacman; then
     sudo pacman -S --needed "${missing_packages[@]}"
   fi
   echo "Done."
+elif dnf_cmd="$(dnf_command)" && [[ -n "$dnf_cmd" ]]; then
+  echo "Detected dnf (Fedora/RHEL). Checking packages..."
+  # Note: 'lame' and gstreamer1-plugins-ugly-free may require RPM Fusion on Fedora:
+  #   sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+  dnf_deps=(
+    gcc
+    gcc-c++
+    make
+    cmake
+    cmake-gui
+    cmakelang
+    extra-cmake-modules
+    ninja-build
+    ccache
+    cargo
+    rust
+    rust-src
+    rpm-build
+    rpmdevtools
+    pkgconf-pkg-config
+    clang
+    clang-devel
+    clang-tools-extra
+    cppcheck
+    doxygen
+    graphviz
+    desktop-file-utils
+    appstream
+    libappstream-glib
+    flatpak-builder
+    squashfs-tools
+    zsync
+    curl
+  )
+  dnf_libs=(
+    glib2-devel
+    glib2
+    cairo-devel
+    cairo
+    pango-devel
+    pango
+    gdk-pixbuf2-devel
+    gdk-pixbuf2
+    graphene-devel
+    graphene
+    gtk4-devel
+    gtk4
+    gstreamer1-devel
+    gstreamer1-plugins-base-devel
+    gstreamer1-plugins-base
+    gstreamer1-plugins-good
+    gstreamer1-plugins-ugly-free
+    libadwaita-devel
+    libadwaita
+    'pkgconfig(libdiscid)'
+    libdiscid-devel
+    libdiscid
+    gpgme-devel
+    gpgme
+    libgcrypt-devel
+    libgcrypt
+    libcurl-devel
+    libcurl
+    cdparanoia
+    cd-discid
+    util-linux
+    flac
+    lame
+    vorbis-tools
+  )
+  dnf_packages=("${dnf_deps[@]}" "${dnf_libs[@]}")
+  mapfile -t missing_packages < <(missing_dnf_packages "${dnf_packages[@]}")
+
+  if (( ${#missing_packages[@]} == 0 )); then
+    echo "All Fedora/RHEL packages are already installed."
+  else
+    echo "Installing missing Fedora/RHEL packages:"
+    printf '  %s\n' "${missing_packages[@]}"
+    sudo "$dnf_cmd" install -y "${missing_packages[@]}"
+  fi
+  echo "Done."
 elif have zypper; then
   # Note: 'lame' and 'cd-discid' may require the Packman repository on openSUSE:
   #   sudo zypper ar -cfp 90 https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/ packman
@@ -173,63 +262,6 @@ elif have zypper; then
     vorbis-tools
   sudo zypper install -y rust-src || \
     echo "rust-src was not available from configured openSUSE repositories; continuing."
-  echo "Done."
-elif have dnf; then
-  echo "Detected dnf (Fedora/RHEL). Checking packages..."
-  # Note: 'lame' and gstreamer1-plugins-ugly-free may require RPM Fusion on Fedora:
-  #   sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-  # Fedora provides appstream-util in the libappstream-glib package.
-  dnf_packages=(
-    gcc
-    make
-    cargo
-    rust
-    rust-src
-    rpm-build
-    pkgconf-pkg-config
-    clang-devel
-    mksquashfs
-    desktop-file-utils
-    libappstream-glib
-    flatpak-builder
-    glib2-devel
-    cairo-devel
-    pango-devel
-    gdk-pixbuf2-devel
-    graphene-devel
-    gtk4-devel
-    gstreamer1-devel
-    gstreamer1-plugins-base-devel
-    gstreamer1-plugins-base
-    gstreamer1-plugins-good
-    gstreamer1-plugins-ugly-free
-    libadwaita-devel
-    libdiscid-devel
-    libgcrypt-devel
-    libcurl-devel
-    libgio-devel
-    zsync
-    curl
-    libcurl
-    libgpgme
-    libgio
-    libglib
-    cdparanoia
-    cd-discid
-    eject
-    flac
-    lame
-    vorbis-tools
-  )
-  mapfile -t missing_packages < <(missing_dnf_packages "${dnf_packages[@]}")
-
-  if (( ${#missing_packages[@]} == 0 )); then
-    echo "All Fedora/RHEL packages are already installed."
-  else
-    echo "Installing missing Fedora/RHEL packages:"
-    printf '  %s\n' "${missing_packages[@]}"
-    sudo dnf install -y "${missing_packages[@]}"
-  fi
   echo "Done."
 else
   echo "Unsupported package manager. Please install dependencies manually." >&2
