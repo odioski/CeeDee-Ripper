@@ -152,17 +152,6 @@ elif dnf_cmd="$(dnf_command)" && [[ -n "$dnf_cmd" ]]; then
   echo "Detected dnf (Fedora/RHEL). Checking packages..."
   # Note: 'lame' and gstreamer1-plugins-ugly-free may require RPM Fusion on Fedora:
   #   sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-  # Fedora equivalents for Debian Build-Depends:
-  #   debhelper-compat (= 13) -> debhelper
-  #   rustc -> rust
-  #   pkg-config -> pkgconf-pkg-config
-  #   libclang-dev -> clang-devel
-  #   libdiscid-dev -> libdiscid-devel
-  #   libglib2.0-dev -> glib2-devel
-  #   libgstreamer1.0-dev -> gstreamer1-devel
-  #   libgstreamer-plugins-base1.0-dev -> gstreamer1-plugins-base-devel
-  #   libgtk-4-dev -> gtk4-devel
-  #   libadwaita-1-dev -> libadwaita-devel
   dnf_deps=(
     gcc
     gcc-c++

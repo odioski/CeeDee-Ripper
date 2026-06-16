@@ -64,7 +64,7 @@ The current desktop file remains `ceedee-ripper.desktop`, while the AppStream ID
 
 Initial priority recipe files live under `packaging/`:
 
-- `packaging/debian/` for Debian/Ubuntu source package and PPA preparation
+- `packaging/ubuntu/debian/` for Ubuntu source package/PPA preparation
 - `packaging/appimage/` for direct GitHub release artifacts
 
 Current priority is Debian `.deb` packages and AppImage artifacts. Snap and
