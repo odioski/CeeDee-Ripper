@@ -72,33 +72,18 @@ if have apt-get && [[ -z "$(dnf_command)" ]]; then
     flatpak-builder \
     libclang-dev \
     libcairo2-dev \
-    libcairo2 \
     libpango1.0-dev \
-    libpango-1.0-0 \
-    libgdk-pixbuf-2.0-dev \
-    libgdk-pixbuf-2.0-0 \
     libgdk-pixbuf-xlib-2.0-dev \
-    libgdk-pixbuf-xlib-2.0-0 \
     libglib2.0-dev \
-    libglib2.0-0 \
     libgraphene-1.0-dev \
-    libgraphene-1.0-0 \
     libgtk-4-dev \
-    libgtk-4-1 \
     libgstreamer1.0-dev \
-    libgstreamer1.0-0 \
     libgstreamer-plugins-base1.0-dev \
-    libgstreamer-plugins-base1.0-0 \
     libadwaita-1-dev \
-    libadwaita-1-0 \
     libdiscid-dev \
-    libdiscid0 \
     libgpgme-dev \
-    libgpgme11 \
     libgcrypt20-dev \
-    libgcrypt20 \
     libcurl4-openssl-dev \
-    libcurl4 \
     zsync \
     gstreamer1.0-plugins-base \
     gstreamer1.0-plugins-good \
@@ -178,18 +163,6 @@ elif dnf_cmd="$(dnf_command)" && [[ -n "$dnf_cmd" ]]; then
   #   libgstreamer-plugins-base1.0-dev -> gstreamer1-plugins-base-devel
   #   libgtk-4-dev -> gtk4-devel
   #   libadwaita-1-dev -> libadwaita-devel
-  #   libgdk-pixbuf-2.0-dev -> gdk-pixbuf2-devel
-  #   libgdk-pixbuf-xlib-2.0-dev -> gdk-pixbuf2-xlib-devel
-  #   libcairo2-dev -> cairo-devel
-  #   libpango1.0-dev -> pango-devel
-  #   libgraphene-1.0-dev -> graphene-devel
-  #   libgpgme-dev -> gpgme-devel
-  #   libgcrypt20-dev -> libgcrypt-devel
-  #   libcurl4-openssl-dev -> libcurl-devel
-  #   libgstreamer1.0-0 -> gstreamer1
-  #   libgstreamer-plugins-base1.0-0 -> gstreamer1-plugins-base
-  #   libadwaita-1-0 -> libadwaita
-  #   libdiscid0 -> libdiscid
   dnf_deps=(
     gcc
     gcc-c++
@@ -231,8 +204,6 @@ elif dnf_cmd="$(dnf_command)" && [[ -n "$dnf_cmd" ]]; then
     pango
     gdk-pixbuf2-devel
     gdk-pixbuf2
-    gdk-pixbuf2-xlib-devel
-    gdk-pixbuf2-xlib
     graphene-devel
     graphene
     gtk4-devel
