@@ -17,7 +17,7 @@
     </p>
   </description>
   <launchable type="desktop-id">ceedee-ripper.desktop</launchable>
-  <icon type="stock">io.github.odioski.ceedee_ripper</icon>
+  <!-- <icon type="stock">io.github.odioski.ceedee_ripper</icon> -->
   <provides>
     <binary>ceedee-ripper</binary>
   </provides>
