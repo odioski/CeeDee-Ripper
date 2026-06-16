@@ -136,7 +136,7 @@ right general shape. Even so, optical-drive access and desktop/media integration
 may require manual connections or target-system testing before the package
 behaves like a native install.
 
-For now, Flatpak and Snap should be treated as experimental packaging paths.
+For now, Flatpak and Snap should be treated as experimental packaging paths for this particular application.
 Native packages and AppImage are the simpler release artifacts to validate
 first.
 

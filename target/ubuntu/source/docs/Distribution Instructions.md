@@ -53,7 +53,7 @@ The AppImage is a direct release artifact, not a distro repository submission.
 
 Use Launchpad PPA for Ubuntu source package publishing. Do not upload the local `.deb` directly to a PPA; PPAs build from source uploads.
 
-1. Ensure Debian packaging under `packaging/ubuntu/debian/` is final.
+1. Ensure Debian packaging under `packaging/debian/` is final.
 2. Build a source package on an Ubuntu build host with the target series available.
 3. Sign the source package with the Launchpad-approved GPG key.
 4. Upload using `dput` to the configured PPA.
