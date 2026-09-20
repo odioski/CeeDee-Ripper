@@ -38,6 +38,51 @@ It's beautiful.
 scripts/install-deps.sh
 ```
 
+The installer selects package names for Fedora, Debian/Ubuntu/Kali, and both Slax
+editions (Debian or Slackware). It also retains Arch and openSUSE support.
+Run it as your normal user with `sudo` available, or directly as root.
+To remove packages installed by this script, use either option:
+
+```bash
+scripts/install-deps.sh --remove
+scripts/install-deps.sh -R
+```
+
+New installations record newly added packages, including automatically installed
+dependencies, under `/var/lib/ceedee-ripper/install-deps/`. Repeated runs preserve
+that record, and failed installations record any packages added before failure.
+Removal targets only recorded packages that are still installed and prompts for
+confirmation. Review the package manager's transaction because other software
+may now depend on those packages. Packages already present before installation
+are not recorded; upgrades are not rolled back. Installations made with older
+versions of this script cannot be identified retroactively and are left alone.
+Avoid running unrelated package installations concurrently with this script,
+which compares the installed package inventory before and after its run.
+
+Development packages install their matching runtime libraries on Debian/Ubuntu,
+including releases that renamed runtime packages with a `t64` suffix.
+
+Some examples of the distribution-specific package mappings:
+
+| Dependency | Debian / Ubuntu / Kali / Debian Slax | Fedora | Slackware / Slackware Slax |
+| --- | --- | --- | --- |
+| C/C++ compiler | `build-essential` | `gcc`, `gcc-c++` | `gcc`, `gcc-g++` |
+| Clang tools and headers | `clang`, `clang-tools`, `clang-tidy`, `clang-format`, `libclang-dev` | `clang`, `clang-tools-extra`, `clang-devel` | `llvm` |
+| Rust and Cargo | `rustc`, `cargo` | `rust`, `cargo` | `rust` |
+| GTK4 headers and runtime | `libgtk-4-dev` | `gtk4-devel` | `gtk4` |
+| Libadwaita headers and runtime | `libadwaita-1-dev` | `libadwaita-devel` | `libadwaita` |
+| Disc ID library | `libdiscid-dev` | `libdiscid-devel` | `libdiscid` |
+| Eject tool | `eject` | `util-linux` | `util-linux` |
+
+Slackware needs configured `slackpkg` mirrors and additional packages from
+release-compatible third-party repositories through `slackpkg+`, or locally
+built packages. Its stock repositories do not provide every development and
+packaging tool in this script. `slackpkg` does not resolve dependencies; a full
+Slackware installation is recommended, and additional packages require their
+own dependencies. The script reports any packages still missing and exits with
+an error instead of claiming success. See the [Slax package management guide](https://www.slax.org/using.php)
+and [SlackBuilds repository](https://slackbuilds.org/repository/).
+
 Important runtime tools and libraries include:
 
 - `cdparanoia`
