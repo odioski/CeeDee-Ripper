@@ -1,4 +1,6 @@
 # Rust build output
+target/debug/*
+
 target/release/.fingerprint
 target/release/build
 target/release/deps

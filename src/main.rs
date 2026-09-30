@@ -81,7 +81,7 @@ fn print_compiled_ui_backend() {
 
 fn print_usage() {
     println!(
-        "Usage: ceedee-ripper [--ui egui|gtk]\n       ceedee-ripper [--feature egui-ui|gtk-ui]\n\nRuntime selectors choose the UI for this run and save it for future launches when available.\nWith cargo run, pass runtime selectors after --, for example:\n       cargo run --feature \"gtk-ui egui-ui\" -- --feature gtk-ui"
+        "Usage: ceedee-ripper [--ui egui|gtk]\n       ceedee-ripper [--feature egui-ui|gtk-ui]\n\nRuntime selectors choose the UI for this run and save it for future launches when available.\nWith cargo run, pass runtime selectors after --, for example:\n       cargo run --features \"gtk-ui egui-ui\" -- --feature gtk-ui"
     );
 }
 
@@ -111,7 +111,7 @@ fn selected_ui_backend() -> Result<Option<UiBackend>, String> {
         })?;
         if !backend.is_compiled() {
             return Err(format!(
-                "UI backend '{backend}' is not compiled into this binary. Rebuild with --feature {}.",
+                "UI backend '{backend}' is not compiled into this binary. Rebuild with --features {}.",
                 match backend {
                     UiBackend::Egui => "egui-ui",
                     UiBackend::Gtk => "gtk-ui",
@@ -222,7 +222,7 @@ fn run_gtk_ui() -> glib::ExitCode {
 
     // Connect to "activate" signal to create and show the main window
     app.connect_activate(|app| {
-        CeeDeeRipperWindow::new(app).present();
+        GtkWindowExt::present(&CeeDeeRipperWindow::new(app));
     });
 
     // Runtime UI selectors are parsed by CeeDee Ripper before GTK starts.

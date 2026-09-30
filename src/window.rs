@@ -10,7 +10,7 @@ use std::thread;
 glib::wrapper! {
     pub struct CeeDeeRipperWindow(ObjectSubclass<imp::CeeDeeRipperWindow>)
         @extends libadwaita::ApplicationWindow, gtk4::ApplicationWindow, gtk4::Window, gtk4::Widget,
-        @implements gio::ActionGroup, gio::ActionMap, gtk4::Accessible, gtk4::Buildable,
+        @implements gio::ActionGroup, gio::ActionMap, gtk4::Buildable,
                     gtk4::ConstraintTarget, gtk4::Native, gtk4::Root, gtk4::ShortcutManager;
 }
 

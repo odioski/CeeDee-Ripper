@@ -3,9 +3,10 @@ use discid::DiscId;
 use libc;
 use serde_json::Value;
 use std::error::Error;
-use std::fs::File;
+use std::fs::OpenOptions;
 use std::io;
 use std::os::fd::AsRawFd;
+use std::os::unix::fs::OpenOptionsExt;
 use std::path::Path;
 use std::process::Command;
 use std::time::Duration;
@@ -97,37 +98,27 @@ impl CdReader {
     fn detect_impl(metadata_source: &str) -> Result<CdInfo, Box<dyn Error>> {
         let device = Self::get_active_device_path();
 
-        // Try raw TOC via ioctl first
         let track_count = match Self::read_toc_raw(&device) {
-            Ok(n) if n > 0 => n,
-            Ok(_) => {
-                // zero tracks - try fallbacks
-                Self::fallback_track_count(&device).ok_or_else(|| {
-                    format!(
-                        "No audio tracks detected on {} and fallbacks failed",
-                        device
+            Ok(count) => count,
+            Err(err) => match Self::fallback_track_count(&device) {
+                Ok(count) => count,
+                Err(fallback) => {
+                    let hint = match err.raw_os_error() {
+                        Some(libc::EACCES) | Some(libc::EPERM) => {
+                            " Check your read permissions or desktop device-access ACLs."
+                        }
+                        Some(libc::ENOMEDIUM) => {
+                            " Insert an audio CD and wait for the drive to become ready."
+                        }
+                        _ => "",
+                    };
+                    return Err(format!(
+                        "Failed to read audio TOC from {device}: {err}.{hint} Fallbacks: {fallback}"
                     )
-                })?
-            }
-            Err(err) => {
-                // Permission or device-specific failure; try fallbacks (cdparanoia -Q)
-                if let Some(n) = Self::fallback_track_count(&device) {
-                    n
-                } else {
-                    let mut msg = format!("Failed to read TOC from {} ({}). ", device, err);
-                    if matches!(err.raw_os_error(), Some(libc::EACCES) | Some(libc::EPERM)) {
-                        msg.push_str(
-                            "You may need to add your user to the 'cdrom' group and re-login: sudo usermod -aG cdrom $USER. ",
-                        );
-                    }
-                    msg.push_str("Tried cdparanoia query as fallback but it also failed.");
-                    return Err(msg.into());
+                    .into());
                 }
-            }
+            },
         };
-        if track_count == 0 {
-            return Err("No audio tracks detected".into());
-        }
 
         // Build baseline info
         let mut cd_info = Self::create_default_info_with_count("", track_count);
@@ -151,76 +142,130 @@ impl CdReader {
             cdth_trk1: libc::c_uchar,
         }
 
-        let f = File::open(device)?;
+        // Audio CDs do not expose a filesystem. A blocking block-device open
+        // may fail with ENOMEDIUM before we even get to the TOC ioctl.
+        // Keep the File alive until every ioctl finishes; it owns/closes the fd.
+        let f = OpenOptions::new()
+            .read(true)
+            .custom_flags(libc::O_NONBLOCK | libc::O_CLOEXEC)
+            .open(device)?;
         let fd = f.as_raw_fd();
         let mut hdr = CdromTocHdr {
             cdth_trk0: 0,
             cdth_trk1: 0,
         };
-        let ret =
-            unsafe { libc::ioctl(fd, CDROMREADTOCHDR, &mut hdr as *mut _ as *mut libc::c_void) };
-        if ret != 0 {
-            return Err(io::Error::last_os_error());
-        }
-        let first = hdr.cdth_trk0 as usize;
-        let last = hdr.cdth_trk1 as usize;
-        Ok(if last >= first { last - first + 1 } else { 0 })
-    }
-
-    fn fallback_track_count(device: &str) -> Option<usize> {
-        if let Some(n) = Self::track_count_from_cdparanoia(device) {
-            return Some(n);
-        }
-        // As a last resort, some versions of cd-discid output the number of tracks as the second field
-        if let Ok(o) = Command::new("cd-discid").arg(device).output() {
-            if o.status.success() {
-                let s = String::from_utf8_lossy(&o.stdout);
-                let mut it = s.split_whitespace();
-                // Skip first token (disc id), next token may be number of tracks on some builds
-                let _ = it.next();
-                if let Some(tok) = it.next() {
-                    if let Ok(n) = tok.parse::<usize>() {
-                        if n > 0 {
-                            return Some(n);
-                        }
-                    }
-                }
+        loop {
+            // SAFETY: fd is owned by f and hdr matches linux/cdrom.h's two-byte
+            // cdrom_tochdr. The kernel writes only that structure.
+            let ret = unsafe { libc::ioctl(fd, CDROMREADTOCHDR, &mut hdr) };
+            if ret >= 0 {
+                break;
+            }
+            let err = io::Error::last_os_error();
+            if err.kind() != io::ErrorKind::Interrupted {
+                return Err(err);
             }
         }
-        None
+        let count = Self::validate_toc_header(i32::from(hdr.cdth_trk0), i32::from(hdr.cdth_trk1))?;
+
+        Ok(count)
     }
 
-    fn track_count_from_cdparanoia(device: &str) -> Option<usize> {
-        let mut cmd = Command::new("cdparanoia");
-        cmd.arg("-Q").arg("-d").arg(device);
-        let out = cmd.output().ok()?;
-        if !out.status.success() {
+    fn validate_toc_header(first: i32, last: i32) -> io::Result<usize> {
+        if first < 1 || last > 99 || last < first {
+            return Err(io::Error::new(
+                io::ErrorKind::InvalidData,
+                format!("invalid TOC track range {first}..{last}"),
+            ));
+        }
+        Ok((last - first + 1) as usize)
+    }
+
+    fn fallback_track_count(device: &str) -> Result<usize, String> {
+        let paranoia_error = match Self::track_count_from_cdparanoia(device) {
+            Ok(count) => return Ok(count),
+            Err(err) => err,
+        };
+        // Keep the original cd-discid fallback for drives that it handles
+        // better than cdparanoia, but validate its documented output format.
+        let discid_error = match Command::new("cd-discid").arg(device).output() {
+            Ok(out) if out.status.success() => {
+                if let Some(count) = Self::parse_cd_discid(&String::from_utf8_lossy(&out.stdout)) {
+                    return Ok(count);
+                }
+                "cd-discid returned an invalid TOC".to_string()
+            }
+            Ok(out) => format!(
+                "cd-discid {}: {}",
+                out.status,
+                String::from_utf8_lossy(&out.stderr).trim()
+            ),
+            Err(err) => format!("could not run cd-discid: {err}"),
+        };
+        Err(format!("{paranoia_error}; {discid_error}"))
+    }
+
+    fn parse_cd_discid(output: &str) -> Option<usize> {
+        // disc ID, track count, one frame offset per track, total seconds.
+        let fields: Vec<_> = output.split_whitespace().collect();
+        let count = fields.get(1)?.parse::<usize>().ok()?;
+        if !(1..=99).contains(&count) || fields.len() != count + 3 {
             return None;
         }
-        let text = String::from_utf8_lossy(&out.stdout);
-        Self::parse_cdparanoia_q_for_track_count(&text)
+        u32::from_str_radix(fields[0], 16).ok()?;
+        for field in &fields[2..] {
+            field.parse::<u32>().ok()?;
+        }
+        Some(count)
+    }
+
+    fn track_count_from_cdparanoia(device: &str) -> Result<usize, String> {
+        let out = Command::new("cdparanoia")
+            .args(["-Q", "-d", device])
+            .env("LC_ALL", "C")
+            .output()
+            .map_err(|err| format!("could not run cdparanoia: {err}"))?;
+        let stdout = String::from_utf8_lossy(&out.stdout);
+        let stderr = String::from_utf8_lossy(&out.stderr);
+        if !out.status.success() {
+            return Err(format!("cdparanoia {}: {}", out.status, stderr.trim()));
+        }
+        Self::parse_query_streams(&stdout, &stderr)
+            .ok_or_else(|| format!("cdparanoia returned no audio track rows: {}", stderr.trim()))
+    }
+
+    fn parse_query_streams(stdout: &str, stderr: &str) -> Option<usize> {
+        // Query tables normally appear on stderr. Some wrappers use stdout;
+        // parse each separately so mirrored output does not double the count.
+        Self::parse_cdparanoia_q_for_track_count(stderr)
+            .or_else(|| Self::parse_cdparanoia_q_for_track_count(stdout))
     }
 
     fn parse_cdparanoia_q_for_track_count(output: &str) -> Option<usize> {
-        let mut count = 0usize;
+        let mut tracks = std::collections::BTreeSet::new();
         for line in output.lines() {
-            let s = line.trim_start();
-            // Lines like "  1.  0:02.00 ..." — count lines that start with a number and a dot
-            let mut chars = s.chars();
-            match chars.next() {
-                Some(c) if c.is_ascii_digit() => {
-                    if s.contains('.') {
-                        count += 1;
-                    }
-                }
-                _ => {}
+            let mut fields = line.split_whitespace();
+            let Some(track) = fields
+                .next()
+                .and_then(|field| field.strip_suffix('.'))
+                .and_then(|field| field.parse::<u8>().ok())
+            else {
+                continue;
+            };
+            // A real query row begins with "1. <length in sectors> [mm:ss.ff]".
+            // Reject version numbers, progress output, and diagnostic prose.
+            let sectors = fields.next().and_then(|field| field.parse::<u32>().ok());
+            let time = fields.next().unwrap_or_default();
+            if (1..=99).contains(&track)
+                && sectors.is_some()
+                && time.starts_with('[')
+                && time.ends_with(']')
+                && time.contains(':')
+            {
+                tracks.insert(track);
             }
         }
-        if count > 0 {
-            Some(count)
-        } else {
-            None
-        }
+        (!tracks.is_empty()).then_some(tracks.len())
     }
 
     fn fetch_musicbrainz_metadata(device: &str) -> Result<CdInfo, String> {
@@ -398,6 +443,66 @@ impl CdReader {
 
         None
     }
+}
 
-    // Track count helpers removed; libdiscid provides reliable TOC.
+#[cfg(test)]
+mod tests {
+    use super::CdReader;
+
+    const QUERY: &str = "Table of contents (audio tracks only):\n\
+        track        length               begin        copy pre ch\n\
+          1.    15000 [03:20.00]        0 [00:00.00]    no   no  2\n\
+          2.    22500 [05:00.00]    15000 [03:20.00]    no   no  2\n\
+        TOTAL 37500 [08:20.00] (audio only)\n";
+
+    #[test]
+    fn query_table_on_stderr_is_read() {
+        assert_eq!(CdReader::parse_query_streams("", QUERY), Some(2));
+        assert_eq!(CdReader::parse_query_streams(QUERY, ""), Some(2));
+        assert_eq!(CdReader::parse_query_streams(QUERY, QUERY), Some(2));
+    }
+
+    #[test]
+    fn diagnostics_are_not_tracks() {
+        assert_eq!(
+            CdReader::parse_query_streams("", "10.2 release\n1. drive failed\n"),
+            None
+        );
+        assert_eq!(CdReader::parse_query_streams("", ""), None);
+    }
+
+    #[test]
+    fn toc_ranges_are_validated() {
+        assert_eq!(CdReader::validate_toc_header(1, 12).unwrap(), 12);
+        assert_eq!(CdReader::validate_toc_header(3, 5).unwrap(), 3);
+        for (first, last) in [(0, 0), (0, 1), (5, 4), (1, 100)] {
+            assert!(CdReader::validate_toc_header(first, last).is_err());
+        }
+    }
+
+    #[test]
+    fn cd_discid_output_requires_a_complete_toc() {
+        assert_eq!(
+            CdReader::parse_cd_discid("abcdef01 2 150 15150 502\n"),
+            Some(2)
+        );
+        assert_eq!(CdReader::parse_cd_discid("abcdef01 2"), None);
+        assert_eq!(CdReader::parse_cd_discid("abcdef01 0 0"), None);
+        assert_eq!(CdReader::parse_cd_discid("error 2 150 15150 502"), None);
+    }
+
+    #[test]
+    fn ioctl_failure_preserves_errno() {
+        let error = CdReader::read_toc_raw("/dev/null").unwrap_err();
+        assert_eq!(error.raw_os_error(), Some(libc::ENOTTY));
+    }
+
+    #[test]
+    #[ignore = "requires an audio CD in CD_DEVICE (defaults to /dev/sr0)"]
+    fn audio_cd_hardware_toc() {
+        let device = std::env::var("CD_DEVICE").unwrap_or_else(|_| "/dev/sr0".into());
+        let count = CdReader::read_toc_raw(&device).expect("audio CD TOC read failed");
+        assert!((1..=99).contains(&count));
+        eprintln!("{device}: {count} tracks");
+    }
 }
